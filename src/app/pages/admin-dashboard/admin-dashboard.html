@@ -1,0 +1,268 @@
+
+ 
+
+
+        <body>
+            <div class="relative flex size-full min-h-screen flex-col bg-teal-50 group/design-root">
+                <div class="layout-container flex h-full grow flex-col">
+                    <header
+                        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-teal-200 bg-white px-10 py-4 shadow-sm">
+                        <div class="flex items-center gap-4 text-[var(--text-primary)]">
+                            <div class="size-10 text-teal-500">
+                                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z"
+                                        fill="currentColor"></path>
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold tracking-tight text-teal-600">EduConnect</h2>
+                        </div>
+                        <nav class="flex items-center gap-8">
+                            <a class="text-base font-medium text-gray-500 transition-colors hover:text-teal-500 active-link"
+                                href="#">Dashboard</a>
+                            <a class="text-base font-medium text-gray-500 transition-colors hover:text-teal-500"
+                                href="#">Students</a>
+                            <a class="text-base font-medium text-gray-500 transition-colors hover:text-teal-500"
+                                href="#">Tutors</a>
+                            <a class="text-base font-medium text-gray-500 transition-colors hover:text-teal-500"
+                                href="#">Categories</a>
+                            <a class="text-base font-medium text-gray-500 transition-colors hover:text-teal-500"
+                                href="#">Revenue</a>
+                        </nav>
+                        <div class="flex items-center gap-4">
+                            <button
+                                class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-teal-100 text-gray-600 transition-colors hover:bg-teal-200 hover:text-teal-600">
+                                <div class="text-gray-600" data-icon="Bell" data-size="24px" data-weight="regular">
+                                    <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </button>
+                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 border-2 border-white shadow-lg"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAoAy-Ope2_05DGb9ie763rmYwUrihhiPLiBus3ETv5lqGsRTh4ZtWridU87JhbFVBnbPt1FZ3sWnZpsKMRv1liD6Vt8g9k-9lkMD24hcyMszOCoTxWfvTOcYTDFEvxEuzdloMT_VFsS5XvjrTLzfxVDisAafVBd3cQ5AFXyuq3671gEwSpsF5-0TPXywCwL9Jbuaqff8tNKZ9StuvrnT-Q06uo6l3RgqpC474hF9aacxYD3-FV9R_oim7r4UtKSGUI0up1tHGlack");'>
+                            </div>
+                        </div>
+                    </header>
+                    <main class="flex flex-1 justify-center px-4 py-10 sm:px-6 lg:px-8">
+                        <div class="layout-content-container w-full max-w-7xl flex-1">
+                            <div class="mb-8 px-4">
+                                <h1 class="text-4xl font-extrabold tracking-tight text-[var(--text-primary)]">Dashboard
+                                </h1>
+                                <p class="text-lg text-gray-500">Overview of key metrics and platform performance</p>
+                            </div>
+                            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 px-4">
+                                <div
+                                    class="flex flex-col gap-2 rounded-2xl border-2 border-teal-300 bg-teal-100 p-6 shadow-lg transition-transform hover:scale-105">
+                                    <p class="text-lg font-medium text-teal-800">Total Revenue</p>
+                                    <p class="text-4xl font-bold text-teal-900">$125,000</p>
+                                    <div class="mt-1 flex items-center gap-1 text-sm font-semibold text-teal-700">
+                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 10l7-7m0 0l7 7m-7-7v18" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"></path>
+                                        </svg>
+                                        <span>+15%</span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col gap-2 rounded-2xl border-2 border-purple-300 bg-purple-100 p-6 shadow-lg transition-transform hover:scale-105">
+                                    <p class="text-lg font-medium text-purple-800">Active Tutors</p>
+                                    <p class="text-4xl font-bold text-purple-900">350</p>
+                                    <div class="mt-1 flex items-center gap-1 text-sm font-semibold text-purple-700">
+                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 10l7-7m0 0l7 7m-7-7v18" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"></path>
+                                        </svg>
+                                        <span>+10%</span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col gap-2 rounded-2xl border-2 border-pink-300 bg-pink-100 p-6 shadow-lg transition-transform hover:scale-105">
+                                    <p class="text-lg font-medium text-pink-800">Student Enrollments</p>
+                                    <p class="text-4xl font-bold text-pink-900">1,200</p>
+                                    <div class="mt-1 flex items-center gap-1 text-sm font-semibold text-pink-700">
+                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 10l7-7m0 0l7 7m-7-7v18" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"></path>
+                                        </svg>
+                                        <span>+5%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-3">
+                                <div class="lg:col-span-2">
+                                    <h2 class="px-4 pb-4 text-2xl font-bold text-[var(--text-primary)]">Top Performing
+                                        Tutors</h2>
+                                    <div
+                                        class="overflow-hidden rounded-2xl border border-teal-200 bg-white shadow-lg">
+                                        <table class="w-full text-left">
+                                            <thead class="bg-teal-100">
+                                                <tr>
+                                                    <th class="p-5 text-base font-semibold text-teal-800">Tutor</th>
+                                                    <th class="p-5 text-base font-semibold text-teal-800">Category
+                                                    </th>
+                                                    <th class="p-5 text-base font-semibold text-teal-800">Rating</th>
+                                                    <th class="p-5 text-base font-semibold text-teal-800">Sessions
+                                                    </th>
+                                                    <th class="p-5 text-base font-semibold text-teal-800">Revenue</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-teal-200">
+                                                <tr>
+                                                    <td class="p-5">
+                                                        <div class="flex items-center gap-4">
+                                                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12"
+                                                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAArQx7PNr9Wslt5aEW95Bgos0Fh75U20uFUGTwMspwInsnEi2A0RSJpSyGgvpS2kL-dlEg6GQ24u0V1z4mWf9drBzMhv9HwJQmmt4B68yQTk-BFkKaUnRJPEoDS1BuOCLtYXT5c9a7p7B1Pgpx2jeuVipfKeH7I62ILYhR3g5t3KOmuQxlOYiBYlEbQlgLy1nOAYQy3RxyGJodakSKH1O3FeYvxzafRhCZPnjJvKufwzpuKneWnKwki3rIppBJWMlrhVWhrldcDYU");'>
+                                                            </div>
+                                                            <span class="font-semibold text-gray-800">Ethan
+                                                                Carter</span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="p-5 text-gray-600">Mathematics</td>
+                                                    <td class="p-5 text-gray-600 font-medium">4.9 ⭐</td>
+                                                    <td class="p-5 text-gray-600">150</td>
+                                                    <td class="p-5 font-bold text-gray-800">$15,000</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-5">
+                                                        <div class="flex items-center gap-4">
+                                                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12"
+                                                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBMx4-iCwIyzeYy4UdOcRfwXMx6NS60DRGy_9q6OAfODwlyQ36_72F4JB6A5JJTTJdqe9CHZOMXnM7QjwG3iQiPPs3tel4VDrQOp1svXxh3XxA39w_rIjGCRGls2IBb7XjGPqcSGAjADPbxWXhS1kp4hmVkEvEDDysEq5StF0u8TyPmGbvks_txSlpNUFrUnMYTF1IiuVolsUG9CCAjCn898tov60v4xIGrED75rn9NkpTLLzjmG3tctCEVDgyf-37RUjvCWsg8Ek4");'>
+                                                            </div>
+                                                            <span class="font-semibold text-gray-800">Olivia
+                                                                Bennett</span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="p-5 text-gray-600">English Literature</td>
+                                                    <td class="p-5 text-gray-600 font-medium">4.8 ⭐</td>
+                                                    <td class="p-5 text-gray-600">120</td>
+                                                    <td class="p-5 font-bold text-gray-800">$12,000</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-5">
+                                                        <div class="flex items-center gap-4">
+                                                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12"
+                                                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAU2s-LgljrFBK9UaGL2lf89e4MJ0cVqtYrvkhXo59TiapPghc6ugI3psuih2yP_M6LW-aedABRLyf49ApcTTzc1zaL8Hx69lEGXHu-KmnPYfXbWkjnt1PJyU-x5rQYUxHCRWfXtgrMDCMSYObRoC9pBJ55loGOR3fZzQk5zEhF0apVtDM99uzD60Ts81zX8azP8qrV5tyewd52to0C4WpBzw0SpJuRMAh7YVO-4FN76uJ0N49qCsCR-WtL1c5p0ih64wmpiQSpA8k");'>
+                                                            </div>
+                                                            <span class="font-semibold text-gray-800">Noah
+                                                                Thompson</span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="p-5 text-gray-600">Physics</td>
+                                                    <td class="p-5 text-gray-600 font-medium">4.7 ⭐</td>
+                                                    <td class="p-5 text-gray-600">100</td>
+                                                    <td class="p-5 font-bold text-gray-800">$10,000</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-5">
+                                                        <div class="flex items-center gap-4">
+                                                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12"
+                                                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA7_NxuxWM6GzVV3ydhRluteIKhN-dKvNg4NnCqKCcspcL7G0F2hGwMUdw5tJO3LzAGq5bQpgefGtPlSzAB7oHzPj_zWD9mZ1HzjOerBjb088UDGH0jQzshbAdwiK8pljUM5UUqNanNA3cd-V1XNgZWnuWf9s_PwgT_F6hC-SjZBp6KC14aGzyPOWLmU7tbemsXazr7rjO4R8vJhEEtwePhUmk6b47bOIX3GNDK0vCBp2hGjZ6CKy10Pxy-2sf--ckcIxp5VZgLXds");'>
+                                                            </div>
+                                                            <span class="font-semibold text-gray-800">Sophia
+                                                                Davis</span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="p-5 text-gray-600">Chemistry</td>
+                                                    <td class="p-5 text-gray-600 font-medium">4.6 ⭐</td>
+                                                    <td class="p-5 text-gray-600">90</td>
+                                                    <td class="p-5 font-bold text-gray-800">$9,000</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="lg:col-span-1">
+                                    <h2 class="px-4 pb-4 text-2xl font-bold text-[var(--text-primary)]">Popular
+                                        Categories</h2>
+                                    <div
+                                        class="overflow-hidden rounded-2xl border border-teal-200 bg-white shadow-lg">
+                                        <table class="w-full text-left">
+                                            <thead class="bg-teal-100">
+                                                <tr>
+                                                    <th class="p-5 text-base font-semibold text-teal-800">Category
+                                                    </th>
+                                                    <th class="p-5 text-base font-semibold text-teal-800">Enrollments
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-teal-200">
+                                                <tr>
+                                                    <td class="p-5 font-semibold text-gray-800">Mathematics</td>
+                                                    <td class="p-5 text-gray-600">300</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-5 font-semibold text-gray-800">English Literature</td>
+                                                    <td class="p-5 text-gray-600">250</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-5 font-semibold text-gray-800">Physics</td>
+                                                    <td class="p-5 text-gray-600">200</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-5 font-semibold text-gray-800">Chemistry</td>
+                                                    <td class="p-5 text-gray-600">180</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-12 px-4">
+                                <h2 class="pb-4 text-2xl font-bold text-[var(--text-primary)]">Revenue Trends</h2>
+                                <div class="rounded-2xl border border-teal-200 bg-white p-6 shadow-lg">
+                                    <div class="flex flex-wrap items-start justify-between gap-4">
+                                        <div>
+                                            <p class="text-lg font-medium text-gray-500">Monthly Revenue</p>
+                                            <p class="text-4xl font-bold text-gray-800">$25,000</p>
+                                        </div>
+                                        <div class="flex items-center gap-1 text-base font-semibold text-green-600">
+                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5 10l7-7m0 0l7 7m-7-7v18" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"></path>
+                                            </svg>
+                                            <span>+12% vs Last 6 Months</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-8 h-80">
+                                        <svg fill="none" height="100%" preserveAspectRatio="none" viewBox="0 0 472 150"
+                                            width="100%" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25"
+                                                stroke="var(--accent-color)" stroke-linecap="round" stroke-width="4">
+                                            </path>
+                                            <path
+                                                d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25V150H0V109Z"
+                                                fill="url(#paint0_linear_1131_5935_updated)"></path>
+                                            <defs>
+                                                <linearGradient gradientUnits="userSpaceOnUse"
+                                                    id="paint0_linear_1131_5935_updated" x1="236" x2="236" y1="1"
+                                                    y2="150">
+                                                    <stop stop-color="var(--accent-color)" stop-opacity="0.3"></stop>
+                                                    <stop offset="1" stop-color="var(--accent-color)" stop-opacity="0">
+                                                    </stop>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="flex justify-around pt-4 border-t border-teal-200">
+                                        <p class="text-base font-medium text-gray-500">Jan</p>
+                                        <p class="text-base font-medium text-gray-500">Feb</p>
+                                        <p class="text-base font-medium text-gray-500">Mar</p>
+                                        <p class="text-base font-medium text-gray-500">Apr</p>
+                                        <p class="text-base font-medium text-gray-500">May</p>
+                                        <p class="text-base font-medium text-gray-500">Jun</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+

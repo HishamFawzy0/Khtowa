@@ -1,0 +1,112 @@
+
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-10">
+            <div class="inline-block bg-teal-100 p-4 rounded-full mb-4">
+                <span class="material-icons text-5xl text-[var(--primary-color)]">school</span>
+            </div>
+            <h2 class="text-3xl font-bold text-gray-800">طلب درس جديد</h2>
+            <p class="text-gray-500 mt-2">قم بملء النموذج التالي لنشر طلبك والعثور على المعلم المناسب.</p>
+        </div>
+        <div class="form-container p-6 sm:p-8">
+            <form action="#" method="POST">
+                <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+                    <div class="sm:col-span-2">
+                        <label class="block text-sm font-semibold text-gray-700 required-label" for="field">المجال /
+                            الموضوع /
+                            الفئة</label>
+                        <div class="mt-1">
+                            <select class="form-select w-full" id="field" name="field" required="">
+                                <option disabled="" selected="" value="">اختر المجال</option>
+                                <option value="programming">برمجة وتطوير</option>
+                                <option value="design">تصميم وجرافيك</option>
+                                <option value="marketing">تسويق رقمي</option>
+                                <option value="business">ريادة أعمال</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-sm font-semibold text-gray-700 required-label"
+                            for="description">الوصف</label>
+                        <div class="mt-1">
+                            <textarea class="form-textarea w-full" id="description" name="description"
+                                placeholder="أدخل وصفاً تفصيلياً لما تحتاجه في الدرس..." required=""
+                                rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 required-label"
+                            for="budget-min">الميزانية (الحد
+                            الأدنى)</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <input class="form-input block w-full pr-12" id="budget-min" name="budget-min"
+                                placeholder="50 EGP" required="" type="number" />
+                            <div class="absolute inset-y-0 left-0 pr-3 flex items-center pointer-events-none">
+                                <!-- <span class="text-gray-500 sm:text-sm pl-3">EGP</span> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 required-label"
+                            for="budget-max">الميزانية (الحد
+                            الأقصى)</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <input class="form-input block w-full pr-12" id="budget-max" name="budget-max"
+                                placeholder="500 EGP" required="" type="number" />
+                            <div class="absolute inset-y-0 left-0 pr-3 flex items-center pointer-events-none">
+                                <!-- <span class="text-gray-500 sm:text-sm pl-3">EGP</span> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 required-label"
+                            for="duration-from">المدة:
+                            من</label>
+                        <div class="mt-1">
+                            <input class="form-input w-full" id="duration-from" name="duration-from" required=""
+                                type="datetime-local" />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 required-label"
+                            for="duration-to">إلى</label>
+                        <div class="mt-1">
+                            <input class="form-input w-full" id="duration-to" name="duration-to" required=""
+                                type="datetime-local" />
+                        </div>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-sm font-semibold text-gray-700" for="skills">المهارات المطلوبة
+                            (اختياري)</label>
+                        <div class="mt-1">
+                            <input class="form-input w-full" id="skills" name="skills"
+                                placeholder="مثال: Python, Pandas, NumPy" type="text" />
+                        </div>
+                        <p class="mt-2 text-sm text-gray-500">افصل بين المهارات بفاصلة.</p>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-sm font-semibold text-gray-700" for="instructor-degree">درجة المعلم
+                            (اختياري)</label>
+                        <div class="mt-1">
+                            <select class="form-select w-full" id="instructor-degree" name="instructor-degree">
+                                <option disabled="" selected="" value="">اختر الدرجة المطلوبة</option>
+                                <option value="any">أي درجة</option>
+                                <option value="bachelor">بكالوريوس</option>
+                                <option value="master">ماجستير</option>
+                                <option value="phd">دكتوراه</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-8">
+                    <div class="flex justify-end">
+                        <button class="btn-submit flex items-center" type="submit">
+                            <span class="material-icons mr-2">send</span>
+                            إرسال الطلب
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>

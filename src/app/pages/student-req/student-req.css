@@ -1,0 +1,40 @@
+
+:root {
+    --primary-color: #008080;
+}
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #f8fafc;
+}
+.form-container {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+.form-input, .form-select, .form-textarea {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    transition: border-color 0.2s;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 128, 128, 0.3);
+}
+.required-label::after {
+    content: '*';
+    color: #ef4444;
+    margin-right: 4px;
+}
+.btn-submit {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+.btn-submit:hover {
+    background-color: #006666;
+}

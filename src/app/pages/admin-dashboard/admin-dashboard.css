@@ -1,0 +1,27 @@
+:root {
+    --primary-color: #fef2f2;
+    --secondary-color: #fff7ed;
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --accent-color: #f97316;
+  }
+  body {
+    font-family: 'Plus Jakarta Sans', 'Noto Sans', sans-serif;
+    background-color: var(--secondary-color);
+  }
+  .active-link {
+    color: var(--accent-color);
+    font-weight: 700;
+    position: relative;
+  }
+  .active-link::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--accent-color);
+    border-radius: 2px;
+  }
+
