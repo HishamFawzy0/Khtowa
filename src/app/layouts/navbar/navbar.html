@@ -1,26 +1,203 @@
-<header class="bg-white shadow-sm">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center py-4">
-            <div class="flex items-center space-x-2">
-                <span class="material-icons text-3xl text-[var(--primary-color)]">menu</span>
-                <h1 class="text-2xl font-bold text-gray-800">EduConnect</h1>
-            </div>
-            <nav class="hidden md:flex items-center space-x-6">
-                <a class="text-gray-600 hover:text-[var(--primary-color)] font-semibold" routerLink="/toturs">Tutotrs</a>
+<!-- Premium Navigation Header -->
+<header
+    class="relative bg-white/95 backdrop-blur-md border-b border-slate-200/60 shadow-lg shadow-slate-900/5 sticky top-0 z-50">
+    <!-- Background Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-r from-emerald-50/50 via-white to-teal-50/50"></div>
 
-                <a class="text-gray-600 hover:text-[var(--primary-color)] font-semibold" routerLink="/services">Services</a>
-                
-                <!-- <a class="text-[var(--primary-color)] font-bold border-b-2 border-[var(--primary-color)] pb-1" >Request a Tutor</a> -->
-                
-                <!-- <a class="text-gray-600 hover:text-[var(--primary-color)] font-semibold" href="#">My Work</a> -->
-            </nav>
-            <div class="flex items-center space-x-4">
-                <span
-                    class="material-icons text-gray-600 hover:text-[var(--primary-color)] cursor-pointer">search</span>
-                <span class="material-icons text-gray-600 hover:text-[var(--primary-color)] cursor-pointer">email</span>
-                <img alt="User avatar" class="rounded-full w-8 h-8"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqK3FPBv_CzflD-RXAB9aSYFqyM8KfABe_PGGqJWc9cjKNNnq8eLhAAcJfxnifXKyexId1MhRgzpx9anfPiZC66elE5UZklDtJKgSXX9u640OoKvgEzMJVQnSYCYlKRsVoVg9OmIppp8UO3tnjs8wCl8qAcEqwybKNLZJEUUk-sO1-pygldHUkyUUY6J8TVBFs-Q9WdrXXsz4V1UHSBgyzqvRCPL7zaTt8XxNGjwOxL2eJ4Ofeewls0op2uxzeeUnBDtqZIBXGEc4" />
+    <div class="relative container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+
+            <!-- Logo Section -->
+            <div class="flex items-center space-x-3 group">
+                <!-- Mobile Menu Button -->
+                <button
+                    class="md:hidden p-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+
+                <!-- Logo Icon -->
+                <div
+                    class="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl shadow-xl group-hover:shadow-2xl transform group-hover:rotate-3 transition-all duration-500">
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                </div>
+
+                <!-- Brand Name -->
+                <div class="flex flex-col">
+                    <h1
+                        class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 group-hover:from-emerald-700 group-hover:to-teal-700 transition-all duration-300">
+                        EduConnect
+                    </h1>
+                    <span class="text-xs text-slate-500 font-medium -mt-1">Learn • Grow • Excel</span>
+                </div>
             </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-2">
+                <!-- Navigation Links -->
+                <div
+                    class="flex items-center space-x-1 bg-slate-100/60 backdrop-blur-sm rounded-2xl p-1.5 shadow-inner">
+                    
+                     <a routerLink="/tutors"
+                        routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
+                        class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group">
+                        <span class="relative z-10">Tutors</span>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        </div>
+                    </a>
+
+
+                    <a routerLink="/services"
+                        routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
+                        class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group">
+                        <span class="relative z-10">Services</span>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        </div>
+                    </a>
+
+                   
+
+                </div>
+            </nav>
+
+            <!-- Right Side Actions -->
+            <div class="flex items-center space-x-3">
+                <!-- Search Button -->
+                <button
+                    class="relative p-3 rounded-xl bg-slate-100/60 backdrop-blur-sm text-slate-600 hover:text-emerald-600 hover:bg-white/80 transition-all duration-300 hover:shadow-lg group">
+                    <svg class="w-5 h-5 transform group-hover:scale-110 transition-transform duration-300" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    </div>
+                </button>
+
+                <!-- Notifications Button -->
+                <button
+                    class="relative p-3 rounded-xl bg-slate-100/60 backdrop-blur-sm text-slate-600 hover:text-emerald-600 hover:bg-white/80 transition-all duration-300 hover:shadow-lg group">
+                    <svg class="w-5 h-5 transform group-hover:scale-110 transition-transform duration-300" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 17h5l-5 5v-5zM4 19h9a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <!-- Notification Badge -->
+                    <div
+                        class="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                        <span class="text-xs font-bold text-white">3</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    </div>
+                </button>
+
+                <!-- User Profile -->
+                <div class="relative group">
+                    <button
+                        class="flex items-center space-x-3 p-2 rounded-xl bg-slate-100/60 backdrop-blur-sm hover:bg-white/80 transition-all duration-300 hover:shadow-lg">
+                        <!-- Avatar with Status -->
+                        <div class="relative">
+                            <img alt="User avatar"
+                                class="w-10 h-10 rounded-xl object-cover border-2 border-white shadow-lg group-hover:shadow-xl transition-all duration-300"
+                                src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&dpr=2" />
+                            <!-- Online Status -->
+                            <div
+                                class="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full border-2 border-white shadow-sm">
+                                <div class="w-full h-full bg-green-400 rounded-full animate-pulse"></div>
+                            </div>
+                        </div>
+
+                        <!-- User Info (Hidden on mobile) -->
+                        <div class="hidden lg:block text-left">
+                            <div class="text-sm font-semibold text-slate-800">Sarah Johnson</div>
+                            <div class="text-xs text-slate-500">Premium Member</div>
+                        </div>
+
+                        <!-- Dropdown Arrow -->
+                        <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-600 transform group-hover:rotate-180 transition-all duration-300"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+
+                    <!-- Dropdown Menu (Hidden by default) -->
+                    <div
+                        class="absolute right-0 top-full mt-2 w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-200/60 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                        <div class="p-4 border-b border-slate-100">
+                            <div class="flex items-center space-x-3">
+                                <img alt="User avatar" class="w-12 h-12 rounded-xl object-cover"
+                                    src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&dpr=2" />
+                                <div>
+                                    <div class="font-semibold text-slate-800">Sarah Johnson</div>
+                                    <div class="text-sm text-slate-500">sarah johnson educonnect.com</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-2">
+                            <a href="#"
+                                class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-50 transition-colors duration-200">
+                                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                                <span class="text-slate-700">Profile Settings</span>
+                            </a>
+                            <a href="#"
+                                class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-50 transition-colors duration-200">
+                                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span class="text-slate-700">My Courses</span>
+                            </a>
+                            <a href="#"
+                                class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-50 transition-colors duration-200">
+                                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                </svg>
+                                <span class="text-slate-700">Sign Out</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Menu (Hidden by default) -->
+    <div class="md:hidden bg-white/95 backdrop-blur-md border-t border-slate-200/60 shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <nav class="space-y-2">
+                <a routerLink="/tutors" routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white"
+                    class="block px-4 py-3 rounded-xl font-semibold text-slate-700 hover:bg-slate-50 transition-all duration-300">
+                    Tutors
+                </a>
+                <a routerLink="/services" routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white"
+                    class="block px-4 py-3 rounded-xl font-semibold text-slate-700 hover:bg-slate-50 transition-all duration-300">
+                    Services
+                </a>
+                <a routerLink="/about" routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white"
+                    class="block px-4 py-3 rounded-xl font-semibold text-slate-700 hover:bg-slate-50 transition-all duration-300">
+                    About
+                </a>
+                <a routerLink="/contact" routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white"
+                    class="block px-4 py-3 rounded-xl font-semibold text-slate-700 hover:bg-slate-50 transition-all duration-300">
+                    Contact
+                </a>
+            </nav>
         </div>
     </div>
 </header>
