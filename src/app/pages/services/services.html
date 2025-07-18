@@ -1,1 +1,185 @@
-<p>services works!</p>
+<div class="font-cairo bg-gray-50 min-h-screen" dir="rtl">
+
+  <!-- Main Banner -->
+  <section class="bg-gradient-to-r from-teal-50 to-blue-50 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mx-auto mb-6">
+        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.84L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.84l-7-3z"/>
+        </svg>
+      </div>
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ bannerTitle }}</h1>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">{{ bannerSubtitle }}</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="lg:grid lg:grid-cols-4 lg:gap-8">
+      <!-- Filter Sidebar -->
+      <div class="lg:col-span-1" [class.hidden]="!showMobileFilters && isMobile">
+        <div class="bg-white rounded-lg shadow-sm p-6 sticky top-4">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">Filter Requests</h3>
+          
+          <!-- Search -->
+          <div class="mb-6">
+            <input 
+              type="text" 
+              [(ngModel)]="searchQuery"
+              (input)="onSearchChange()"
+              placeholder="e.g. Python Teacher" 
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent">
+          </div>
+
+          <!-- Categories -->
+          <div class="mb-6">
+            <h4 class="text-sm font-medium text-gray-900 mb-3">Categories</h4>
+            <div class="space-y-2">
+              <label *ngFor="let category of categories" class="flex items-center">
+                <input 
+                  type="checkbox" 
+                  [(ngModel)]="category.selected"
+                  (change)="onCategoryChange()"
+                  class="rounded border-gray-300 text-teal-600 focus:ring-teal-500">
+                <span class="mr-2 text-sm text-gray-700">{{ category.name }}</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Budget Range -->
+          <div class="mb-6">
+            <h4 class="text-sm font-medium text-gray-900 mb-3">Budget</h4>
+            <div class="px-3">
+              <input 
+                type="range" 
+                [min]="budgetRange.min" 
+                [max]="budgetRange.max" 
+                [(ngModel)]="selectedBudget"
+                (input)="onBudgetChange()"
+                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider">
+              <div class="flex justify-between text-xs text-gray-500 mt-1">
+                <span>${{ budgetRange.min }}</span>
+                <span>${{ budgetRange.max }}</span>
+              </div>
+              <div class="text-center text-sm text-gray-700 mt-2">
+                Selected Amount: ${{ selectedBudget }}
+              </div>
+            </div>
+          </div>
+
+          <button 
+            (click)="applyFilters()"
+            class="w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 transition duration-200">
+            Apply Filter
+          </button>
+        </div>
+      </div>
+
+      <!-- Lesson Requests -->
+      <div class="lg:col-span-3 mt-8 lg:mt-0">
+        <!-- Mobile Filter Toggle -->
+        <button 
+          *ngIf="isMobile"
+          (click)="toggleMobileFilters()"
+          class="lg:hidden mb-4 w-full bg-teal-600 text-white py-2 px-4 rounded-md">
+          {{ showMobileFilters ? 'Hide Filters' : 'Show Filters' }}
+        </button>
+
+        <!-- Loading State -->
+        <div *ngIf="isLoading" class="flex justify-center items-center py-12">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
+        </div>
+
+        <!-- Lesson Request Cards -->
+        <div *ngIf="!isLoading" class="space-y-6">
+          <div *ngFor="let request of filteredRequests; trackBy: trackByRequestId" 
+               class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition duration-200">
+            <div class="flex items-start justify-between">
+              <div class="flex items-start space-x-4 space-x-reverse flex-1">
+                <div [class]="'w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 ' + request.iconBgColor">
+                  <svg class="w-6 h-6" [class]="request.iconColor" fill="currentColor" viewBox="0 0 20 20">
+                    <path [attr.d]="request.iconPath"></path>
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center space-x-2 space-x-reverse mb-2">
+                    <h3 class="text-lg font-semibold text-gray-900">{{ request.title }}</h3>
+                    <span [class]="getStatusBadgeClass(request.status)">{{ request.statusText }}</span>
+                  </div>
+                  <p class="text-gray-600 text-sm mb-3">{{ request.description }}</p>
+                  <div class="flex items-center space-x-4 space-x-reverse text-sm text-gray-500 mb-4">
+                    <span class="flex items-center">
+                      <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
+                      </svg>
+                      ${{ request.budgetMax }} - ${{ request.budgetMin }}
+                    </span>
+                    <span class="flex items-center">
+                      <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                      </svg>
+                      {{ request.deliveryTime }} {{ request.deliveryTimeUnit }}
+                    </span>
+                    <span class="flex items-center">
+                      <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                      </svg>
+                      {{ request.proposalsCount }} {{ request.proposalsCount === 1 ? 'Submitted Proposal' : 'Submitted Proposals' }}
+                    </span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2 space-x-reverse">
+                      <img class="w-8 h-8 rounded-full" [src]="request.client.avatar" [alt]="request.client.name + ' avatar'">
+                      <div>
+                        <p class="text-sm font-medium text-gray-900">{{ request.client.name }}</p>
+                        <p class="text-xs text-gray-500">{{ request.client.role }}</p>
+                      </div>
+                    </div>
+                    <button 
+                      (click)="onActionClick(request)"
+                      [class]="getActionButtonClass(request.status)"
+                      [disabled]="request.status === 'closed'">
+                      {{ getActionButtonText(request.status) }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!isLoading && filteredRequests.length === 0" class="text-center py-12">
+          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          <h3 class="mt-2 text-sm font-medium text-gray-900">No Requests Found</h3>
+          <p class="mt-1 text-sm text-gray-500">No requests matched your search criteria.</p>
+        </div>
+
+        <!-- Pagination -->
+        <div *ngIf="!isLoading && filteredRequests.length > 0" class="flex items-center justify-center space-x-2 space-x-reverse mt-8">
+          <button 
+            (click)="previousPage()"
+            [disabled]="currentPage === 1"
+            class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+            Previous
+          </button>
+          <button 
+            *ngFor="let page of getPageNumbers()" 
+            (click)="goToPage(page)"
+            [class]="page === currentPage ? 'px-3 py-2 text-sm font-medium text-white bg-teal-600 border border-transparent rounded-md' : 'px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50'">
+            {{ page }}
+          </button>
+          <button 
+            (click)="nextPage()"
+            [disabled]="currentPage === totalPages"
+            class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
