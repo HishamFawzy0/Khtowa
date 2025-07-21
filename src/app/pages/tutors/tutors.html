@@ -14,14 +14,14 @@
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="text-center mb-16">
             <div
-                class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl mb-6 shadow-xl">
+                class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-teal-500 to-teal-600 rounded-2xl mb-6 shadow-xl">
                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
             </div>
             <h2
-                class="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 mb-4">
+                class="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-teal-600 to-cyan-600 mb-4">
                 Expert Tutors
             </h2>
             <p class="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
@@ -39,10 +39,10 @@
                 </div>
                 <input type="text" (input)="filteredTutors()" [(ngModel)]="searchTerm"
                     placeholder="Search tutors by subject, name, or location..."
-                    class="w-full pl-14 pr-6 py-4 text-lg bg-white/70 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl placeholder-slate-400 text-slate-700 focus:outline-none focus:ring-4 focus:ring-emerald-500/30 focus:border-emerald-500/50 transition-all duration-300 hover:shadow-2xl hover:bg-white/80" />
+                    class="w-full pl-14 pr-6 py-4 text-lg bg-white/70 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl placeholder-slate-400 text-slate-700 focus:outline-none focus:ring-4 focus:ring-teal-500/30 focus:border-teal-500/50 transition-all duration-300 hover:shadow-2xl hover:bg-white/80" />
                 <div class="absolute inset-y-0 right-0 pr-6 flex items-center">
                     <div class="h-8 w-px bg-slate-200"></div>
-                    <button class="ml-4 p-2 text-slate-400 hover:text-emerald-500 transition-colors duration-200">
+                    <button class="ml-4 p-2 text-slate-400 hover:text-teal-500 transition-colors duration-200">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
@@ -57,7 +57,7 @@
             <div class="group relative">
                 <!-- Card Background with Gradient Border -->
                 <div
-                    class="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-sm group-hover:blur-none">
+                    class="absolute -inset-0.5 bg-gradient-to-r from-teal-500 via-teal-500 to-cyan-500 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-sm group-hover:blur-none">
                 </div>
 
                 <!-- Main Card -->
@@ -66,7 +66,7 @@
                     <!-- Card Header with Status -->
                     <div class="absolute top-4 right-4 z-10">
                         <div
-                            class="flex items-center gap-2 bg-emerald-500/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+                            class="flex items-center gap-2 bg-teal-500/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
                             <div class="w-2 h-2 bg-green-300 rounded-full animate-pulse"></div>
                             Online
                         </div>
@@ -77,7 +77,7 @@
                         <!-- Profile Image -->
                         <div class="relative mb-6">
                             <div
-                                class="absolute -inset-2 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm">
+                                class="absolute -inset-2 ">
                             </div>
                             <img [src]="card.image" [alt]="card.name"
                                 class="relative w-24 h-24 rounded-full mx-auto object-cover border-4 border-white shadow-xl group-hover:shadow-2xl transition-all duration-300" />
@@ -94,10 +94,10 @@
 
                         <!-- Tutor Info -->
                         <h3
-                            class="text-xl font-bold text-slate-800 mb-2 group-hover:text-emerald-600 transition-colors duration-300">
+                            class="text-xl font-bold text-slate-800 mb-2 group-hover:text-teal-600 transition-colors duration-300">
                             {{card.name}}
                         </h3>
-                        <p class="text-emerald-600 font-semibold mb-1">{{card.title}}</p>
+                        <p class="text-teal-600 font-semibold mb-1">{{card.title}}</p>
                         <p class="text-slate-500 text-sm mb-4 flex items-center justify-center gap-1">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -123,11 +123,11 @@
                         <!-- Action Buttons -->
                         <div class="space-y-3">
                             <button
-                                class="w-full bg-gradient-to-r cursor-pointer from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-emerald-500/30">
+                                class="w-full bg-gradient-to-r cursor-pointer from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-teal-500/30">
                                 View Profile
                             </button>
                             <button
-                                class="w-full bg-white/50 cursor-pointer hover:bg-white/80 text-slate-700 font-medium py-2 px-6 rounded-xl border border-slate-200 hover:border-emerald-300 transition-all duration-300 backdrop-blur-sm">
+                                class="w-full bg-white/50 cursor-pointer hover:bg-white/80 text-slate-700 font-medium py-2 px-6 rounded-xl border border-slate-200 hover:border-teal-300 transition-all duration-300 backdrop-blur-sm">
                                 Book Session
                             </button>
                         </div>
