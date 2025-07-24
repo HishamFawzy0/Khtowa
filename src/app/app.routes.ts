@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { Tutors } from './pages/tutors/tutors';
 import { Services } from './pages/services/services';
 import { Login } from './pages/login/login';
-import { Register } from './pages/register/register';
+import { Registertype } from './pages/registertype/registertype';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'tutors', pathMatch: 'full' },
@@ -10,7 +10,7 @@ export const routes: Routes = [
   { path: 'services', component: Services },
   
   { path: 'login', component: Login },
-  { path: 'register', component: Register },
+  { path: 'register', component: Registertype },
 
   { path: '**', redirectTo: 'tutors', pathMatch: 'full' },
 

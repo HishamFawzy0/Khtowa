@@ -1,0 +1,334 @@
+<div
+    class="min-h-screen bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600 flex items-center justify-center p-4 relative overflow-hidden">
+
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div
+            class="absolute top-10 left-10 w-72 h-72 bg-white rounded-full mix-blend-multiply filter blur-xl animate-blob">
+        </div>
+        <div
+            class="absolute top-10 right-10 w-72 h-72 bg-emerald-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000">
+        </div>
+        <div
+            class="absolute -bottom-8 left-20 w-72 h-72 bg-teal-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000">
+        </div>
+    </div>
+
+    <div class="w-full max-w-md relative z-10">
+        <!-- Logo Section -->
+        <div class="text-center mb-8 animate-fade-in-up">
+            <div
+                class="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-3xl shadow-xl mb-6 border border-white/30">
+                <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20 6L9 17l-5-5 1.41-1.41L9 14.17l9.59-9.59L20 6z" />
+                </svg>
+            </div>
+            <h1 class="text-4xl font-bold text-white mb-2 tracking-tight">WorkFlow</h1>
+            <p class="text-white/80 text-lg font-medium">Your Gateway to Success</p>
+        </div>
+
+        <!-- Main Card -->
+        <div
+            class="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden transition-all duration-500 hover:shadow-3xl">
+
+            <!-- User Type Selection -->
+            @if (currentStep() === 'selection') {
+            <div class="p-8 animate-slide-in-right">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-3">Join as a client or freelancer</h2>
+                    <p class="text-gray-600">Choose your path to get started</p>
+                </div>
+
+                <div class="space-y-4 mb-8">
+                    <!-- Client Option -->
+                    <div (click)="selectUserType('client')"
+                        class="group relative p-6 border-2 border-gray-200 rounded-2xl cursor-pointer transition-all duration-300 hover:border-emerald-400 hover:bg-emerald-50/50 hover:shadow-lg hover:-translate-y-1">
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">I'm a client, hiring for a project
+                                </h3>
+                                <p class="text-gray-600 text-sm">Find talented freelancers to bring your ideas to life
+                                </p>
+                            </div>
+                            <div
+                                class="w-6 h-6 rounded-full border-2 border-gray-300 group-hover:border-emerald-500 transition-colors duration-300 flex items-center justify-center">
+                                <div
+                                    class="w-3 h-3 rounded-full bg-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Freelancer Option -->
+                    <div (click)="selectUserType('freelancer')"
+                        class="group relative p-6 border-2 border-gray-200 rounded-2xl cursor-pointer transition-all duration-300 hover:border-teal-400 hover:bg-teal-50/50 hover:shadow-lg hover:-translate-y-1">
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">I'm a freelancer, looking for work
+                                </h3>
+                                <p class="text-gray-600 text-sm">Showcase your skills and connect with amazing clients
+                                </p>
+                            </div>
+                            <div
+                                class="w-6 h-6 rounded-full border-2 border-gray-300 group-hover:border-teal-500 transition-colors duration-300 flex items-center justify-center">
+                                <div
+                                    class="w-3 h-3 rounded-full bg-teal-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sign In Link -->
+                <div class="text-center">
+                    <p class="text-gray-600">
+                        Already have an account?
+                        <a routerLink="/login"
+                            class="text-emerald-600 hover:text-emerald-700 font-semibold transition-colors duration-200">Sign
+                            In</a>
+                    </p>
+                </div>
+            </div>
+            }
+
+            <!-- Registration Form -->
+            @if (currentStep() === 'form') {
+            <div class="p-8 animate-slide-in-left">
+                <div class="flex items-center mb-6">
+                    <button (click)="goBack()"
+                        class="p-2 hover:bg-gray-100 rounded-xl transition-colors duration-200 mr-3">
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800">Create Account</h2>
+                        <p class="text-sm text-gray-600">{{ getUserTypeTitle() }}</p>
+                    </div>
+                </div>
+
+                <!-- Client/Student Form -->
+                @if (selectedUserType() === 'client') {
+                <form [formGroup]="registerFormStudent" (ngSubmit)="onSubmit()" class="space-y-6">
+                    <!-- Display Name -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                        <input type="text" formControlName="displayName"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white"
+                            placeholder="John Doe">
+                        @if (isFieldInvalid('displayName')) {
+                        <div class="text-red-500 text-xs mt-1">{{ getFieldError('displayName') }}</div>
+                        }
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                        <input type="email" formControlName="email"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white"
+                            placeholder="john@example.com">
+                        @if (isFieldInvalid('email')) {
+                        <div class="text-red-500 text-xs mt-1">{{ getFieldError('email') }}</div>
+                        }
+                    </div>
+                    @if (errorMessage) {
+                        <div  class="text-red-600 mt-2">
+                            {{ errorMessage }}
+                        </div>
+                    }
+
+                    <!-- Password -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <input type="password" formControlName="password"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white"
+                            placeholder="••••••••">
+                        @if (isFieldInvalid('password')) {
+                        <div class="text-red-500 text-xs mt-1">{{ getFieldError('password') }}</div>
+                        }
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+                        <input type="password" formControlName="confirmPassword"
+                            (blur)="passwordMatchValidator(registerFormStudent)"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white"
+                            placeholder="••••••••">
+                        @if (isFieldInvalid('confirmPassword')) {
+                        <div class="text-red-500 text-xs mt-1">{{ getFieldError('confirmPassword') }}</div>
+                        }
+                        @if (passwordMismatchError) {
+                        <div class="text-red-500 text-xs mt-1">Passwords do not match</div>
+                        }
+                    </div>
+
+                    
+
+                    <!-- Submit Button -->
+                    <button type="submit" [disabled]="isLoading() || !isFormValid || !passwordsMatch"
+                        class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold py-4 px-6 rounded-xl hover:from-emerald-600 hover:to-teal-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none shadow-lg">
+                        @if (!isLoading()) {
+                        <span class="flex items-center justify-center">
+                            Create Client Account
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                        </span>
+                        }
+                        @if (isLoading()) {
+                        <span class="flex items-center justify-center">
+                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                            Creating Account...
+                        </span>
+                        }
+                    </button>
+                </form>
+                }
+
+                <!-- Freelancer/Instructor Form -->
+                @if (selectedUserType() === 'freelancer') {
+                <form [formGroup]="registerFormInstructor" (ngSubmit)="onSubmit()" class="space-y-6">
+                    <!-- Display Name -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                        <input type="text" formControlName="displayName"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white"
+                            placeholder="John Doe">
+                        @if (isFieldInvalid('displayName')) {
+                        <div class="text-red-500 text-xs mt-1">{{ getFieldError('displayName') }}</div>
+                        }
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                        <input type="email" formControlName="email"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white"
+                            placeholder="john@example.com">
+                        @if (isFieldInvalid('email')) {
+                        <div class="text-red-500 text-xs mt-1">{{ getFieldError('email') }}</div>
+                        }
+                    </div>
+                    @if (instructorErrorMessage) {
+                        <div  class="text-red-600 mt-2">
+                            {{ instructorErrorMessage }}
+                        </div>
+                    }
+
+                    <!-- Specialization -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Specialization</label>
+                        <select formControlName="specialization"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white">
+                            <option value="">Select your specialization</option>
+                            <option value="web-development">Web Development</option>
+                            <option value="mobile-development">Mobile Development</option>
+                            <option value="ui-ux-design">UI/UX Design</option>
+                            <option value="graphic-design">Graphic Design</option>
+                            <option value="digital-marketing">Digital Marketing</option>
+                            <option value="content-writing">Content Writing</option>
+                            <option value="data-science">Data Science</option>
+                            <option value="consulting">Consulting</option>
+                            <option value="other">Other</option>
+                        </select>
+                        @if (isFieldInvalid('specialization')) {
+                        <div class="text-red-500 text-xs mt-1">{{ getFieldError('specialization') }}</div>
+                        }
+                    </div>
+
+                    <!-- Description -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Professional Description</label>
+                        <textarea formControlName="description" rows="4"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white resize-none"
+                            placeholder="Tell us about your skills, experience, and what makes you unique..."></textarea>
+                        @if (isFieldInvalid('description')) {
+                        <div class="text-red-500 text-xs mt-1">{{ getFieldError('description') }}</div>
+                        }
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <input type="password" formControlName="password"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white"
+                            placeholder="••••••••">
+                        @if (isFieldInvalid('password')) {
+                        <div class="text-red-500 text-xs mt-1">{{ getFieldError('password') }}</div>
+                        }
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+                        <input type="password" formControlName="confirmPassword"
+                            (blur)="passwordMatchValidator(registerFormInstructor)"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white"
+                            placeholder="••••••••">
+                        @if (isFieldInvalid('confirmPassword')) {
+                        <div class="text-red-500 text-xs mt-1">{{ getFieldError('confirmPassword') }}</div>
+                        }
+                        @if (passwordMismatchError) {
+                        <div class="text-red-500 text-xs mt-1">Passwords do not match</div>
+                        }
+                    </div>
+
+                    <!-- Terms Checkbox -->
+                    
+
+                    <!-- Submit Button -->
+                    <button type="submit" [disabled]="isLoading() || !isFormValid || !passwordsMatch"
+                        class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold py-4 px-6 rounded-xl hover:from-emerald-600 hover:to-teal-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none shadow-lg">
+                        @if (!isLoading()) {
+                        <span class="flex items-center  justify-center">
+                            Create Freelancer Account
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                        </span>
+                        }
+                        @if (isLoading()) {
+                        <span class="flex items-center  justify-center">
+                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                            Creating Account...
+                        </span>
+                        }
+                    </button>
+                </form>
+                }
+            </div>
+            }
+        </div>
+    </div>
+</div>

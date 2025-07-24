@@ -76,14 +76,11 @@
                     <a routerLink="/register"
                         routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
                         class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group">
-                        <span class="relative z-10">Services</span>
+                        <span class="relative z-10">Register</span>
                         <div
                             class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         </div>
                     </a>
-
-                   
-
                 </div>
             </nav>
 
@@ -138,8 +135,8 @@
 
                         <!-- User Info (Hidden on mobile) -->
                         <div class="hidden lg:block text-left">
-                            <div class="text-sm font-semibold text-slate-800">Sarah Johnson</div>
-                            <div class="text-xs text-slate-500">Premium Member</div>
+                            <div class="text-sm font-semibold text-slate-800">{{name}}</div>
+                            <div class="text-xs text-slate-500">{{email}}</div>
                         </div>
 
                         <!-- Dropdown Arrow -->
@@ -157,8 +154,8 @@
                                 <img alt="User avatar" class="w-12 h-12 rounded-xl object-cover"
                                     src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&dpr=2" />
                                 <div>
-                                    <div class="font-semibold text-slate-800">Sarah Johnson</div>
-                                    <div class="text-sm text-slate-500">sarah johnson educonnect.com</div>
+                                    <div class="font-semibold text-slate-800">{{name}}</div>
+                                    <div class="text-sm text-slate-500">{{email}}</div>
                                 </div>
                             </div>
                         </div>
