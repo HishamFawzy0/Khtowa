@@ -1,166 +1,155 @@
-<div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+<!-- Enhanced Background with Emerald Gradient -->
+<div class="min-h-screen bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600 relative overflow-hidden">
+    <!-- Subtle Pattern Overlay -->
+    <div
+        class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1)_0%,transparent_50%)] opacity-30">
+    </div>
+    <!-- Success Icon -->
+    <div class="flex justify-center mt-8 mb-6">
+        <div class="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-3xl flex items-center justify-center">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+        </div>
+    </div>
 
-<div class="min-h-screen flex items-center justify-center p-4 relative">
-    <div class="w-full max-w-md animate-fade-in">
-        <!-- Login Card -->
-        <div
-            class="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/30 p-8 hover:shadow-3xl transition-all duration-500">
-            <!-- Header -->
+    <!-- Main Content -->
+    <div class="flex items-center justify-center px-6 pb-12">
+        <div class="w-full max-w-lg">
+            <!-- Header Text -->
             <div class="text-center mb-8">
-                <div
-                    class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl mb-6 shadow-lg animate-pulse-slow">
-                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
-                        </path>
-                    </svg>
-                </div>
-                <h1
-                    class="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-3">
-                    Welcome Back</h1>
-                <p class="text-gray-600 text-lg">Sign in to continue your journey</p>
+                <h1 class="text-4xl font-bold text-white mb-3">WorkFlow</h1>
+                <p class="text-xl text-white/90">Your Gateway to Success</p>
             </div>
 
-            <!-- Login Form -->
-            <form [formGroup]="loginform"id="loginForm" class="space-y-6">
-                <!-- Email Field -->
-                <div class="space-y-2">
-                    <label for="email" class="text-sm font-semibold text-gray-700 block">
-                        Email Address 
-                    </label>
-                    <div class="relative group">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400 group-focus-within:text-emerald-500 transition-colors duration-200"
-                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207">
-                                </path>
-                            </svg>
-                        </div>
-                        <input id="email" type="email" formControlName="Email"
-                            class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300 bg-gray-50/50 focus:bg-white hover:bg-white text-gray-800 placeholder-gray-400"
-                            placeholder="Enter your email address" required />
-                            
-                    </div>
-                    <div id="emailError" class="text-red-500 text-sm hidden"></div>
+            <!-- Main Card -->
+            <div class="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/20">
+                <!-- Card Header -->
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome Back</h2>
+                    <p class="text-gray-600">Sign in to continue your journey</p>
                 </div>
 
-                <!-- Password Field -->
-                <div class="space-y-2"> 
-                    <label for="password" class="text-sm font-semibold text-gray-700 block">
-                        Password
-                    </label>
-                    <div class="relative group">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400 group-focus-within:text-emerald-500 transition-colors duration-200"
-                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
-                                </path>
-                            </svg> 
+                <!-- Login Form -->
+                <form [formGroup]="loginform" id="loginForm" class="space-y-6">
+                    <!-- Email Field -->
+                    <div class="space-y-2">
+                        <label for="email" class="text-sm font-semibold text-gray-700 block">
+                            Email Address
+                        </label>
+                        <div class="relative group">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400 group-focus-within:text-emerald-500 transition-colors duration-200"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207">
+                                    </path>
+                                </svg>
+                            </div>
+                            <input id="email" type="email" formControlName="Email"
+                                class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300 bg-gray-50/50 focus:bg-white hover:bg-white text-gray-800 placeholder-gray-400"
+                                placeholder="Enter your email address" required />
                         </div>
-                        <input id="password" type="password" formControlName="Password"
-                            class="w-full pl-12 pr-14 py-4 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300 bg-gray-50/50 focus:bg-white hover:bg-white text-gray-800 placeholder-gray-400"
-                            placeholder="Enter your password" required />
-                        <button type="button" id="togglePassword"
-                            class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600 transition-colors duration-200 focus:outline-none">
-                            <svg id="eyeOpen" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                </path>
-                            </svg>
-                            <svg id="eyeClosed" class="h-5 w-5 hidden" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21">
-                                </path>
-                            </svg>
-                        </button>
+                        <div id="emailError" class="text-red-500 text-sm hidden"></div>
                     </div>
-                    <div id="passwordError" class="text-red-500 text-sm hidden"></div>
-                </div>
 
-                <!-- Remember me & Forgot password -->
+                    <!-- Password Field -->
+                    <div class="space-y-2">
+                        <label for="password" class="text-sm font-semibold text-gray-700 block">
+                            Password
+                        </label>
+                        <div class="relative group">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400 group-focus-within:text-emerald-500 transition-colors duration-200"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <input id="password" type="password" formControlName="Password"
+                                class="w-full pl-12 pr-14 py-4 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300 bg-gray-50/50 focus:bg-white hover:bg-white text-gray-800 placeholder-gray-400"
+                                placeholder="Enter your password" required />
+                            <button type="button" id="togglePassword"
+                                class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600 transition-colors duration-200 focus:outline-none">
+                                <svg id="eyeOpen" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                    </path>
+                                </svg>
+                                <svg id="eyeClosed" class="h-5 w-5 hidden" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="passwordError" class="text-red-500 text-sm hidden"></div>
+                    </div>
+
+                    
+
+                    <!-- Error Message -->
+                    @if(errorMessage){
+                    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl" id="errorMessage">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            {{ errorMessage }}
+                        </div>
+                    </div>
+                    }
+
+                    <!-- Sign In Button -->
+                    <button type="submit" id="submitButton"
+                        class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white py-4 px-6 rounded-2xl font-semibold hover:from-emerald-600 hover:to-teal-600 focus:ring-4 focus:ring-emerald-300 focus:ring-offset-2 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center space-x-3 group shadow-xl hover:shadow-2xl">
+                        <span id="buttonText">Sign In</span>
+                        <svg id="buttonIcon" class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                        <svg id="loadingIcon" class="w-5 h-5 animate-spin hidden" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
+                        </svg>
+                    </button>
+                </form>
+
                 
 
-                @if(errorMessage){
-                    <div class="text-red-500 text-sm mt-2" id="errorMessage">
-                        {{ errorMessage }}
-                    </div>
-                }
-
-                <!-- Sign In Button -->
-                <button type="submit" id="submitButton"
-                    class="w-full bg-gradient-to-r mb-6 from-emerald-500 to-teal-500 text-white py-4 px-6 rounded-2xl font-semibold hover:from-emerald-600 hover:via-teal-600 hover:to-teal-700 focus:ring-4 focus:ring-emerald-300 focus:ring-offset-2 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center space-x-3 group shadow-xl hover:shadow-2xl">
-                    <span id="buttonText">Sign In</span>
-                    <svg id="buttonIcon" class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200"
-                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                    </svg>
-                    <svg id="loadingIcon" class="w-5 h-5 animate-spin hidden" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
-                        </circle>
-                        <path class="opacity-75" fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                        </path>
-                    </svg>
-                </button>
-            </form>
-
-            <!-- Success/Error Messages -->
-            <div id="messageContainer" class="mt-4 hidden">
-                <div id="successMessage"
-                    class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl hidden">
-                    <div class="flex items-center">
-                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        <span id="successText"></span>
-                    </div>
-                </div>
-                <div id="errorMessage" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl hidden">
-                    <div class="flex items-center">
-                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        <span id="errorText"></span>
-                    </div>
+                <!-- Sign up link -->
+                <div class="text-center mt-6">
+                    <p class="text-sm text-gray-600">
+                        Don't have an account?
+                        <a routerLink="/register" id="signUpLink"
+                            class="text-emerald-600 hover:text-emerald-500 font-semibold transition-colors duration-200 hover:underline ml-1">
+                            Sign up for free
+                        </a>
+                    </p>
                 </div>
             </div>
 
-            <!-- Divider -->
-            
-            <!-- Social Login Buttons -->
-            
- 
-            <!-- Sign up link -->
-            <div class="text-center">
-                <p class="text-sm text-gray-600">
-                    Don't have an account?
-                    <a routerLink="/register" id="signUpLink"
-                        class="text-emerald-600 hover:text-emerald-500 font-semibold transition-colors duration-200 hover:underline ml-1">
-                        Sign up for free
-                    </a>
+            <!-- Footer -->
+            <div class="text-center mt-8">
+                <p class="text-sm text-white/80">
+                    By signing in, you agree to our
+                    <a href="#" class="text-white hover:text-white/90 transition-colors duration-200 underline">Terms of
+                        Service</a>
+                    and
+                    <a href="#" class="text-white hover:text-white/90 transition-colors duration-200 underline">Privacy
+                        Policy</a>
                 </p>
             </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="text-center mt-8">
-            <p class="text-xs text-gray-500">
-                By signing in, you agree to our
-                <a href="#" class="text-emerald-600 hover:text-emerald-500 transition-colors duration-200">Terms of
-                    Service</a>
-                and
-                <a href="#" class="text-emerald-600 hover:text-emerald-500 transition-colors duration-200">Privacy Policy</a>
-            </p>
         </div>
     </div>
 </div>

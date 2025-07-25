@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Observable } from 'rxjs';
 import {jwtDecode} from 'jwt-decode';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +12,13 @@ export class LoginService {
   private decodedToken: any = null;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    this.loadUserFromToken(); // أول ما يتعمل service، نحاول نجيب بيانات اليوزر
+    this.loadUserFromToken();
   }
 
+  isInitialized:boolean = false;
+
   http: HttpClient = inject(HttpClient);
+  baseURL: any = environment.apiUrl;
 
   get isLoggedIn(): boolean {
     return (
@@ -23,7 +27,7 @@ export class LoginService {
   }
 
   login(loginObj: any): Observable<any> {
-    return this.http.post('https://localhost:7277/api/Account/login', loginObj);
+    return this.http.post(`${this.baseURL}Account/login`, loginObj);
   }
 
   get userData(): any {
@@ -31,17 +35,17 @@ export class LoginService {
   }
 
   private loadUserFromToken(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      const token = localStorage.getItem('authToken');
-      if (token) {
-        try {
-          this.decodedToken = jwtDecode(token);
-        } catch (e) {
-          console.error('Invalid token:', e);
-          this.decodedToken = null;
-        }
-      }
-    }
+     if (isPlatformBrowser(this.platformId)) {
+       const token = localStorage.getItem('authToken');
+       if (token) {
+         try {
+           this.decodedToken = jwtDecode(token);
+         } catch (e) {
+           this.decodedToken = null;
+         }
+       }
+       this.isInitialized = true;
+     }
   }
 
   clearUserData(): void {
@@ -60,15 +64,15 @@ export class LoginService {
   }
 
   saveNewTokens(data: any): void {
-   if (data.token) {
-    localStorage.setItem('authToken', data.token);
+    if (data.token) {
+      localStorage.setItem('authToken', data.token);
+    }
+
+    // ✅ لا نحاول تخزين refreshToken لأنه غير موجود في response
+    // if (data.refreshToken) {
+    //   localStorage.setItem('refreshToken', data.refreshToken);
+    // }
+
+    this.refreshUserData();
   }
-
-  // ✅ لا نحاول تخزين refreshToken لأنه غير موجود في response
-  // if (data.refreshToken) {
-  //   localStorage.setItem('refreshToken', data.refreshToken);
-  // }
-
-  this.refreshUserData();
-}
 }
