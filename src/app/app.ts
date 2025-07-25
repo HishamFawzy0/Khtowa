@@ -3,12 +3,10 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from "./layouts/navbar/navbar";
 import { initFlowbite } from 'flowbite';
-import { StudentReq } from "./pages/student-req/student-req";
-import { InstructorReview } from "./pages/instructor-review/instructor-review";
 
 @Component({
   selector: 'app-root',
-  imports: [Navbar, RouterOutlet, StudentReq, InstructorReview],
+  imports: [Navbar, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

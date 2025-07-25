@@ -1,7 +1,13 @@
-import { Component,  inject, SimpleChanges } from '@angular/core';
-import {  FormControl, FormControlName, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, Inject, inject, PLATFORM_ID } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../core/services/auth/login/login-service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +18,8 @@ import { LoginService } from '../../core/services/auth/login/login-service';
 export class Login {
   private router = inject(Router);
   private loginService = inject(LoginService);
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   errorMessage = '';
   isLoading = false;
@@ -26,13 +34,16 @@ export class Login {
   });
 
   ngOnInit(): void {
-    this.setupPasswordToggle();
-    this.setupFormSubmission();
+    if (isPlatformBrowser(this.platformId)) {
+      this.setupPasswordToggle();
+      this.setupFormSubmission();
+    }
   }
 
   private setupPasswordToggle(): void {
-    // Setup password visibility toggle functionality
     setTimeout(() => {
+      if (!isPlatformBrowser(this.platformId)) return;
+
       const toggleButton = document.getElementById('togglePassword');
       const passwordInput = document.getElementById(
         'password'
@@ -50,6 +61,8 @@ export class Login {
 
   private setupFormSubmission(): void {
     setTimeout(() => {
+      if (!isPlatformBrowser(this.platformId)) return;
+
       const form = document.getElementById('loginForm');
       if (form) {
         form.addEventListener('submit', (e) => {
@@ -99,6 +112,7 @@ export class Login {
     this.loginService.login(loginData).subscribe({
       next: (response: any) => {
         this.handleLoginSuccess(response);
+        this.loginService.refreshUserData(); // Refresh user data after login
       },
       error: (error) => {
         this.handleLoginError(error);
@@ -110,33 +124,28 @@ export class Login {
   }
 
   private handleLoginSuccess(response: any): void {
-    // Store authentication tokens
-    if (response.token) {
-      localStorage.setItem('authToken', response.token);
+    if (isPlatformBrowser(this.platformId)) {
+      if (response.token) {
+        localStorage.setItem('authToken', response.token);
+      }
+
+      if (response.refreshToken) {
+        localStorage.setItem('refreshToken', response.refreshToken);
+      }
+
+      if (response.user) {
+        localStorage.setItem('userData', JSON.stringify(response.user));
+      }
+
+      localStorage.setItem('loginTime', new Date().toISOString());
     }
 
-    if (response.refreshToken) {
-      localStorage.setItem('refreshToken', response.refreshToken);
-    }
-
-    // Store user data if provided
-    if (response.user) {
-      localStorage.setItem('userData', JSON.stringify(response.user));
-    }
-
-    // Set login timestamp
-    localStorage.setItem('loginTime', new Date().toISOString());
-
-    // Show success message
     this.showSuccessMessage('Login successful! Redirecting...');
-
-    // Clear form
     this.loginform.reset();
 
-    // Redirect after a short delay
     setTimeout(() => {
-      this.router.navigate(['/dashboard']); // Adjust route as needed
-    }, 1500);
+      this.router.navigate(['/tutors']);
+    }, 0);
   }
 
   private handleLoginError(error: any): void {
@@ -163,6 +172,8 @@ export class Login {
   private setLoadingState(loading: boolean): void {
     this.isLoading = loading;
 
+    if (!isPlatformBrowser(this.platformId)) return;
+
     const submitButton = document.getElementById('submitButton');
     const buttonText = document.getElementById('buttonText');
     const buttonIcon = document.getElementById('buttonIcon');
@@ -184,6 +195,8 @@ export class Login {
   }
 
   private showSuccessMessage(message: string): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     const messageContainer = document.getElementById('messageContainer');
     const successMessage = document.getElementById('successMessage');
     const successText = document.getElementById('successText');
@@ -193,7 +206,6 @@ export class Login {
       messageContainer.classList.remove('hidden');
       successMessage.classList.remove('hidden');
 
-      // Hide error message if visible
       const errorMessage = document.getElementById('errorMessage');
       if (errorMessage) {
         errorMessage.classList.add('hidden');
@@ -202,6 +214,8 @@ export class Login {
   }
 
   private showErrorMessage(message: string): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     const messageContainer = document.getElementById('messageContainer');
     const errorMessage = document.getElementById('errorMessage');
     const errorText = document.getElementById('errorText');
@@ -211,7 +225,6 @@ export class Login {
       messageContainer.classList.remove('hidden');
       errorMessage.classList.remove('hidden');
 
-      // Hide success message if visible
       const successMessage = document.getElementById('successMessage');
       if (successMessage) {
         successMessage.classList.add('hidden');
@@ -221,6 +234,8 @@ export class Login {
 
   private clearMessages(): void {
     this.errorMessage = '';
+    if (!isPlatformBrowser(this.platformId)) return;
+
     const messageContainer = document.getElementById('messageContainer');
     const successMessage = document.getElementById('successMessage');
     const errorMessage = document.getElementById('errorMessage');
@@ -240,10 +255,11 @@ export class Login {
   }
 
   private showValidationErrors(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     const emailControl = this.loginform.get('Email');
     const passwordControl = this.loginform.get('Password');
 
-    // Show email validation errors
     if (emailControl?.invalid && emailControl?.touched) {
       const emailError = document.getElementById('emailError');
       if (emailError) {
@@ -256,7 +272,6 @@ export class Login {
       }
     }
 
-    // Show password validation errors
     if (passwordControl?.invalid && passwordControl?.touched) {
       const passwordError = document.getElementById('passwordError');
       if (passwordError) {
@@ -272,6 +287,8 @@ export class Login {
   }
 
   private clearValidationErrors(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     const emailError = document.getElementById('emailError');
     const passwordError = document.getElementById('passwordError');
 
@@ -283,7 +300,6 @@ export class Login {
     }
   }
 
-  // Getter methods for template access
   get emailControl() {
     return this.loginform.get('Email');
   }
@@ -302,21 +318,24 @@ export class Login {
     return !!(control && control.invalid && control.touched);
   }
 
-  // Method to check if user is logged in (can be used in other components)
-  static isLoggedIn(): boolean {
-    return !!localStorage.getItem('authToken');
+  getToken(): string | null {
+    return isPlatformBrowser(this.platformId)
+      ? localStorage.getItem('authToken')
+      : null;
   }
 
-  // Method to get stored token
-  static getToken(): string | null {
-    return localStorage.getItem('authToken');
+  isLoggedIn(): boolean {
+    return (
+      isPlatformBrowser(this.platformId) && !!localStorage.getItem('authToken')
+    );
   }
 
-  // Method to logout (clear all stored data)
-  static logout(): void {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('userData');
-    localStorage.removeItem('loginTime');
+  logout(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('userData');
+      localStorage.removeItem('loginTime');
+    }
   }
 }
