@@ -6,8 +6,18 @@
 </ng-container>
 
 <ng-template #loading>
-    <!-- ممكن تحط Spinner أو شاشة انتظار -->
-    <p>Loading...</p>
+<div class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center">
+    <div class="text-center">
+        <div class="relative mb-8">
+            <div class="w-20 h-20 mx-auto rounded-full border-4 border-blue-200 border-t-blue-600 spin-slow"></div>
+            <div class="absolute inset-0 w-16 h-16 mx-auto mt-2 rounded-full border-2 border-purple-200 border-r-purple-500 spin-slow"
+                style="animation-direction: reverse; animation-duration: 2s;"></div>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2 fade-in-up">Loading...</h2>
+        <p class="text-gray-600 fade-in-up" style="animation-delay: 0.2s;">Please wait while we prepare your experience
+        </p>
+    </div>
+</div>
 </ng-template>
 <!-- <app-student-req></app-student-req> -->
 

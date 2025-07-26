@@ -81,70 +81,50 @@ export class Registertype {
 
     try {
       if (this.selectedUserType() === 'client') {
-        // Register as student/client
-        this._RegisterService
-          .registerStudent(this.registerFormStudent.value)
-          .subscribe({
-            next: (response) => {
-              console.log('Student registration successful:', response);
-              this.isLoading.set(false);
-              // Handle success (redirect, show message, etc.)
-            },
-            error: (error) => {
-              // console.error('Student registration failed:', error);
-              this.isLoading.set(false);
+        const { confirmPassword, ...studentData } =
+          this.registerFormStudent.value;
 
-              // Default message
-              let friendlyMessage = 'This email is already registered.';
+        this._RegisterService.registerStudent(studentData).subscribe({
+          next: (response) => {
+            console.log('Student registration successful:', response);
+            this.isLoading.set(false);
+          },
+          error: (error) => {
+            this.isLoading.set(false);
 
-              // Check error message for "email already exists"
-              const errorContent = error.error;
+            const backendError = error?.error?.message || '';
 
-              if (
-                typeof errorContent === 'string' &&
-                errorContent.toLowerCase().includes('email')
-              ) {
-                friendlyMessage = 'This email is already registered.';
-              } else if (
-                typeof errorContent === 'object' &&
-                errorContent?.message?.toLowerCase().includes('email')
-              ) {
-                friendlyMessage = 'This email is already registered.';
-              }
-
-              // Assign the message to be shown in the UI
-              this.errorMessage = friendlyMessage;
-            },
-          });
+            this.errorMessage = backendError.includes('email')
+              ? 'This email is already registered.'
+              : backendError || 'Registration failed.';
+          },
+        });
       } else {
         // Register as instructor/freelancer
-        this._RegisterService
-          .registerInstructor(this.registerFormInstructor.value)
-          .subscribe({
-            next: (response) => {
-              console.log('Instructor registration successful:', response);
-              this.isLoading.set(false);
-              // Handle success (redirect, show message, etc.)
-            },
-            error: (error) => {
-              // console.error('Instructor registration failed:', error);
-              this.isLoading.set(false);
+        const { confirmPassword, ...instructorData } =
+          this.registerFormInstructor.value;
 
-              let friendlyMessage = 'An unexpected error occurred.';
+        this._RegisterService.registerInstructor(instructorData).subscribe({
+          next: (response) => {
+            console.log('Instructor registration successful:', response);
+            this.isLoading.set(false);
+          },
+          error: (error) => {
+            this.isLoading.set(false);
 
-              const backendMessage = error?.error?.message?.toLowerCase();
+            let friendlyMessage = 'An unexpected error occurred.';
+            const backendMessage = error?.error?.message?.toLowerCase();
 
-              if (backendMessage?.includes('email')) {
-                friendlyMessage = 'This email is already registered.';
-              } else if (backendMessage?.includes('failed to create user')) {
-                friendlyMessage =
-                  'Unable to create user. Please try another email.';
-              }
+            if (backendMessage?.includes('email')) {
+              friendlyMessage = 'This email is already registered.';
+            } else if (backendMessage?.includes('failed to create user')) {
+              friendlyMessage =
+                'Unable to create user. Please try another email.';
+            }
 
-              // Show message in UI
-              this.instructorErrorMessage = friendlyMessage;
-            },
-          });
+            this.instructorErrorMessage = friendlyMessage;
+          },
+        });
       }
     } catch (error) {
       // console.error('Registration error:', error);
@@ -175,67 +155,67 @@ export class Registertype {
     const field = this.currentForm.get(fieldName);
     return !!(field?.invalid && field?.touched);
   }
+ 
+  getFieldError(fieldName: string): string {
+    const field = this.currentForm.get(fieldName);
+    if (field?.errors) {
+      if (field.errors['required']) {
+        const fieldLabels: { [key: string]: string } = {
+          displayName: 'Full name',
+          email: 'Email', 
+          password: 'Password',
+          confirmPassword: 'Confirm password',
+          description: 'Professional description',
+          specialization: 'Specialization',
+          agreeToTerms: 'Terms agreement',
+        };
+        return `${fieldLabels[fieldName] || fieldName} is required`;
+      }
+      if (field.errors['email']) return 'Please enter a valid email address';
+      if (field.errors['minlength'])
+        return `${fieldName} must be at least ${field.errors['minlength'].requiredLength} characters`;
+      return `Must be at least ${field.errors['minlength'].requiredLength} characters`;
+
+    }
+    return '';
+  }
+
+  // Password confirmation validator
 
   // getFieldError(fieldName: string): string {
   //   const field = this.currentForm.get(fieldName);
   //   if (field?.errors) {
+  //     const fieldLabels: { [key: string]: string } = {
+  //       displayName: 'Full name',
+  //       email: 'Email',
+  //       password: 'Password',
+  //       confirmPassword: 'Confirm password',
+  //       description: 'Professional description',
+  //       specialization: 'Specialization',
+  //       agreeToTerms: 'Terms agreement',
+  //     };
+
   //     if (field.errors['required']) {
-  //       const fieldLabels: { [key: string]: string } = {
-  //         displayName: 'Full name',
-  //         email: 'Email',
-  //         password: 'Password',
-  //         confirmPassword: 'Confirm password',
-  //         description: 'Professional description',
-  //         specialization: 'Specialization',
-  //         agreeToTerms: 'Terms agreement',
-  //       };
   //       return `${fieldLabels[fieldName] || fieldName} is required`;
   //     }
-  //     if (field.errors['email']) return 'Please enter a valid email address';
-  //     if (field.errors['minlength'])
-  //       return `${fieldName} must be at least ${field.errors['minlength'].requiredLength} characters`;
-  //     return `Must be at least ${field.errors['minlength'].requiredLength} characters`;
 
+  //     if (field.errors['email']) {
+  //       return 'Please enter a valid email address';
+  //     }
+
+  //     if (field.errors['minlength']) {
+  //       const minLength = field.errors['minlength']?.requiredLength;
+  //       return `${fieldLabels[fieldName] || fieldName} must be at least ${
+  //         minLength || '?'
+  //       } characters`;
+  //     }
+
+  //     if (field.errors['passwordMismatch']) {
+  //       return 'Passwords do not match';
+  //     }
   //   }
   //   return '';
   // }
-
-  // Password confirmation validator
-
-  getFieldError(fieldName: string): string {
-    const field = this.currentForm.get(fieldName);
-    if (field?.errors) {
-      const fieldLabels: { [key: string]: string } = {
-        displayName: 'Full name',
-        email: 'Email',
-        password: 'Password',
-        confirmPassword: 'Confirm password',
-        description: 'Professional description',
-        specialization: 'Specialization',
-        agreeToTerms: 'Terms agreement',
-      };
-
-      if (field.errors['required']) {
-        return `${fieldLabels[fieldName] || fieldName} is required`;
-      }
-
-      if (field.errors['email']) {
-        return 'Please enter a valid email address';
-      }
-
-      if (field.errors['minlength']) {
-        const minLength = field.errors['minlength']?.requiredLength;
-        return `${fieldLabels[fieldName] || fieldName} must be at least ${
-          minLength || '?'
-        } characters`;
-      }
-
-      if (field.errors['passwordMismatch']) {
-        return 'Passwords do not match';
-      }
-    }
-    return '';
-  }
 
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password');
