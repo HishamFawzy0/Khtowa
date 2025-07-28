@@ -32,7 +32,15 @@ export class Registertype {
     this.registerFormStudent = this.fb.group({
       displayName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z]).{8,}$/),
+        ],
+      ],
+
       confirmPassword: ['', [Validators.required]],
     });
 
@@ -155,27 +163,39 @@ export class Registertype {
     const field = this.currentForm.get(fieldName);
     return !!(field?.invalid && field?.touched);
   }
- 
+
   getFieldError(fieldName: string): string {
     const field = this.currentForm.get(fieldName);
     if (field?.errors) {
+      const fieldLabels: { [key: string]: string } = {
+        displayName: 'Full name',
+        email: 'Email',
+        password: 'Password',
+        confirmPassword: 'Confirm password',
+        description: 'Professional description',
+        specialization: 'Specialization',
+        agreeToTerms: 'Terms agreement',
+      };
+
       if (field.errors['required']) {
-        const fieldLabels: { [key: string]: string } = {
-          displayName: 'Full name',
-          email: 'Email', 
-          password: 'Password',
-          confirmPassword: 'Confirm password',
-          description: 'Professional description',
-          specialization: 'Specialization',
-          agreeToTerms: 'Terms agreement',
-        };
         return `${fieldLabels[fieldName] || fieldName} is required`;
       }
-      if (field.errors['email']) return 'Please enter a valid email address';
-      if (field.errors['minlength'])
-        return `${fieldName} must be at least ${field.errors['minlength'].requiredLength} characters`;
-      return `Must be at least ${field.errors['minlength'].requiredLength} characters`;
 
+      if (field.errors['email']) return 'Please enter a valid email address';
+
+      if (field.errors['minlength']) {
+        return `${fieldLabels[fieldName] || fieldName} must be at least ${
+          field.errors['minlength'].requiredLength
+        } characters`;
+      }
+
+      if (field.errors['pattern'] && fieldName === 'password') {
+        return 'Password must contain at least 1 uppercase and 1 lowercase letter';
+      }
+
+      if (field.errors['passwordMismatch']) {
+        return 'Passwords do not match';
+      }
     }
     return '';
   }
