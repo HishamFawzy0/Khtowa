@@ -1,17 +1,23 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { inject, PLATFORM_ID } from '@angular/core';
 import { LoginService } from '../services/auth/login/login-service';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { catchError, from, switchMap, throwError } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
+
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(LoginService);
   const router = inject(Router);
+  const platformId = inject(PLATFORM_ID);
 
-  const token = localStorage.getItem('authToken');
+  if (!isPlatformBrowser(platformId)) {
+    return next(req); // ✅ تأكد إنك في المتصفح
+  } 
+   const token = localStorage.getItem('authToken');
 
-  // لو مفيش توكن
-  if (!token) return next(req);
+ 
+  if (!token) return next(req); 
 
   try {
     const decoded: any = jwtDecode(token);
@@ -19,7 +25,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     const exp = decoded.exp;
 
     const isExpired = exp < now;
-    const isExpiringSoon = exp - now < 60; // أقل من دقيقة
+    const isExpiringSoon = exp - now < 60;
 
     if (isExpired) {
       authService.clearUserData();
@@ -28,32 +34,31 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     }
 
     if (isExpiringSoon) {
-     return from(authService.refreshToken()).pipe(
-       switchMap((res: any) => {
-         if (!res.token) {
-           throw new Error('No token returned from refresh endpoint');
-         }
+      return from(authService.refreshToken()).pipe(
+        switchMap((res: any) => {
+          if (!res.token) {
+            throw new Error('No token returned from refresh endpoint');
+          }
 
-         authService.saveNewTokens(res);
+          authService.saveNewTokens(res);
 
-         const newReq = req.clone({
-           setHeaders: {
-             Authorization: `Bearer ${res.token}`,
-           },
-         });
+          const newReq = req.clone({
+            setHeaders: {
+              Authorization: `Bearer ${res.token}`,
+            },
+          });
 
-         return next(newReq);
-       }),
-       catchError((err) => {
-         authService.clearUserData();
-         localStorage.clear();
-         router.navigate(['/login']);
-         return throwError(() => err);
-       })
-     );
+          return next(newReq);
+        }),
+        catchError((err) => {
+          authService.clearUserData();
+          localStorage.clear();
+          router.navigate(['/login']);
+          return throwError(() => err);
+        })
+      );
     }
 
-    // التوكن سليم → نرسله مع الطلب
     const authReq = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,
@@ -62,7 +67,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
     return next(authReq);
   } catch (err) {
-    // لو حصل مشكلة في decode
     authService.clearUserData();
     localStorage.clear();
     router.navigate(['/login']);
