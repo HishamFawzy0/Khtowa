@@ -1,112 +1,243 @@
-
-<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-10">
-            <div class="inline-block bg-teal-100 p-4 rounded-full mb-4">
-                <span class="material-icons text-5xl text-[var(--primary-color)]">school</span>
-            </div>
-            <h2 class="text-3xl font-bold text-gray-800">طلب درس جديد</h2>
-            <p class="text-gray-500 mt-2">قم بملء النموذج التالي لنشر طلبك والعثور على المعلم المناسب.</p>
-        </div>
-        <div class="form-container p-6 sm:p-8">
-            <form action="#" method="POST">
-                <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-                    <div class="sm:col-span-2">
-                        <label class="block text-sm font-semibold text-gray-700 required-label" for="field">المجال /
-                            الموضوع /
-                            الفئة</label>
-                        <div class="mt-1">
-                            <select class="form-select w-full" id="field" name="field" required="">
-                                <option disabled="" selected="" value="">اختر المجال</option>
-                                <option value="programming">برمجة وتطوير</option>
-                                <option value="design">تصميم وجرافيك</option>
-                                <option value="marketing">تسويق رقمي</option>
-                                <option value="business">ريادة أعمال</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="sm:col-span-2">
-                        <label class="block text-sm font-semibold text-gray-700 required-label"
-                            for="description">الوصف</label>
-                        <div class="mt-1">
-                            <textarea class="form-textarea w-full" id="description" name="description"
-                                placeholder="أدخل وصفاً تفصيلياً لما تحتاجه في الدرس..." required=""
-                                rows="4"></textarea>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 required-label"
-                            for="budget-min">الميزانية (الحد
-                            الأدنى)</label>
-                        <div class="mt-1 relative rounded-md shadow-sm">
-                            <input class="form-input block w-full pr-12" id="budget-min" name="budget-min"
-                                placeholder="50 EGP" required="" type="number" />
-                            <div class="absolute inset-y-0 left-0 pr-3 flex items-center pointer-events-none">
-                                <!-- <span class="text-gray-500 sm:text-sm pl-3">EGP</span> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 required-label"
-                            for="budget-max">الميزانية (الحد
-                            الأقصى)</label>
-                        <div class="mt-1 relative rounded-md shadow-sm">
-                            <input class="form-input block w-full pr-12" id="budget-max" name="budget-max"
-                                placeholder="500 EGP" required="" type="number" />
-                            <div class="absolute inset-y-0 left-0 pr-3 flex items-center pointer-events-none">
-                                <!-- <span class="text-gray-500 sm:text-sm pl-3">EGP</span> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 required-label"
-                            for="duration-from">المدة:
-                            من</label>
-                        <div class="mt-1">
-                            <input class="form-input w-full" id="duration-from" name="duration-from" required=""
-                                type="datetime-local" />
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 required-label"
-                            for="duration-to">إلى</label>
-                        <div class="mt-1">
-                            <input class="form-input w-full" id="duration-to" name="duration-to" required=""
-                                type="datetime-local" />
-                        </div>
-                    </div>
-                    <div class="sm:col-span-2">
-                        <label class="block text-sm font-semibold text-gray-700" for="skills">المهارات المطلوبة
-                            (اختياري)</label>
-                        <div class="mt-1">
-                            <input class="form-input w-full" id="skills" name="skills"
-                                placeholder="مثال: Python, Pandas, NumPy" type="text" />
-                        </div>
-                        <p class="mt-2 text-sm text-gray-500">افصل بين المهارات بفاصلة.</p>
-                    </div>
-                    <div class="sm:col-span-2">
-                        <label class="block text-sm font-semibold text-gray-700" for="instructor-degree">درجة المعلم
-                            (اختياري)</label>
-                        <div class="mt-1">
-                            <select class="form-select w-full" id="instructor-degree" name="instructor-degree">
-                                <option disabled="" selected="" value="">اختر الدرجة المطلوبة</option>
-                                <option value="any">أي درجة</option>
-                                <option value="bachelor">بكالوريوس</option>
-                                <option value="master">ماجستير</option>
-                                <option value="phd">دكتوراه</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="pt-8">
-                    <div class="flex justify-end">
-                        <button class="btn-submit flex items-center" type="submit">
-                            <span class="material-icons mr-2">send</span>
-                            إرسال الطلب
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
+<div class="min-h-screen bg-gradient-to-r from-emerald-500 to-teal-500 p-6">
+  <div class="max-w-2xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <div class="flex items-center justify-center mb-4">
+        <svg class="w-8 h-8 text-white mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+        <h1 class="text-3xl font-bold text-white">EduConnect</h1>
+      </div>
+      <h2 class="text-2xl font-semibold text-white mb-2">Submit Tutoring Request</h2>
+      <p class="text-gray-100">Find the perfect tutor for your learning journey</p>
     </div>
-</main>
+
+    <!-- Reactive Form -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-2xl">
+
+      <!-- Request Title -->
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-2">
+          <label class="block text-lg font-medium text-white">Request Title *</label>
+          <span class="text-sm"
+            [class]="titleCharCount > 50 ? 'text-red-300' : titleCharCount < 20 ? 'text-yellow-300' : 'text-green-300'">
+            {{titleCharCount}}/50
+          </span>
+        </div>
+        <input type="text" formControlName="title"
+          placeholder="Briefly describe what you need help with (minimum 20 characters)" [class]="'w-full px-4 py-3 rounded-xl border-0 shadow-md focus:ring-2 transition-all duration-300 ' + 
+                   (isFieldInvalid('title') ? 
+                    'bg-red-50 text-red-800 placeholder-red-400 border-red-300 focus:ring-red-300' : 
+                    'bg-white/90 text-gray-800 placeholder-gray-500 focus:bg-white focus:ring-emerald-300')" />
+
+        @if (isFieldInvalid('title')) {
+        <div class="flex items-center mt-2 text-red-300 text-sm bg-red-900/20 rounded-lg px-3 py-2">
+          <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+              clip-rule="evenodd" />
+          </svg>
+          {{ getFieldErrorMessage('title') }}
+        </div>
+        }
+      </div>
+
+      <!-- Category -->
+      <div class="mb-6">
+        <label class="block text-lg font-medium text-white mb-2">Category *</label>
+        <select formControlName="categoryId" [class]="'w-full px-4 py-3 rounded-xl border-0 shadow-md focus:ring-2 transition-all duration-300 ' + 
+                   (isFieldInvalid('categoryId') ? 
+                    'bg-red-50 text-red-700 border-red-300 focus:ring-red-300' : 
+                    'bg-white/90 text-gray-800 focus:bg-white focus:ring-emerald-300')">
+          <option value="" disabled>Select a category</option>
+          @for (item of categoriesList; track $index) {
+          <option [value]="item.id">{{ item.name }}</option>
+          }
+        </select>
+
+        @if (isFieldInvalid('categoryId')) {
+        <div class="flex items-center mt-2 text-red-300 text-sm bg-red-900/20 rounded-lg px-3 py-2">
+          <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+              clip-rule="evenodd" />
+          </svg>
+          {{ getFieldErrorMessage('categoryId') }}
+        </div>
+        }
+      </div>
+
+      <!-- Description -->
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-2">
+          <label class="block text-lg font-medium text-white">Description *</label>
+          <span class="text-sm"
+            [class]="descriptionCharCount > 150 ? 'text-red-300' : descriptionCharCount > 120 ? 'text-yellow-300' : 'text-green-300'">
+            {{descriptionCharCount}}/150
+          </span>
+        </div>
+        <textarea formControlName="description" rows="4"
+          placeholder="Describe your needs and goals in detail (maximum 150 characters)"
+          [class]="'w-full px-4 py-3 rounded-xl border-0 shadow-md focus:ring-2 transition-all duration-300 resize-none ' + 
+                   (isFieldInvalid('description') ? 
+                    'bg-red-50 text-red-800 placeholder-red-400 border-red-300 focus:ring-red-300' : 
+                    'bg-white/90 text-gray-800 placeholder-gray-500 focus:bg-white focus:ring-emerald-300')"></textarea>
+
+        @if (isFieldInvalid('description')) {
+        <div class="flex items-center mt-2 text-red-300 text-sm bg-red-900/20 rounded-lg px-3 py-2">
+          <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+              clip-rule="evenodd" />
+          </svg>
+          {{ getFieldErrorMessage('description') }}
+        </div>
+        }
+      </div>
+
+      <!-- Budget Range -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div>
+          <label class="block text-lg font-medium text-white mb-2">Minimum Budget *</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 font-medium">$</span>
+            <input type="number" formControlName="minBudget" placeholder="0" min="0" [class]="'w-full pl-8 pr-4 py-3 rounded-xl border-0 shadow-md focus:ring-2 transition-all duration-300 ' + 
+                       (isFieldInvalid('minBudget') ? 
+                        'bg-red-50 text-red-800 placeholder-red-400 border-red-300 focus:ring-red-300' : 
+                        'bg-white/90 text-gray-800 placeholder-gray-500 focus:bg-white focus:ring-emerald-300')" />
+          </div>
+
+          @if (isFieldInvalid('minBudget')) {
+          <div class="flex items-center mt-2 text-red-300 text-sm bg-red-900/20 rounded-lg px-3 py-2">
+            <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                clip-rule="evenodd" />
+            </svg>
+            {{ getFieldErrorMessage('minBudget') }}
+          </div>
+          }
+        </div>
+
+        <div>
+          <label class="block text-lg font-medium text-white mb-2">Maximum Budget *</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 font-medium">$</span>
+            <input type="number" formControlName="maxBudget" placeholder="100" min="1" [class]="'w-full pl-8 pr-4 py-3 rounded-xl border-0 shadow-md focus:ring-2 transition-all duration-300 ' + 
+                       (isFieldInvalid('maxBudget') ? 
+                        'bg-red-50 text-red-800 placeholder-red-400 border-red-300 focus:ring-red-300' : 
+                        'bg-white/90 text-gray-800 placeholder-gray-500 focus:bg-white focus:ring-emerald-300')" />
+          </div>
+
+          @if (isFieldInvalid('maxBudget')) {
+          <div class="flex items-center mt-2 text-red-300 text-sm bg-red-900/20 rounded-lg px-3 py-2">
+            <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                clip-rule="evenodd" />
+            </svg>
+            {{ getFieldErrorMessage('maxBudget') }}
+          </div>
+          }
+        </div>
+      </div>
+
+      @if(form.hasError('minGreaterThanMax') && (form.get('minBudget')?.touched || form.get('maxBudget')?.touched)) {
+      <div class="flex items-center mb-4 text-red-300 text-sm bg-red-900/20 rounded-lg px-3 py-2">
+        <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd"
+            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+            clip-rule="evenodd" />
+        </svg>
+        Minimum budget cannot be greater than maximum budget.
+      </div>
+      }
+
+      <!-- Date Range -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div>
+          <label class="block text-lg font-medium text-white mb-2">From *</label>
+          <input type="datetime-local" formControlName="fromDate" [min]="todayDateTime" [min]="todayDateTime" [class]="'w-full px-4 py-3 rounded-xl border-0 shadow-md focus:ring-2 transition-all duration-300 ' + 
+                     (isFieldInvalid('fromDate') ? 
+                      'bg-red-50 text-red-800 border-red-300 focus:ring-red-300' : 
+                      'bg-white/90 text-gray-800 focus:bg-white focus:ring-emerald-300')" />
+
+          @if (isFieldInvalid('fromDate')) {
+          <div class="flex items-center mt-2 text-red-300 text-sm bg-red-900/20 rounded-lg px-3 py-2">
+            <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                clip-rule="evenodd" />
+            </svg>
+            {{ getFieldErrorMessage('fromDate') }}
+          </div>
+          }
+        </div>
+
+        <div>
+          <label class="block text-lg font-medium text-white mb-2">To *</label>
+          <input type="datetime-local" formControlName="toDate" [min]="minToDate"
+            [disabled]="!form.get('fromDate')?.value" [class]="'w-full px-4 py-3 rounded-xl border-0 shadow-md focus:ring-2 transition-all duration-300 ' + 
+                     (!form.get('fromDate')?.value ? 
+                      'bg-gray-200 text-gray-400 cursor-not-allowed' :
+                      isFieldInvalid('toDate') ? 
+                      'bg-red-50 text-red-800 border-red-300 focus:ring-red-300' : 
+                      'bg-white/90 text-gray-800 focus:bg-white focus:ring-emerald-300')" />
+
+          @if (!form.get('fromDate')?.value) {
+          <div class="flex items-center mt-2 text-yellow-300 text-sm bg-yellow-900/20 rounded-lg px-3 py-2">
+            <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                clip-rule="evenodd" />
+            </svg>
+            Please select a start date first
+          </div>
+          }
+          @if (isFieldInvalid('toDate')) {
+          <div class="flex items-center mt-2 text-red-300 text-sm bg-red-900/20 rounded-lg px-3 py-2">
+            <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                clip-rule="evenodd" />
+            </svg>
+            {{ getFieldErrorMessage('toDate') }}
+          </div>
+          }
+        </div>
+      </div>
+
+      @if(form.hasError('endBeforeStart') && (form.get('fromDate')?.touched || form.get('toDate')?.touched)) {
+      <div class="flex items-center mb-6 text-red-300 text-sm bg-red-900/20 rounded-lg px-3 py-2">
+        <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd"
+            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+            clip-rule="evenodd" />
+        </svg>
+        End time must be after start time.
+      </div>
+      }
+
+      <!-- Submit Button -->
+      <div class="text-center">
+        <button type="submit" [disabled]="form.invalid"
+          [class]="'font-semibold py-4 px-12 rounded-xl shadow-md backdrop-blur-sm border transition-all duration-300 transform focus:outline-none focus:ring-4 focus:ring-white/25 ' + 
+                   (form.invalid ? 
+                    'bg-gray-400/20 text-gray-300 border-gray-400/20 cursor-not-allowed' : 
+                    'bg-white/20 hover:bg-white/30 text-white border-white/20 hover:border-white/40 hover:scale-105 cursor-pointer')">
+          <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          Submit Request
+        </button>
+      </div>
+    </form>
+
+    <!-- Footer -->
+    <div class="text-center mt-6">
+      <p class="text-gray-100 text-sm">We'll match you with qualified tutors within 24 hours</p>
+    </div>
+  </div>
+</div>

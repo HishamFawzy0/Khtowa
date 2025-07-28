@@ -81,10 +81,10 @@
         </div>
     </a>
 }
-                </div>
+                </div> 
             </nav>
 
-            <!-- Right Side Actions -->
+            <!-- Right Side Actions --> 
                 @if (flag) {
                     <div class="flex items-center space-x-3">
                         <!-- Search Button -->
@@ -98,25 +98,22 @@
                             <div
                                 class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             </div>
-                        </button>
+                        </button>  
         
-                        <!-- Notifications Button -->
-                        <button
-                            class="relative p-3 rounded-xl bg-slate-100/60 backdrop-blur-sm text-slate-600 hover:text-emerald-600 hover:bg-white/80 transition-all duration-300 hover:shadow-lg group">
-                            <svg class="w-5 h-5 transform group-hover:scale-110 transition-transform duration-300" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 17h5l-5 5v-5zM4 19h9a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                            <!-- Notification Badge -->
-                            <div
-                                class="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
-                                <span class="text-xs font-bold text-white">3</span>
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            </div>
-                        </button>
+                        <!-- Notifications Button --> 
+                            @if(userData.role == "Student"){
+                            <button routerLink="/student-req"
+                                class="flex items-center cursor-pointer gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium px-5 py-2 rounded-full shadow-md hover:scale-105 transition-all duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="lucide lucide-circle-plus-icon lucide-circle-plus">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M8 12h8" />
+                                    <path d="M12 8v8" />
+                                </svg>
+                                Add Service
+                            </button>
+                            }
         
                         <!-- User Profile -->
                       

@@ -1,185 +1,253 @@
-<div class="font-cairo bg-gray-50 min-h-screen" dir="rtl">
-
-  <!-- Main Banner -->
-  <section class="bg-gradient-to-r from-teal-50 to-blue-50 py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mx-auto mb-6">
-        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.84L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.84l-7-3z"/>
-        </svg>
-      </div>
-      <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ bannerTitle }}</h1>
-      <p class="text-xl text-gray-600 max-w-2xl mx-auto">{{ bannerSubtitle }}</p>
-    </div>
-  </section>
-
-  <!-- Main Content -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="lg:grid lg:grid-cols-4 lg:gap-8">
-      <!-- Filter Sidebar -->
-      <div class="lg:col-span-1" [class.hidden]="!showMobileFilters && isMobile">
-        <div class="bg-white rounded-lg shadow-sm p-6 sticky top-4">
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">Filter Requests</h3>
-          
-          <!-- Search -->
-          <div class="mb-6">
-            <input 
-              type="text" 
-              [(ngModel)]="searchQuery"
-              (input)="onSearchChange()"
-              placeholder="e.g. Python Teacher" 
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent">
-          </div>
-
-          <!-- Categories -->
-          <div class="mb-6">
-            <h4 class="text-sm font-medium text-gray-900 mb-3">Categories</h4>
-            <div class="space-y-2">
-              <label *ngFor="let category of categories" class="flex items-center">
-                <input 
-                  type="checkbox" 
-                  [(ngModel)]="category.selected"
-                  (change)="onCategoryChange()"
-                  class="rounded border-gray-300 text-teal-600 focus:ring-teal-500">
-                <span class="mr-2 text-sm text-gray-700">{{ category.name }}</span>
-              </label>
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <!-- Header with gradient background matching the theme -->
+ 
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-emerald-50 to-teal-50 py-16">
+        <div class="container mx-auto px-6 text-center">
+            <div
+                class="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                    </path>
+                </svg>
             </div>
-          </div>
-
-          <!-- Budget Range -->
-          <div class="mb-6">
-            <h4 class="text-sm font-medium text-gray-900 mb-3">Budget</h4>
-            <div class="px-3">
-              <input 
-                type="range" 
-                [min]="budgetRange.min" 
-                [max]="budgetRange.max" 
-                [(ngModel)]="selectedBudget"
-                (input)="onBudgetChange()"
-                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider">
-              <div class="flex justify-between text-xs text-gray-500 mt-1">
-                <span>${{ budgetRange.min }}</span>
-                <span>${{ budgetRange.max }}</span>
-              </div>
-              <div class="text-center text-sm text-gray-700 mt-2">
-                Selected Amount: ${{ selectedBudget }}
-              </div>
-            </div>
-          </div>
-
-          <button 
-            (click)="applyFilters()"
-            class="w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 transition duration-200">
-            Apply Filter
-          </button>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Available Lesson Requests</h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">Connect with world-class educators who
+                will transform your learning journey</p>
         </div>
-      </div>
+    </section>
 
-      <!-- Lesson Requests -->
-      <div class="lg:col-span-3 mt-8 lg:mt-0">
-        <!-- Mobile Filter Toggle -->
-        <button 
-          *ngIf="isMobile"
-          (click)="toggleMobileFilters()"
-          class="lg:hidden mb-4 w-full bg-teal-600 text-white py-2 px-4 rounded-md">
-          {{ showMobileFilters ? 'Hide Filters' : 'Show Filters' }}
-        </button>
-
-        <!-- Loading State -->
-        <div *ngIf="isLoading" class="flex justify-center items-center py-12">
-          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
-        </div>
-
-        <!-- Lesson Request Cards -->
-        <div *ngIf="!isLoading" class="space-y-6">
-          <div *ngFor="let request of filteredRequests; trackBy: trackByRequestId" 
-               class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition duration-200">
-            <div class="flex items-start justify-between">
-              <div class="flex items-start space-x-4 space-x-reverse flex-1">
-                <div [class]="'w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 ' + request.iconBgColor">
-                  <svg class="w-6 h-6" [class]="request.iconColor" fill="currentColor" viewBox="0 0 20 20">
-                    <path [attr.d]="request.iconPath"></path>
-                  </svg>
+    <!-- Search Bar -->
+    <div class="container mx-auto px-6 -mt-8 relative z-10">
+        <div class="bg-white rounded-2xl shadow-xl p-6 max-w-2xl mx-auto">
+            <div class="flex items-center space-x-4">
+                <div class="flex-1 relative">
+                    <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <input type="text" [(ngModel)]="searchTitle" (input)="applyFilters()"
+                        placeholder="Search requests by title, subject, or description..."
+                        class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300 text-gray-700 placeholder-gray-400" />
                 </div>
-                <div class="flex-1">
-                  <div class="flex items-center space-x-2 space-x-reverse mb-2">
-                    <h3 class="text-lg font-semibold text-gray-900">{{ request.title }}</h3>
-                    <span [class]="getStatusBadgeClass(request.status)">{{ request.statusText }}</span>
-                  </div>
-                  <p class="text-gray-600 text-sm mb-3">{{ request.description }}</p>
-                  <div class="flex items-center space-x-4 space-x-reverse text-sm text-gray-500 mb-4">
-                    <span class="flex items-center">
-                      <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
-                      </svg>
-                      ${{ request.budgetMax }} - ${{ request.budgetMin }}
-                    </span>
-                    <span class="flex items-center">
-                      <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
-                      </svg>
-                      {{ request.deliveryTime }} {{ request.deliveryTimeUnit }}
-                    </span>
-                    <span class="flex items-center">
-                      <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                      </svg>
-                      {{ request.proposalsCount }} {{ request.proposalsCount === 1 ? 'Submitted Proposal' : 'Submitted Proposals' }}
-                    </span>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-2 space-x-reverse">
-                      <img class="w-8 h-8 rounded-full" [src]="request.client.avatar" [alt]="request.client.name + ' avatar'">
-                      <div>
-                        <p class="text-sm font-medium text-gray-900">{{ request.client.name }}</p>
-                        <p class="text-xs text-gray-500">{{ request.client.role }}</p>
-                      </div>
+                <button (click)="applyFilters()"
+                    class="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold">
+                    Search
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="container mx-auto py-12 px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Filters Sidebar -->
+            <aside class="lg:col-span-1">
+                <div class="bg-white rounded-2xl shadow-lg p-6 sticky top-6">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-emerald-500" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
+                                </path>
+                            </svg>
+                            Filter Requests
+                        </h3>
                     </div>
-                    <button 
-                      (click)="onActionClick(request)"
-                      [class]="getActionButtonClass(request.status)"
-                      [disabled]="request.status === 'closed'">
-                      {{ getActionButtonText(request.status) }}
+
+                    <!-- Categories Filter -->
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-700 mb-3 flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z">
+                                </path>
+                            </svg>
+                            Categories
+                        </h4>
+                        <div class="space-y-3">
+                            @for (category of categoryList; track $index) {
+                            <label class="flex items-center group cursor-pointer">
+                                <input type="checkbox" [value]="category.id" (change)="onCategoryChange($event)"
+                                    class="w-4 h-4 text-emerald-600 bg-gray-100 border-gray-300 rounded focus:ring-emerald-500 focus:ring-2 transition-colors" />
+                                <span class="ml-3 text-gray-600 group-hover:text-gray-800 transition-colors">{{
+                                    category.name }}</span>
+                            </label>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Budget Range Filter -->
+                    
+
+                    <!-- Clear Filters Button -->
+                    <button (click)="clearFilters()"
+                        class="w-full py-3 px-4 border-2 border-gray-200 text-gray-600 rounded-xl hover:border-emerald-300 hover:text-emerald-600 transition-all duration-300 font-medium">
+                        Clear Filters
                     </button>
-                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
+            </aside>
 
-        <!-- Empty State -->
-        <div *ngIf="!isLoading && filteredRequests.length === 0" class="text-center py-12">
-          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-          </svg>
-          <h3 class="mt-2 text-sm font-medium text-gray-900">No Requests Found</h3>
-          <p class="mt-1 text-sm text-gray-500">No requests matched your search criteria.</p>
-        </div>
+            <!-- Requests List -->
+            <section class="lg:col-span-3">
+                <!-- Results Header -->
+                <div class="mb-6 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Learning Opportunities</h2>
+                        <p class="text-gray-600">{{totalItems}} requests found</p>
+                    </div>
+                    <div class="flex items-center space-x-2 text-sm text-gray-500">
+                        <span>Showing {{((currentPage - 1) * pageSize) + 1}}-{{Math.min(currentPage * pageSize,
+                            totalItems)}} of {{totalItems}}</span>
+                    </div>
+                </div>
 
-        <!-- Pagination -->
-        <div *ngIf="!isLoading && filteredRequests.length > 0" class="flex items-center justify-center space-x-2 space-x-reverse mt-8">
-          <button 
-            (click)="previousPage()"
-            [disabled]="currentPage === 1"
-            class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
-            Previous
-          </button>
-          <button 
-            *ngFor="let page of getPageNumbers()" 
-            (click)="goToPage(page)"
-            [class]="page === currentPage ? 'px-3 py-2 text-sm font-medium text-white bg-teal-600 border border-transparent rounded-md' : 'px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50'">
-            {{ page }}
-          </button>
-          <button 
-            (click)="nextPage()"
-            [disabled]="currentPage === totalPages"
-            class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
-            Next
-          </button>
+                <!-- Request Cards -->
+                <div class="space-y-6">
+                    @if (isLoading) {
+                    <div class="text-center py-16">
+                        <div
+                            class="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-4">
+                        </div>
+                        <p class="text-gray-500">Loading requests...</p>
+                    </div>
+                    } @else {
+                    @for (request of filteredRequests; track $index) {
+                    <div
+                        class="bg-white relative rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-emerald-200">
+                        <div class="p-6">
+                            <div class="flex flex-col lg:flex-row justify-between">
+                                <!-- Left: Content -->
+                                <div class="flex-1">
+                                    <!-- Title and Status -->
+                                    <div class="flex items-start justify-between mb-3">
+                                        <h3
+                                            class="text-xl font-bold text-gray-800 hover:text-emerald-600 transition-colors cursor-pointer">
+                                            {{ request.title }}
+                                        </h3>
+                                        <span class="ml-4 flex-shrink-0 text-xs font-semibold px-3 py-1 rounded-full"
+                                            [ngClass]="{
+                                                'bg-emerald-100 text-emerald-700': request.status === 'OpenForApply',
+                                                'bg-yellow-100 text-yellow-700': request.status === 'InReview',
+                                                'bg-gray-100 text-gray-600': request.status === 'Closed'
+                                            }">
+                                            {{
+                                            request.status === 'OpenForApply' ? 'Open for Apply' :
+                                            request.status === 'InReview' ? 'In Review' : 'Closed'
+                                            }}
+                                        </span>
+                                    </div>
+
+                                    <!-- Description -->
+                                    <p class="text-gray-600 mb-4 leading-relaxed line-clamp-2">{{ request.description }}
+                                    </p>
+
+                                    <!-- Meta Information -->
+                                    <div class="flex flex-wrap items-center gap-6 text-sm">
+                                        <div class="flex items-center text-gray-500">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                                </path>
+                                            </svg>
+                                            {{ request.startDateTime | date : 'MMM d, y' }} - {{ request.endDateTime |
+                                            date : 'MMM d, y' }}
+                                        </div>
+                                        <div class="flex items-center text-emerald-600 font-semibold">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1">
+                                                </path>
+                                            </svg>
+                                            ${{ request.minBudget }} - ${{ request.maxBudget }}
+                                        </div>
+                                        <div class="flex items-center text-gray-500">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z">
+                                                </path>
+                                            </svg>
+                                            {{ request.categoryName }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Right: Action Button -->
+                                @if (userData.role === 'Instructor' && request.status === 'OpenForApply') {
+                                <div class="mt-4 absolute   bottom-5 right-5  lg:mt-0 lg:ml-6 flex-shrink-0">
+                                    <button
+                                        class="w-full cursor-pointer lg:w-auto px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold flex items-center justify-center space-x-2">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                        </svg>
+                                        <span>Submit Offer</span>
+                                    </button>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    }
+                </div>
+
+                <!-- Empty State -->
+                @if (filteredRequests.length === 0 && !isLoading) {
+                <div class="text-center py-16">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.41-1.267-5.53-3.146">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">No requests found</h3>
+                    <p class="text-gray-500">Try adjusting your filters to find more opportunities</p>
+                </div>
+                }
+
+                <!-- Pagination -->
+                @if (totalPages > 1 && !isLoading) {
+                <div class="flex justify-center items-center space-x-2 mt-12">
+                    <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1"
+                        class="px-4 py-2 border-2 border-gray-200 rounded-xl text-gray-600 hover:border-emerald-300 hover:text-emerald-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-medium">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
+                            </path>
+                        </svg>
+                    </button>
+
+                    @for (page of getPageNumbers(); track $index) {
+                    @if (page === '...') {
+                    <span class="px-4 py-2 text-gray-400">...</span>
+                    } @else {
+                    <button (click)="goToPage(+page)"
+                        [class]="page === currentPage ? 
+                                        'px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl shadow-lg font-semibold' : 
+                                        'px-4 py-2 border-2 border-gray-200 rounded-xl text-gray-600 hover:border-emerald-300 hover:text-emerald-600 transition-all duration-300 font-medium'">
+                        {{ page }}
+                    </button>
+                    }
+                    }
+
+                    <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages"
+                        class="px-4 py-2 border-2 border-gray-200 rounded-xl text-gray-600 hover:border-emerald-300 hover:text-emerald-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-medium">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                }
+            </section>
         </div>
-      </div>
     </div>
-  </div>
 </div>

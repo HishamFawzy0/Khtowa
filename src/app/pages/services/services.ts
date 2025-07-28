@@ -1,411 +1,227 @@
+import { LoginService } from './../../core/services/auth/login/login-service';
+import { TutorRequest } from './../../shared/interfaces/tutor-request';
+import { Component, inject, OnInit } from '@angular/core';
+import { CategoryService } from '../../core/services/category/category-service';
+import { ICategory } from '../../shared/interfaces/icategory';
+import { TutorRequestService } from '../../core/services/tutorRequest/tutor-request-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Component, OnInit, HostListener } from '@angular/core';
 
-export interface LessonRequest {
-  id: number;
-  title: string;
-  description: string;
-  status: 'open' | 'in_progress' | 'closed';
-  statusText: string;
-  budgetMin: number;
-  budgetMax: number;
-  deliveryTime: number;
-  deliveryTimeUnit: string;
-  proposalsCount: number;
-  category: string;
-  iconBgColor: string;
-  iconColor: string;
-  iconPath: string;
-  client: {
-    name: string;
-    role: string;
-    avatar: string;
-  };
-  createdAt: Date;
+
+
+export interface TutorRequestFilter {
+  pageNumber: number;
+  pageSize: number;
+  title?: string;
+  categoryIds?: number[];
+  minBudget?: number;
+  maxBudget?: number;
 }
 
-export interface NavigationItem {
-  label: string;
-  url: string;
-  active: boolean;
-}
 
-export interface Category {
-  name: string;
-  value: string;
-  selected: boolean;
-}
 
 @Component({
+  selector: 'app-services',
+  standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './services.html',
-  styleUrls: ['./services.css'],
+  templateUrl: 'services.html',
+  styleUrls: ['services.css'],
 })
 export class Services implements OnInit {
-  // Component properties
-  bannerTitle = 'Available Lesson Requests';
-  bannerSubtitle = 'Browse new requests and find your next educational opportunity';
-  userAvatar = '/placeholder.svg?height=32&width=32';
+  // Services
+  GetCategory = inject(CategoryService);
+  getTutorRequests = inject(TutorRequestService);
+  LoginService = inject(LoginService);
 
+  // Data
+  categoryList: ICategory[] = [];
+  TutorRequestList: TutorRequest[] = [];
+  filteredRequests: TutorRequest[] = [];
+  userData = this.LoginService.userData;
 
   // Filter properties
-  searchQuery = '';
-  selectedBudget = 500;
-  budgetRange = { min: 50, max: 1000 };
+  searchTitle: string = '';
+  selectedCategories: number[] = [];
+  budgetRange: number[] = [5, 1000];
 
-  categories: Category[] = [
-    { name: 'Programming', value: 'programming', selected: false },
-    { name: 'Business & Consulting', value: 'business', selected: false },
-    { name: 'Design', value: 'design', selected: false }
-  ];
-  // Data properties
-  lessonRequests: LessonRequest[] = [];
-  filteredRequests: LessonRequest[] = [];
+  // Pagination properties
+  currentPage: number = 1;
+  pageSize: number = 5;
+  totalItems: number = 0;
+  totalPages: number = 0;
 
-  // UI state
-  isLoading = true;
-  isMobile = false;
-  showMobileFilters = false;
+  // Math reference for template
+  Math = Math;
 
-  // Pagination
-  currentPage = 1;
-  itemsPerPage = 10;
-  totalPages = 1;
-
-  constructor() { }
+  // Store all data for client-side filtering
+  allTutorRequests: TutorRequest[] = [];
+  isLoading: boolean = false;
 
   ngOnInit(): void {
-    this.checkScreenSize();
-    this.loadLessonRequests();
+    this.loadCategories();
+    this.loadAllTutorRequests();
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any): void {
-    this.checkScreenSize();
+  loadCategories(): void {
+    this.GetCategory.getCategories().subscribe({
+      next: (data) => {
+        this.categoryList = data;
+        console.log('Categories loaded:', this.categoryList);
+      },
+      error: (err) => {
+        console.error('Error fetching categories:', err);
+      },
+    });
   }
 
-  private checkScreenSize(): void {
-    this.isMobile = window.innerWidth < 1024;
-    if (!this.isMobile) {
-      this.showMobileFilters = false;
+  loadAllTutorRequests(): void {
+    this.isLoading = true;
+
+    // نجيب أول صفحة فقط عشان ترجع metadata + نجيب كل العناصر
+    this.getTutorRequests
+      .GetTutorRequests({
+        pageNumber: 1,
+        pageSize: 1000, // كبير عشان نجيب كل العناصر
+      })
+      .subscribe({
+        next: (data) => {
+          this.allTutorRequests = data.items;
+          this.totalItems = data.items.length;
+          this.filterAndPaginate();
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.error('Error fetching tutor requests:', err);
+          this.allTutorRequests = [];
+          this.filteredRequests = [];
+          this.isLoading = false;
+        },
+      });
+  }
+
+  filterAndPaginate(): void {
+    const title = this.searchTitle.toLowerCase().trim();
+
+    let filtered = this.allTutorRequests.filter((item) => {
+      const matchTitle =
+        item.title.toLowerCase().includes(title) ||
+        item.description.toLowerCase().includes(title);
+
+      const matchCategory =
+        this.selectedCategories.length === 0 ||
+        this.selectedCategories.includes(
+          this.getCategoryIdByName(item.categoryName)
+        );
+
+      // ❌ Remove matchBudget logic completely
+
+      return matchTitle && matchCategory;
+    });
+
+    // تحديث العدد الكلي
+    this.totalItems = filtered.length;
+    this.totalPages = Math.ceil(this.totalItems / this.pageSize);
+
+    // Pagination
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.filteredRequests = filtered.slice(startIndex, endIndex);
+  }
+
+  onCategoryChange(event: any): void {
+    const categoryId = parseInt(event.target.value);
+    if (event.target.checked) {
+      this.selectedCategories.push(categoryId);
+    } else {
+      this.selectedCategories = this.selectedCategories.filter(
+        (id) => id !== categoryId
+      );
     }
-  }
-
-  private loadLessonRequests(): void {
-    // Simulate API call
-    setTimeout(() => {
-      this.lessonRequests = [
-        {
-          id: 1,
-          title: 'Expert Python Teacher Needed',
-          description: 'Looking for a Python instructor to help with a data analysis project using Pandas, NumPy, and Matplotlib.',
-          status: 'open',
-          statusText: 'Open',
-          budgetMin: 50,
-          budgetMax: 150,
-          deliveryTime: 7,
-          deliveryTimeUnit: 'days',
-          proposalsCount: 6,
-          category: 'programming',
-          iconBgColor: 'bg-blue-100',
-          iconColor: 'text-blue-600',
-          iconPath: 'M3 4a1 1 0 01...',
-          client: {
-            name: 'Dr. Ibrahim Qasem',
-            role: 'Data Science Researcher',
-            avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80'
-          },
-          createdAt: new Date()
-        },
-        {
-          id: 2,
-          title: 'Business Strategy Consultant for a Startup',
-          description: 'Looking for a consultant to help develop a market entry strategy for a new tech product in the UAE.',
-          status: 'open',
-          statusText: 'Open',
-          budgetMin: 200,
-          budgetMax: 500,
-          deliveryTime: 14,
-          deliveryTimeUnit: 'days',
-          proposalsCount: 3,
-          category: 'business',
-          iconBgColor: 'bg-purple-100',
-          iconColor: 'text-purple-600',
-          iconPath: 'M13 6a3 3 0 11...',
-          client: {
-            name: 'Marcus Holloway',
-            role: 'Head of Business',
-            avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80'
-          },
-          createdAt: new Date()
-        }, {
-          id: 2,
-          title: 'Business Strategy Consultant for a Startup',
-          description: 'Looking for a consultant to help develop a market entry strategy for a new tech product in the UAE.',
-          status: 'open',
-          statusText: 'Open',
-          budgetMin: 200,
-          budgetMax: 500,
-          deliveryTime: 14,
-          deliveryTimeUnit: 'days',
-          proposalsCount: 3,
-          category: 'business',
-          iconBgColor: 'bg-purple-100',
-          iconColor: 'text-purple-600',
-          iconPath: 'M13 6a3 3 0 11...',
-          client: {
-            name: 'Marcus Holloway',
-            role: 'Head of Business',
-            avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80'
-          },
-          createdAt: new Date()
-        }, {
-          id: 2,
-          title: 'Business Strategy Consultant for a Startup',
-          description: 'Looking for a consultant to help develop a market entry strategy for a new tech product in the UAE.',
-          status: 'open',
-          statusText: 'Open',
-          budgetMin: 200,
-          budgetMax: 500,
-          deliveryTime: 14,
-          deliveryTimeUnit: 'days',
-          proposalsCount: 3,
-          category: 'business',
-          iconBgColor: 'bg-purple-100',
-          iconColor: 'text-purple-600',
-          iconPath: 'M13 6a3 3 0 11...',
-          client: {
-            name: 'Marcus Holloway',
-            role: 'Head of Business',
-            avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80'
-          },
-          createdAt: new Date()
-        }, {
-          id: 2,
-          title: 'Business Strategy Consultant for a Startup',
-          description: 'Looking for a consultant to help develop a market entry strategy for a new tech product in the UAE.',
-          status: 'open',
-          statusText: 'Open',
-          budgetMin: 200,
-          budgetMax: 500,
-          deliveryTime: 14,
-          deliveryTimeUnit: 'days',
-          proposalsCount: 3,
-          category: 'business',
-          iconBgColor: 'bg-purple-100',
-          iconColor: 'text-purple-600',
-          iconPath: 'M13 6a3 3 0 11...',
-          client: {
-            name: 'Marcus Holloway',
-            role: 'Head of Business',
-            avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80'
-          },
-          createdAt: new Date()
-        },
-        {
-          id: 3,
-          title: 'Digital Marketing Expert for SEO',
-          description: 'We need a digital marketing expert specialized in SEO, experienced with Google, SEMrush, and Analytics.',
-          status: 'in_progress',
-          statusText: 'In Progress',
-          budgetMin: 300,
-          budgetMax: 600,
-          deliveryTime: 21,
-          deliveryTimeUnit: 'days',
-          proposalsCount: 8,
-          category: 'business',
-          iconBgColor: 'bg-green-100',
-          iconColor: 'text-green-600',
-          iconPath: 'M3 3a1 1 0 00...',
-          client: {
-            name: 'John Doe',
-            role: 'Head of Marketing',
-            avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80'
-          },
-          createdAt: new Date()
-        },
-        {
-          id: 4,
-          title: 'UI/UX Designer for Mobile App',
-          description: 'Looking for a designer to create and develop a mobile app UI using modern tools like Figma and Adobe XD.',
-          status: 'closed',
-          statusText: 'Closed',
-          budgetMin: 100,
-          budgetMax: 300,
-          deliveryTime: 10,
-          deliveryTimeUnit: 'days',
-          proposalsCount: 12,
-          category: 'design',
-          iconBgColor: 'bg-orange-100',
-          iconColor: 'text-orange-600',
-          iconPath: 'M3 5a2 2 0 01...',
-          client: {
-            name: 'Khalil Abouzeid',
-            role: 'Head of Technology',
-            avatar: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=400&q=80'
-          },
-          createdAt: new Date()
-        }
-      ];
-
-
-      this.filteredRequests = [...this.lessonRequests];
-      this.calculatePagination();
-      this.isLoading = false;
-    }, 1000);
-  }
-
-  // Filter methods
-  onSearchChange(): void {
-    this.applyFilters();
-  }
-
-  onCategoryChange(): void {
-    this.applyFilters();
-  }
-
-  onBudgetChange(): void {
-    this.applyFilters();
+    this.currentPage = 1;
+    this.filterAndPaginate();
   }
 
   applyFilters(): void {
-    let filtered = [...this.lessonRequests];
-
-    // Apply search filter
-    if (this.searchQuery.trim()) {
-      const query = this.searchQuery.toLowerCase();
-      filtered = filtered.filter(request =>
-        request.title.toLowerCase().includes(query) ||
-        request.description.toLowerCase().includes(query) ||
-        request.client.name.toLowerCase().includes(query)
-      );
-    }
-
-    // Apply category filter
-    const selectedCategories = this.categories
-      .filter(cat => cat.selected)
-      .map(cat => cat.value);
-
-    if (selectedCategories.length > 0) {
-      filtered = filtered.filter(request =>
-        selectedCategories.includes(request.category)
-      );
-    }
-
-    // Apply budget filter
-    filtered = filtered.filter(request =>
-      request.budgetMin <= this.selectedBudget &&
-      request.budgetMax >= this.selectedBudget
-    );
-
-    this.filteredRequests = filtered;
     this.currentPage = 1;
-    this.calculatePagination();
+    this.filterAndPaginate();
   }
 
-  // UI methods
-  toggleMobileFilters(): void {
-    this.showMobileFilters = !this.showMobileFilters;
+  private getCategoryIdByName(categoryName: string): number {
+    const category = this.categoryList.find((cat) => cat.name === categoryName);
+    return category ? category.id : 0;
   }
 
-  getStatusBadgeClass(status: string): string {
-    const baseClasses = 'text-xs font-medium px-2.5 py-0.5 rounded-full';
-    switch (status) {
-      case 'open':
-        return `${baseClasses} bg-green-100 text-green-800`;
-      case 'in_progress':
-        return `${baseClasses} bg-yellow-100 text-yellow-800`;
-      case 'closed':
-        return `${baseClasses} bg-gray-100 text-gray-800`;
-      default:
-        return `${baseClasses} bg-gray-100 text-gray-800`;
-    }
+  paginateResults(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.filteredRequests = this.TutorRequestList.slice(startIndex, endIndex);
   }
 
-  getActionButtonClass(status: string): string {
-    const baseClasses = 'px-4 py-2 rounded-md text-sm transition duration-200';
-    switch (status) {
-      case 'open':
-        return `${baseClasses} bg-teal-600 text-white hover:bg-teal-700`;
-      case 'in_progress':
-        return `${baseClasses} bg-gray-100 text-gray-700 hover:bg-gray-200`;
-      case 'closed':
-        return `${baseClasses} bg-gray-100 text-gray-700 cursor-not-allowed`;
-      default:
-        return `${baseClasses} bg-gray-100 text-gray-700`;
-    }
-  }
+  clearFilters(): void {
+    this.searchTitle = '';
+    this.selectedCategories = [];
+    this.budgetRange = [5, 1000];
+    this.currentPage = 1;
 
-  getActionButtonText(status: string): string {
-    switch (status) {
-      case 'open':
-        return 'Submit Proposal';
-      case 'in_progress':
-        return 'View Details';
-      case 'closed':
-        return 'Closed';
-      default:
-        return 'View Details';
-    }
-  }
+    // Uncheck checkboxes
+    const checkboxes = document.querySelectorAll(
+      'input[type="checkbox"]'
+    ) as NodeListOf<HTMLInputElement>;
+    checkboxes.forEach((checkbox) => (checkbox.checked = false));
 
-  onActionClick(request: LessonRequest): void {
-    if (request.status === 'closed') return;
-
-    if (request.status === 'open') {
-      // Handle proposal submission
-      console.log('Submit proposal for:', request.title);
-      // Navigate to proposal form or open modal
-    } else {
-      // Handle view details
-      console.log('View details for:', request.title);
-      // Navigate to details page
-    }
+    this.filterAndPaginate();
   }
 
   // Pagination methods
-  calculatePagination(): void {
-    this.totalPages = Math.ceil(this.filteredRequests.length / this.itemsPerPage);
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages && page !== this.currentPage) {
+      this.currentPage = page;
+      this.filterAndPaginate();
+    }
   }
 
-  getPageNumbers(): number[] {
-    const pages: number[] = [];
+  getPageNumbers(): (number | string)[] {
+    const pages: (number | string)[] = [];
     const maxVisiblePages = 5;
-    let startPage = Math.max(1, this.currentPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(this.totalPages, startPage + maxVisiblePages - 1);
 
-    if (endPage - startPage + 1 < maxVisiblePages) {
-      startPage = Math.max(1, endPage - maxVisiblePages + 1);
-    }
+    if (this.totalPages <= maxVisiblePages) {
+      // Show all pages if total is small
+      for (let i = 1; i <= this.totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      // Show first page
+      pages.push(1);
 
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(i);
+      if (this.currentPage > 3) {
+        pages.push('...');
+      }
+
+      // Show pages around current page
+      const start = Math.max(2, this.currentPage - 1);
+      const end = Math.min(this.totalPages - 1, this.currentPage + 1);
+
+      for (let i = start; i <= end; i++) {
+        if (i !== 1 && i !== this.totalPages) {
+          pages.push(i);
+        }
+      }
+
+      if (this.currentPage < this.totalPages - 2) {
+        pages.push('...');
+      }
+
+      // Show last page
+      if (this.totalPages > 1) {
+        pages.push(this.totalPages);
+      }
     }
 
     return pages;
   }
 
-  goToPage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-    }
-  }
-
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
-  }
-
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-    }
-  }
-
-  // Utility methods
-  trackByRequestId(index: number, request: LessonRequest): number {
-    return request.id;
+  // Helper method for template
+  isCurrentPage(page: number | string): boolean {
+    return page === this.currentPage;
   }
 }
