@@ -72,7 +72,7 @@
         </div>
 
         <!-- Proposals -->
-<h3 class="text-lg font-semibold mt-8 mb-4">Proposals ({{ metadata?.totalCount || 0 }})</h3>
+<h3 class="text-lg font-semibold mt-8 mb-4">Proposals ({{ metadata.totalCount || 0 }})</h3>
 
 <div *ngIf="proposals.length > 0; else noProposals" class="space-y-6">
   <div class="border p-4 rounded-lg" *ngFor="let proposal of proposals">
@@ -121,12 +121,15 @@
 
       <!-- Side Section -->
       <div class="space-y-6">
-        <div class="bg-white p-6 rounded-lg shadow-sm">
-          <button class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-3 rounded-lg hover:from-emerald-600 hover:to-teal-600 flex items-center justify-center space-x-2">
-            <span class="material-icons">add</span>
-            <span>Submit a Proposal</span>
-          </button>
-        </div>
+        @if (userData.role==='Instructor') {
+          <div  class="bg-white p-6 rounded-lg shadow-sm">
+            <button routerLink="/proposal-form/{{ request.id }}" class="w-full cursor-pointer bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-3 rounded-lg hover:from-emerald-600 hover:to-teal-600 flex items-center justify-center space-x-2">
+              <span class="material-icons">add</span>
+              <span>Submit a Proposal</span>
+            </button>
+          </div>
+
+        }
 
         <!-- About Client -->
         <div class="bg-white p-6 rounded-lg shadow-sm">

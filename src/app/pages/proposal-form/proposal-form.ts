@@ -13,6 +13,7 @@ import {
 import { LoginService } from '../../core/services/auth/login/login-service';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { STutorRequestDetails } from '../../core/services/TutorRequestDetails/stutor-request-details';
  
 
 @Component({
@@ -26,6 +27,7 @@ export class ProposalForm implements OnInit {
   private route = inject(ActivatedRoute);
   private proposalService = inject(ProposalService);
   private loginService = inject(LoginService);
+  private _stutorRequestService = inject(STutorRequestDetails);
 
   protected form!: FormGroup;
   protected tutorRequestId!: number;
@@ -33,32 +35,61 @@ export class ProposalForm implements OnInit {
   protected selectedFile: File | null = null;
   protected isSubmitting = false;
   protected isDragOver = false;
-  protected suggestedPrices = [15, 20, 25, 30, 35, 40, 50];
- 
+
+  minBudget!: number;
+  maxBudget!: number;
+
   router = inject(Router);
 
   ngOnInit(): void {
     this.tutorRequestId = Number(this.route.snapshot.paramMap.get('id'));
     this.initializeForm();
+    this._stutorRequestService.getTutorRequest(this.tutorRequestId).subscribe({
+      next: (data) => {
+        this.minBudget = data.minBudget;
+        this.maxBudget = data.maxBudget;
+        const priceControl = this.form.get('priceOffered');
+        priceControl?.setValidators([
+          Validators.required,
+          this.minBudgetValidator.bind(this),
+          this.maxBudgetValidator.bind(this),
+          this.priceValidator,
+        ]);
+        priceControl?.updateValueAndValidity();
+      },
+      error: (err) => {
+        console.error('Failed to load tutor request:', err);
+      },
+    });
   }
 
   private initializeForm(): void {
     this.form = this.fb.group({
       videoFile: [null, [Validators.required, this.fileValidator.bind(this)]],
       message: ['', [Validators.required, Validators.minLength(20)]],
-      priceOffered: [
-        null,
-        [
-          Validators.required,
-          Validators.min(5),
-          Validators.max(200),
-          this.priceValidator,
-        ],
-      ],
+      priceOffered: [null, [Validators.required, this.priceValidator]],
       availableDateTimeList: this.fb.array([
         this.fb.control('', [Validators.required, this.futureDateValidator]),
       ]),
     });
+  }
+
+  private minBudgetValidator(
+    control: AbstractControl
+  ): ValidationErrors | null {
+    if (this.minBudget && control.value && control.value < this.minBudget) {
+      return { belowMinBudget: true };
+    }
+    return null;
+  }
+
+  private maxBudgetValidator(
+    control: AbstractControl
+  ): ValidationErrors | null {
+    if (this.maxBudget && control.value && control.value > this.maxBudget) {
+      return { aboveMaxBudget: true };
+    }
+    return null;
   }
 
   // Custom Validators
@@ -184,10 +215,7 @@ export class ProposalForm implements OnInit {
     this.form.get('videoFile')?.updateValueAndValidity();
   }
 
-  setSuggestedPrice(price: number): void {
-    this.form.patchValue({ priceOffered: price });
-    this.form.get('priceOffered')?.markAsTouched();
-  }
+  
 
   formatFileSize(bytes: number): string {
     if (bytes === 0) return '0 Bytes';
@@ -248,8 +276,10 @@ export class ProposalForm implements OnInit {
     const control = this.form.get('priceOffered');
     if (control?.errors) {
       if (control.errors['required']) return 'Price is required';
-      if (control.errors['tooLow']) return 'Price must be at least $5 per hour';
-      if (control.errors['tooHigh']) return 'Price cannot exceed $200 per hour';
+      if (control.errors['belowMinBudget'])
+        return `Price must be at least $${this.minBudget} (minimum budget)`;
+      if (control.errors['aboveMaxBudget'])
+        return `Price cannot exceed $${this.maxBudget} (maximum budget)`;
       if (control.errors['tooManyDecimals'])
         return 'Price can have at most 2 decimal places';
     }
@@ -280,7 +310,6 @@ export class ProposalForm implements OnInit {
     formData.append('InstructorId', this.user.nameid);
     formData.append('VideoFile', this.form.value.videoFile);
     formData.append('Message', this.form.value.message);
-    formData.append('PriceOffered', this.form.value.priceOffered.toString());
 
     this.availableDateTimeList.controls.forEach((ctrl, index) => {
       formData.append(`AvailableDateTimeList[${index}]`, ctrl.value);
@@ -291,16 +320,16 @@ export class ProposalForm implements OnInit {
         console.log('Proposal submitted successfully', res);
         this.handleSubmissionSuccess();
         Swal.fire({
-                  toast: true,
-                  position: 'top-end',
-                  icon: 'success',
-                  title: 'Request submitted successfully ✅',
-                  showConfirmButton: false,
-                  timer: 2000,
-                  timerProgressBar: true,
-                }).then(() => {
-                  this.router.navigate(['/services']);
-                });
+          toast: true,
+          position: 'top-end',
+          icon: 'success',
+          title: 'Request submitted successfully ✅',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+        }).then(() => {
+          this.router.navigate(['/services']);
+        });
       },
       error: (err) => {
         console.error('Error submitting proposal', err);

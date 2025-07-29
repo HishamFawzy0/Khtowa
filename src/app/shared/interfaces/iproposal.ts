@@ -10,14 +10,3 @@ export interface IProposal {
 }
 
 // shared/interfaces/pagination.ts
-export interface Metadata {
-  currentPage: number;
-  totalCount: number;
-  pageSize: number;
-  totalPages: number;
-}
-
-export interface PaginationResult<T> {
-  metadata: Metadata;
-  items: T[];
-}

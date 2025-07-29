@@ -9,3 +9,4 @@ export interface PaginationResult<T>  {
   metadata: Pagination;
   items: T[];
 };
+ 
