@@ -1,6 +1,6 @@
 <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
     <!-- Header with gradient background matching the theme -->
- 
+
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-emerald-50 to-teal-50 py-16">
         <div class="container mx-auto px-6 text-center">
@@ -82,7 +82,7 @@
                     </div>
 
                     <!-- Budget Range Filter -->
-                    
+
 
                     <!-- Clear Filters Button -->
                     <button (click)="clearFilters()"
@@ -125,10 +125,10 @@
                                 <div class="flex-1">
                                     <!-- Title and Status -->
                                     <div class="flex items-start justify-between mb-3">
-                                        <h3
+                                        <a [routerLink]="['/TutorRequestDetails', request.id]"
                                             class="text-xl font-bold text-gray-800 hover:text-emerald-600 transition-colors cursor-pointer">
                                             {{ request.title }}
-                                        </h3>
+                                        </a>
                                         <span class="ml-4 flex-shrink-0 text-xs font-semibold px-3 py-1 rounded-full"
                                             [ngClass]="{
                                                 'bg-emerald-100 text-emerald-700': request.status === 'OpenForApply',
