@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProposalService } from '../../core/services/proposal/proposal-service';
 import {
   FormArray,
@@ -12,6 +12,8 @@ import {
 } from '@angular/forms';
 import { LoginService } from '../../core/services/auth/login/login-service';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+ 
 
 @Component({
   selector: 'app-proposal-form',
@@ -32,6 +34,8 @@ export class ProposalForm implements OnInit {
   protected isSubmitting = false;
   protected isDragOver = false;
   protected suggestedPrices = [15, 20, 25, 30, 35, 40, 50];
+ 
+  router = inject(Router);
 
   ngOnInit(): void {
     this.tutorRequestId = Number(this.route.snapshot.paramMap.get('id'));
@@ -286,6 +290,17 @@ export class ProposalForm implements OnInit {
       next: (res) => {
         console.log('Proposal submitted successfully', res);
         this.handleSubmissionSuccess();
+        Swal.fire({
+                  toast: true,
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'Request submitted successfully ✅',
+                  showConfirmButton: false,
+                  timer: 2000,
+                  timerProgressBar: true,
+                }).then(() => {
+                  this.router.navigate(['/services']);
+                });
       },
       error: (err) => {
         console.error('Error submitting proposal', err);
