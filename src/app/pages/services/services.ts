@@ -24,7 +24,7 @@ export interface TutorRequestFilter {
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [CommonModule, FormsModule , RouterLink, RouterModule],
+  imports: [CommonModule, FormsModule, RouterLink, RouterModule],
 
   templateUrl: 'services.html',
   styleUrls: ['services.css'],
@@ -61,7 +61,7 @@ export class Services implements OnInit {
 
   ngOnInit(): void {
     this.loadCategories();
-    this.loadAllTutorRequests();
+    this.loadTutorRequests();
   }
 
   loadCategories(): void {
@@ -76,29 +76,36 @@ export class Services implements OnInit {
     });
   }
 
-  loadAllTutorRequests(): void {
+  totalCount!: number;
+
+  loadTutorRequests(): void {
     this.isLoading = true;
 
-    // نجيب أول صفحة فقط عشان ترجع metadata + نجيب كل العناصر
-    this.getTutorRequests
-      .GetTutorRequests({
-        pageNumber: 1,
-        pageSize: 1000, // كبير عشان نجيب كل العناصر
-      })
-      .subscribe({
-        next: (data) => {
-          this.allTutorRequests = data.items;
-          this.totalItems = data.items.length;
-          this.filterAndPaginate();
-          this.isLoading = false;
-        },
-        error: (err) => {
-          console.error('Error fetching tutor requests:', err);
-          this.allTutorRequests = [];
-          this.filteredRequests = [];
-          this.isLoading = false;
-        },
-      });
+    const filter: TutorRequestFilter = {
+      pageNumber: this.currentPage,
+      pageSize: this.pageSize,
+      title: this.searchTitle.trim() || undefined,
+      categoryIds:
+        this.selectedCategories.length > 0
+          ? this.selectedCategories
+          : undefined,
+    };
+
+    this.getTutorRequests.GetTutorRequests(filter).subscribe({
+      next: (data) => {
+        this.TutorRequestList = data.items;
+        this.filteredRequests = data.items;
+        this.totalItems = data.metadata.totalCount;
+        this.totalPages = data.metadata.totalPages;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching tutor requests:', err);
+        this.TutorRequestList = [];
+        this.filteredRequests = [];
+        this.isLoading = false;
+      },
+    });
   }
 
   filterAndPaginate(): void {
@@ -131,21 +138,21 @@ export class Services implements OnInit {
   }
 
   onCategoryChange(event: any): void {
-    const categoryId = parseInt(event.target.value);
-    if (event.target.checked) {
-      this.selectedCategories.push(categoryId);
-    } else {
-      this.selectedCategories = this.selectedCategories.filter(
-        (id) => id !== categoryId
-      );
-    }
-    this.currentPage = 1;
-    this.filterAndPaginate();
+      const categoryId = parseInt(event.target.value);
+      if (event.target.checked) {
+        this.selectedCategories.push(categoryId);
+      } else {
+        this.selectedCategories = this.selectedCategories.filter(
+          (id) => id !== categoryId
+        );
+      }
+      this.currentPage = 1;
+      this.loadTutorRequests();
   }
 
   applyFilters(): void {
-    this.currentPage = 1;
-    this.filterAndPaginate();
+      this.currentPage = 1;
+      this.loadTutorRequests();
   }
 
   private getCategoryIdByName(categoryName: string): number {
@@ -160,25 +167,24 @@ export class Services implements OnInit {
   }
 
   clearFilters(): void {
-    this.searchTitle = '';
-    this.selectedCategories = [];
-    this.budgetRange = [5, 1000];
-    this.currentPage = 1;
+     this.searchTitle = '';
+     this.selectedCategories = [];
+     this.budgetRange = [5, 1000];
+     this.currentPage = 1;
 
-    // Uncheck checkboxes
-    const checkboxes = document.querySelectorAll(
-      'input[type="checkbox"]'
-    ) as NodeListOf<HTMLInputElement>;
-    checkboxes.forEach((checkbox) => (checkbox.checked = false));
+     const checkboxes = document.querySelectorAll(
+       'input[type="checkbox"]'
+     ) as NodeListOf<HTMLInputElement>;
+     checkboxes.forEach((checkbox) => (checkbox.checked = false));
 
-    this.filterAndPaginate();
+     this.loadTutorRequests();
   }
 
   // Pagination methods
   goToPage(page: number): void {
     if (page >= 1 && page <= this.totalPages && page !== this.currentPage) {
       this.currentPage = page;
-      this.filterAndPaginate();
+      this.loadTutorRequests();
     }
   }
 
