@@ -4,7 +4,7 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpParams  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PaginationResult } from '../../../shared/interfaces/pagination';
-import { IProposal ,Metadata} from '../../../shared/interfaces/iproposal';
+import { IProposal } from '../../../shared/interfaces/iproposal';
 import { PagingParams } from '../../../shared/interfaces/paging-params';
 @Injectable({
   providedIn: 'root'
@@ -30,5 +30,5 @@ getTutorRequest(id: number): Observable<TutorRequest> {
   );
 }
 }
-  
+
 
