@@ -6,18 +6,21 @@ import { Registertype } from './pages/registertype/registertype';
 import { authGuard } from './core/guards/auth/auth-guard';
 import { StudentReq } from './pages/student-req/student-req';
 import { ProposalForm } from './pages/proposal-form/proposal-form';
+import{TutorRequestDetails} from './pages/tutor-request-details/tutor-request-details' ;
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'tutors', pathMatch: 'full' },
   { path: 'tutors', component: Tutors, canActivate: [authGuard] }, // Add guards if needed
   { path: 'services', component: Services, canActivate: [authGuard] },
   { path: 'student-req', component: StudentReq, canActivate: [authGuard] },
-  
+
+  { path: 'TutorRequestDetails/:id', component: TutorRequestDetails, canActivate: [authGuard] },
+
   { path: 'proposal-form/:id', component: ProposalForm, canActivate: [authGuard] },
 
   { path: 'login', component: Login },
   { path: 'register', component: Registertype },
-  
-  { path: '**', redirectTo: 'tutors', pathMatch: 'full' },
 
+  { path: '**', redirectTo: 'tutors', pathMatch: 'full' },
 ];

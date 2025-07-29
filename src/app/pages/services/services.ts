@@ -7,7 +7,7 @@ import { TutorRequestService } from '../../core/services/tutorRequest/tutor-requ
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-
+import { RouterModule } from '@angular/router';
 
 
 export interface TutorRequestFilter {
@@ -24,7 +24,8 @@ export interface TutorRequestFilter {
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [CommonModule, FormsModule , RouterLink],
+  imports: [CommonModule, FormsModule , RouterLink, RouterModule],
+
   templateUrl: 'services.html',
   styleUrls: ['services.css'],
 })
