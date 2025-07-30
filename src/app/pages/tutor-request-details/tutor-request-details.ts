@@ -18,10 +18,11 @@ import { UserDecodedToken } from '../../shared/interfaces/user-decoded-token';
 export class TutorRequestDetails implements OnInit {
   id!: number;
   request: TutorRequest | null = null;
-  proposals: IProposal[] = [];
+  proposals!: IProposal[] ;
   totalProposals: number = 0;
   currentPage: number = 1; 
   pageSize: number = 5;
+  
   metadata: Pagination={
     currentPage: 1,
     pageSize: 5,
