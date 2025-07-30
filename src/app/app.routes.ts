@@ -7,6 +7,7 @@ import { authGuard } from './core/guards/auth/auth-guard';
 import { StudentReq } from './pages/student-req/student-req';
 import { ProposalForm } from './pages/proposal-form/proposal-form';
 import{TutorRequestDetails} from './pages/tutor-request-details/tutor-request-details' ;
+import { MyRequests } from './pages/my-requests/my-requests';
 
 
 export const routes: Routes = [
@@ -16,8 +17,9 @@ export const routes: Routes = [
   { path: 'student-req', component: StudentReq, canActivate: [authGuard] },
 
   { path: 'TutorRequestDetails/:id', component: TutorRequestDetails, canActivate: [authGuard] },
-
+  
   { path: 'proposal-form/:id', component: ProposalForm, canActivate: [authGuard] },
+  {path:'my-requests/:id',component:MyRequests,canActivate:[authGuard]},
 
   { path: 'login', component: Login },
   { path: 'register', component: Registertype },

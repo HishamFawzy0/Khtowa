@@ -1,0 +1,212 @@
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50">
+    <!-- Hero Header Section -->
+    <div class="bg-gradient-to-r from-emerald-500 to-teal-500 relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/10"></div>
+        <div class="relative px-6 md:px-12 py-16">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-8">
+                    <!-- Title Section -->
+                    <div class="text-white">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                            </div>
+                            <h1 class="text-4xl lg:text-5xl font-bold tracking-tight">My Requests</h1>
+                        </div>
+                        <p class="text-xl text-emerald-100 font-medium max-w-2xl">
+                            Track and manage your tutoring requests with ease. Stay organized and never miss an
+                            opportunity.
+                        </p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-white/10 -translate-y-48 translate-x-48"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-teal-400/20 translate-y-32 -translate-x-32">
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-6 md:px-12 py-12">
+        <!-- Stats/Info Section -->
+        <div class="mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 bg-emerald-100 rounded-xl">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-gray-800">{{ totalItems }}</p>
+                            <p class="text-gray-600 font-medium">Total Requests</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 bg-blue-100 rounded-xl">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-gray-800">{{ currentPage }}</p>
+                            <p class="text-gray-600 font-medium">Current Page</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 bg-purple-100 rounded-xl">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-gray-800">{{ requestList.length }}</p>
+                            <p class="text-gray-600 font-medium">Active Now</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Request Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-12">
+            @for (item of requestList; track $index) {
+            <div
+                class="group bg-white rounded-3xl shadow-sm hover:shadow-xl border border-gray-100 overflow-hidden transition-all duration-500 hover:-translate-y-2">
+                <!-- Card Header -->
+                <div class="bg-gradient-to-r from-emerald-500 to-teal-500 p-6 text-white relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 rounded-full bg-white/10 -translate-y-16 translate-x-16">
+                    </div>
+                    <div class="relative">
+                        <h2 class="text-xl font-bold mb-2 line-clamp-2">{{ item.title }}</h2>
+                        <div class="flex items-center gap-2 text-emerald-100">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="text-sm font-medium">Posted 3 days ago</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Content -->
+                <div class="p-6 flex-grow">
+                    <p class="text-gray-600 mb-6 line-clamp-3 leading-relaxed">{{ item.description }}</p>
+
+                    <!-- Date Information -->
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center gap-3 text-sm">
+                            <div class="flex items-center gap-2 text-emerald-600">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span class="font-medium">Start:</span>
+                            </div>
+                            <span class="text-gray-700 font-semibold">{{ item.startDateTime | date: 'MMM dd, yyyy'
+                                }}</span>
+                        </div>
+
+                        <div class="flex items-center gap-3 text-sm">
+                            <div class="flex items-center gap-2 text-teal-600">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span class="font-medium">End:</span>
+                            </div>
+                            <span class="text-gray-700 font-semibold">{{ item.endDateTime | date: 'MMM dd, yyyy'
+                                }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Status and Action -->
+                    <div class="flex items-center justify-between">
+                        <span
+                            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border {{ getStatusBadgeClass(item.status) }}">
+                            {{ item.status }}
+                        </span>
+
+                        <a routerLink="/TutorRequestDetails/{{ item.id }}"
+                            class="group/btn inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-semibold text-sm transition-all duration-300">
+                            <span>View Details</span>
+                            <svg class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+
+        <!-- Enhanced Pagination -->
+        @if (totalPages > 1) {
+        <div class="flex flex-col items-center space-y-6">
+            <div class="text-center">
+                <p class="text-gray-600">
+                    Showing <span class="font-semibold text-emerald-600">{{ startItem }}</span>
+                    to
+                    <span class="font-semibold text-emerald-600">{{ endItem }}</span> of
+                    <span class="font-semibold text-emerald-600">{{ totalItems }}</span> results
+                </p>
+            </div> 
+
+            <div class="flex items-center space-x-2">
+                <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1"
+                    class="group flex items-center justify-center w-12 h-12 rounded-2xl border-2 border-gray-200 text-gray-600 hover:border-emerald-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-gray-200 disabled:hover:text-gray-600 disabled:hover:bg-transparent">
+                    <svg class="w-5 h-5 group-hover:-translate-x-0.5 transition-transform duration-300" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+
+                @for (page of getPageNumbers(); track $index) {
+                @if (page === '...') {
+                <span class="flex items-center justify-center w-12 h-12 text-gray-400 font-semibold">...</span>
+                } @else {
+                <button (click)="goToPage(+page)"
+                    [class]="page === currentPage 
+                        ? 'flex items-center justify-center w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-2xl shadow-lg font-bold transform scale-110 transition-all duration-300' 
+                        : 'flex items-center justify-center w-12 h-12 border-2 border-gray-200 rounded-2xl text-gray-600 hover:border-emerald-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-300 font-semibold hover:scale-105'">
+                    {{ page }}
+                </button>
+                }
+                }
+
+                <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages"
+                    class="group flex items-center justify-center w-12 h-12 rounded-2xl border-2 border-gray-200 text-gray-600 hover:border-emerald-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-gray-200 disabled:hover:text-gray-600 disabled:hover:bg-transparent">
+                    <svg class="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-300" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        }
+    </div>
+</div>
