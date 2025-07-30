@@ -60,6 +60,8 @@ export class TutorRequestDetails implements OnInit {
       .subscribe((res) => {
         this.proposals = res.items;
         this.metadata = res.metadata;
+        console.log(res);
+        
       });
   }
   changePage(page: number): void {
