@@ -24,6 +24,7 @@ export class Navbar {
       this.flag = localStorage.getItem('authToken') !== null;
       if (this.auth.isLoggedIn) {
         this.userData = this.auth.userData;
+        
       }
     }
   }
