@@ -9,6 +9,7 @@ import { ProposalForm } from './pages/proposal-form/proposal-form';
 import{TutorRequestDetails} from './pages/tutor-request-details/tutor-request-details' ;
 import { MyRequests } from './pages/my-requests/my-requests';
 import { Chat } from './pages/chat/chat';
+import { Meeting } from './pages/meeting/meeting';
 
 
 export const routes: Routes = [
@@ -23,6 +24,7 @@ export const routes: Routes = [
   
   { path: 'proposal-form/:id', component: ProposalForm, canActivate: [authGuard] },
   {path:'my-requests/:id',component:MyRequests,canActivate:[authGuard]},
+  {path:'meeting/:id',component:Meeting,canActivate:[authGuard]},
 
   { path: 'login', component: Login },
   { path: 'register', component: Registertype },

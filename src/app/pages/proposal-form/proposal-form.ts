@@ -310,7 +310,7 @@ export class ProposalForm implements OnInit {
     formData.append('InstructorId', this.user.nameid);
     formData.append('VideoFile', this.form.value.videoFile);
     formData.append('Message', this.form.value.message);
-
+    formData.append('PriceOffered', this.form.value.priceOffered);
     this.availableDateTimeList.controls.forEach((ctrl, index) => {
       formData.append(`AvailableDateTimeList[${index}]`, ctrl.value);
     });

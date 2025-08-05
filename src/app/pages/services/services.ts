@@ -9,7 +9,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { RouterModule } from '@angular/router';
 
-
 export interface TutorRequestFilter {
   pageNumber: number;
   pageSize: number;
@@ -18,8 +17,6 @@ export interface TutorRequestFilter {
   minBudget?: number;
   maxBudget?: number;
 }
-
-
 
 @Component({
   selector: 'app-services',
@@ -84,20 +81,21 @@ export class Services implements OnInit {
     const filter: TutorRequestFilter = {
       pageNumber: this.currentPage,
       pageSize: this.pageSize,
-      title: this.searchTitle.trim() || undefined,
-      categoryIds:
-        this.selectedCategories.length > 0
-          ? this.selectedCategories
-          : undefined,
+      categoryIds: this.selectedCategories.length
+        ? this.selectedCategories
+        : undefined,
     };
+
+    console.log('📦 API Filter:', filter);
 
     this.getTutorRequests.GetTutorRequests(filter).subscribe({
       next: (data) => {
-        this.TutorRequestList = data.items;
-        this.filteredRequests = data.items;
+        this.allTutorRequests = data.items; // ✅ تخزين كل الطلبات
         this.totalItems = data.metadata.totalCount;
         this.totalPages = data.metadata.totalPages;
         this.isLoading = false;
+
+        this.filterAndPaginate(); // ✅ فلترة بعد التحميل
       },
       error: (err) => {
         console.error('Error fetching tutor requests:', err);
@@ -122,8 +120,6 @@ export class Services implements OnInit {
           this.getCategoryIdByName(item.categoryName)
         );
 
-      // ❌ Remove matchBudget logic completely
-
       return matchTitle && matchCategory;
     });
 
@@ -138,21 +134,22 @@ export class Services implements OnInit {
   }
 
   onCategoryChange(event: any): void {
-      const categoryId = parseInt(event.target.value);
-      if (event.target.checked) {
-        this.selectedCategories.push(categoryId);
-      } else {
-        this.selectedCategories = this.selectedCategories.filter(
-          (id) => id !== categoryId
-        );
-      }
-      this.currentPage = 1;
-      this.loadTutorRequests();
+    const categoryId = parseInt(event.target.value);
+    if (event.target.checked) {
+      this.selectedCategories.push(categoryId);
+    } else {
+      this.selectedCategories = this.selectedCategories.filter(
+        (id) => id !== categoryId
+      );
+    }
+
+    this.currentPage = 1;
+    this.filterAndPaginate(); // ✅ فلترة محلية
   }
 
   applyFilters(): void {
-      this.currentPage = 1;
-      this.loadTutorRequests();
+    this.currentPage = 1;
+    this.filterAndPaginate(); // ✅ فلترة محلية بدون API call
   }
 
   private getCategoryIdByName(categoryName: string): number {
@@ -167,17 +164,22 @@ export class Services implements OnInit {
   }
 
   clearFilters(): void {
-     this.searchTitle = '';
-     this.selectedCategories = [];
-     this.budgetRange = [5, 1000];
-     this.currentPage = 1;
+    this.searchTitle = '';
+    this.selectedCategories = [];
+    this.budgetRange = [5, 1000];
+    this.currentPage = 1;
 
-     const checkboxes = document.querySelectorAll(
-       'input[type="checkbox"]'
-     ) as NodeListOf<HTMLInputElement>;
-     checkboxes.forEach((checkbox) => (checkbox.checked = false));
+    const checkboxes = document.querySelectorAll(
+      'input[type="checkbox"]'
+    ) as NodeListOf<HTMLInputElement>;
+    checkboxes.forEach((checkbox) => (checkbox.checked = false));
 
-     this.loadTutorRequests();
+    this.filterAndPaginate(); // ✅ تصفية محلية بدون API call
+  }
+
+  onSearchChange(): void {
+    this.currentPage = 1;
+    this.filterAndPaginate();
   }
 
   // Pagination methods

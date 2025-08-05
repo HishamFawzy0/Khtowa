@@ -2,7 +2,8 @@ import { RegisterService } from './../../core/services/auth/register/register-se
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { log } from 'node:console';
 
 @Component({
   selector: 'app-registertype',
@@ -19,6 +20,8 @@ export class Registertype {
   registerFormStudent!: FormGroup;
   registerFormInstructor!: FormGroup;
 
+  route=inject(Router)
+
   isLoading = signal(false);
 
   _RegisterService = inject(RegisterService);
@@ -29,6 +32,8 @@ export class Registertype {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
+    
+    
     this.registerFormStudent = this.fb.group({
       displayName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
@@ -42,6 +47,9 @@ export class Registertype {
       ],
 
       confirmPassword: ['', [Validators.required]],
+
+      
+      
     });
 
     // Instructor/Freelancer form - additional fields
@@ -67,6 +75,10 @@ export class Registertype {
     setTimeout(() => {
       this.currentStep.set('form');
     }, 300);
+
+
+    console.log();
+    
   }
 
   goBack() {
@@ -102,7 +114,9 @@ export class Registertype {
         this._RegisterService.registerStudent(studentData).subscribe({
           next: (response) => {
             console.log('Student registration successful:', response);
+
             this.isLoading.set(false);
+            this.route.navigate(['/login']);
           },
           error: (error) => {
             this.isLoading.set(false);
@@ -123,6 +137,7 @@ export class Registertype {
           next: (response) => {
             console.log('Instructor registration successful:', response);
             this.isLoading.set(false);
+            this.route.navigate(['/login']);
           },
           error: (error) => {
             this.isLoading.set(false);

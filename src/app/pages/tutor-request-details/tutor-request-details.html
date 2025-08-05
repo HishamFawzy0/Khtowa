@@ -12,10 +12,8 @@
   <div class="container mx-auto p-4 md:p-8 -mt-6 relative z-10">
     <!-- Main Content -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8" *ngIf="request">
-
       <!-- Left Side - Main Content (2 columns) -->
-      <div class="lg:col-span-2 space-y-6">
-
+      <div class="lg:col-span-2 space-y-8">
         <!-- Main Request Card -->
         <div
           class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300">
@@ -50,7 +48,6 @@
               </button>
             </div>
           </div>
-
           <div class="mt-8">
             <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
               <span class="material-icons text-emerald-500 mr-2">description</span>
@@ -69,7 +66,7 @@
             <span class="material-icons text-emerald-500 mr-3 text-3xl">info</span>
             Request Details
           </h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div
               class="group p-6 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 hover:shadow-lg transition-all duration-300">
               <div class="flex items-center mb-3">
@@ -83,7 +80,6 @@
                 </div>
               </div>
             </div>
-
             <div
               class="group p-6 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 hover:shadow-lg transition-all duration-300">
               <div class="flex items-center mb-3">
@@ -127,7 +123,7 @@
           </div>
         </div>
 
-        <!-- Proposals Section -->
+        <!-- Enhanced Proposals Section -->
         <div
           class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300">
           <div class="flex items-center justify-between mb-8">
@@ -141,103 +137,237 @@
           </div>
 
           @if (proposals && proposals.length > 0) {
-          <div class="space-y-6">
+          <div class="space-y-8">
+            @for (proposal of proposals; track $index) {
+            <!-- Enhanced Proposal Card -->
             <div
-              class="group border border-gray-200 p-6 rounded-2xl hover:shadow-xl hover:border-emerald-200 transition-all duration-300 bg-gradient-to-r from-white to-gray-50"
-              *ngFor="let proposal of proposals">
-              <div class="flex flex-col sm:flex-row justify-between items-start gap-4">
-                <div class="flex items-center gap-4 flex-1">
-                  <div class="relative">
-                    <div
-                      class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-200">
-                      <span class="material-icons text-white text-2xl">person</span>
-                    </div>
-                    <div
-                      class="absolute -bottom-1 -right-1 w-6 h-6 bg-emerald-400 rounded-full border-2 border-white flex items-center justify-center">
-                      <span class="material-icons text-white text-xs">verified</span>
-                    </div>
-                  </div>
-                  <div>
-                    <h4
-                      class="text-xl font-bold text-gray-900 group-hover:text-emerald-600 transition-colors duration-200">
-                      {{ proposal.instructorDisplayName }}
-                    </h4>
-                    <p class="text-sm text-gray-500 font-medium">Professional Tutor</p>
-                    <div class="flex items-center mt-1">
-                      <div class="flex text-yellow-400">
-                        <span class="material-icons text-sm">star</span>
-                        <span class="material-icons text-sm">star</span>
-                        <span class="material-icons text-sm">star</span>
-                        <span class="material-icons text-sm">star</span>
-                        <span class="material-icons text-sm">star</span>
+              class="group relative bg-white border-2 border-gray-100 rounded-3xl shadow-lg hover:shadow-2xl hover:border-emerald-200 transition-all duration-500 overflow-hidden">
+              <!-- Gradient accent line -->
+              <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 to-teal-500"></div>
+
+              <div class="p-8">
+                <!-- Header Section -->
+                <div class="flex flex-col lg:flex-row gap-6 mb-8">
+                  <!-- Instructor Profile -->
+                  <div class="flex items-start gap-4 flex-1">
+                    <div class="relative flex-shrink-0">
+                      <div
+                        class="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
+                        <span class="material-icons text-white text-3xl">person</span>
                       </div>
-                      <span class="text-sm text-gray-500 ml-2">(4.9)</span>
+                      <div
+                        class="absolute -bottom-2 -right-2 w-8 h-8 bg-emerald-400 rounded-full border-3 border-white flex items-center justify-center shadow-lg">
+                        <span class="material-icons text-white text-sm">verified</span>
+                      </div>
+                    </div>
+
+                    <div class="flex-1">
+                      <h4
+                        class="text-2xl font-bold text-gray-900 group-hover:text-emerald-600 transition-colors duration-300 mb-1">
+                        {{ proposal.instructorDisplayName }}
+                      </h4>
+                      <p class="text-emerald-600 font-semibold mb-2">Professional Tutor</p>
+
+                      <!-- Rating -->
+                      <div class="flex items-center gap-2 mb-3">
+                        <div class="flex text-yellow-400">
+                          <span class="material-icons text-lg">star</span>
+                          <span class="material-icons text-lg">star</span>
+                          <span class="material-icons text-lg">star</span>
+                          <span class="material-icons text-lg">star</span>
+                          <span class="material-icons text-lg">star</span>
+                        </div>
+                        <span class="text-sm text-gray-600 font-medium">(4.9)</span>
+                        <span class="text-gray-300">•</span>
+                        <span class="text-sm text-gray-500">127 reviews</span>
+                      </div>
+
+                      <!-- Skills/Tags -->
+                      <div class="flex flex-wrap gap-2">
+                        <span
+                          class="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-full">Expert
+                          Level</span>
+                        <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-semibold rounded-full">5+
+                          Years</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">Top
+                          Rated</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Price and Time Info -->
+                  <div class="flex flex-col sm:flex-row lg:flex-col gap-4 lg:text-right">
+                    <div class="bg-gradient-to-br from-emerald-50 to-teal-50 p-4 rounded-2xl border border-emerald-100">
+                      <div class="flex items-center gap-2 lg:justify-end mb-1">
+                        <span class="material-icons text-emerald-500 text-xl">monetization_on</span>
+                        <span class="text-sm text-emerald-600 font-medium uppercase tracking-wide">Proposed Rate</span>
+                      </div>
+                      <p class="text-3xl font-bold text-emerald-700">${{ proposal.priceOffered }}</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-teal-50 to-emerald-50 p-4 rounded-2xl border border-teal-100">
+                      <div class="flex items-center gap-2 lg:justify-end mb-1">
+                        <span class="material-icons text-teal-500 text-xl">access_time</span>
+                        <span class="text-sm text-teal-600 font-medium uppercase tracking-wide">Available Dates</span>
+                      </div>
+                      <p class="text-lg font-bold text-teal-700">
+                        {{ proposal.availableDateTimeList.length }} slots
+                      </p>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="mt-6 p-4 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl border border-emerald-100">
-                <p class="text-gray-700 leading-relaxed italic">
-                  "{{ proposal.message || 'Looking forward to helping you achieve your learning goals!' }}"
-                </p>
-              </div>
-
-              <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-6">
-                <div class="flex items-center gap-6">
-                  <div class="flex items-center gap-2">
-                    <span class="material-icons text-emerald-500">monetization_on</span>
-                    <span class="text-2xl font-bold text-emerald-600">${{ proposal.priceOffered }}</span>
+                <!-- Available Dates Section -->
+                @if (proposal.availableDateTimeList && proposal.availableDateTimeList.length > 0) {
+                <div class="mb-8">
+                  <div class="flex items-center justify-between mb-4">
+                    <h5 class="text-lg font-semibold text-gray-900 flex items-center">
+                      <span class="material-icons text-emerald-500 mr-2">schedule</span>
+                      Available Time Slots
+                    </h5>
+                    <button (click)="toggleDateSelection($index)"
+                      class="text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1 transition-colors">
+                      <span>{{ expandedProposals[$index] ? 'Hide' : 'Show' }} Dates</span>
+                      <span class="material-icons text-sm transform transition-transform"
+                        [class.rotate-180]="expandedProposals[$index]">expand_more</span>
+                    </button>
                   </div>
-                  <div class="flex items-center gap-2">
-                    <span class="material-icons text-teal-500">access_time</span>
-                    <span class="text-sm text-gray-600 font-medium">
-                      @if (proposal.availableDateTimeList.length > 0) {
-                      {{ proposal.availableDateTimeList[0] | date: 'MMM dd, h:mm a' }}
-                      } @else {
-                      <span class="italic text-gray-400 text-sm">No availability</span>
-                      }
-                    </span> 
+
+                  <!-- Selected Date Display -->
+                  @if (isDateSelected($index)) {
+                  <div
+                    class="mb-4 p-4 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-xl border-2 border-emerald-300">
+                    <div class="flex items-center gap-3">
+                      <span class="material-icons text-emerald-600">check_circle</span>
+                      <div>
+                        <p class="font-semibold text-emerald-800">Selected Date & Time:</p>
+                        <p class="text-emerald-700 text-lg">{{ formatDate(getSelectedDate($index)) }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  } 
+ 
+                  <!-- Date Selection Grid -->
+                  @if (expandedProposals[$index]) {
+                  <div
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    @for (date of proposal.availableDateTimeList; track date) {
+                    <label class="flex items-center gap-3 cursor-pointer p-3 rounded-xl border-2 transition-all duration-300" [class]="selectedDates[proposal.id] === date
+                            ? 'bg-gradient-to-r from-emerald-100 to-teal-100 border-emerald-400'
+                            : 'bg-white border-gray-200 hover:border-emerald-300 hover:bg-emerald-50'">
+                    
+                      <input type="radio" [name]="'date_' + proposal.id" [value]="date" [(ngModel)]="selectedDates[proposal.id]"
+                        class="form-radio text-emerald-600 focus:ring-emerald-500" />
+                    
+                      <div class="flex flex-col">
+                        <span class="font-semibold">{{ date | date: 'EEE, MMM dd' }}</span>
+                        <span class="text-sm text-gray-600">{{ date | date: 'h:mm a' }}</span>
+                      </div>
+                    </label>
+                    }
+                  </div>
+                  }
+                </div>
+                }
+
+                <!-- Proposal Message -->
+                <div class="mb-8">
+                  <h5 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                    <span class="material-icons text-emerald-500 mr-2">format_quote</span>
+                    Proposal Message
+                  </h5>
+                  <div class="bg-gradient-to-r from-gray-50 to-slate-50 p-6 rounded-2xl border border-gray-200">
+                    <p class="text-gray-700 leading-relaxed text-lg italic">
+                      {{ proposal.message || 'Looking forward to helping you achieve your learning goals with my expertise and personalized teaching approach!' }}
+                    </p>
                   </div>
                 </div>
 
-                <div class="flex gap-3"> 
+                <!-- Enhanced Video Section -->
+                <div class="mb-8">
+                  <h5 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                    <span class="material-icons text-emerald-500 mr-2">play_circle</span>
+                    Introduction Video
+                  </h5>
+                  <div class="relative group/video">
+                    <div
+                      class="rounded-2xl overflow-hidden border-2 border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300 bg-black">
+                      <!-- Video Container with improved aspect ratio -->
+                      <div class="relative aspect-video bg-gradient-to-br from-gray-900 to-gray-800">
+                        <iframe [src]="videoUrls[$index]" class="w-full h-full rounded-2xl"
+                          allow="autoplay; fullscreen; encrypted-media; picture-in-picture; web-share" allowfullscreen
+                          frameborder="0" loading="lazy" title="Tutor Introduction Video">
+                        </iframe>
+
+                        <!-- Video overlay for loading state -->
+                        <div
+                          class="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 opacity-0 group-hover/video:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl">
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Video quality indicator -->
+                    <div
+                      class="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+                      HD Quality
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-100">
                   @if (userData.unique_name === request.customerName) {
-                  <button
-                    class="px-6 cursor-pointer py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-xl hover:from-emerald-600 hover:to-teal-600 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 flex items-center gap-2">
-                    <span class="material-icons">check_circle</span>
-                    Accept Proposal
+                  <button (click)="acceptProposal(proposal)" [disabled]="!isDateSelected(proposal.id)"
+                    [class]="isDateSelected(proposal.id) ? 
+                      'flex-1 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-4 px-6 rounded-2xl hover:from-emerald-600 hover:to-teal-600 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3' :
+                      'flex-1 bg-gray-300 text-gray-500 font-bold py-4 px-6 rounded-2xl cursor-not-allowed flex items-center justify-center gap-3'">
+                    <span class="material-icons text-xl">check_circle</span>
+                    <span>{{ isDateSelected(proposal.id) ? 'Accept Proposal' : 'Select Date First' }}</span>
                   </button>
-                  <button 
-                    class="px-6 py-3 border-2 cursor-pointer border-gray-200 text-gray-600 font-semibold rounded-xl hover:border-emerald-300 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 flex items-center gap-2">
-                    <span class="material-icons">message</span>
-                    Message
+
+                  <button
+                    class="flex-1 border-2 border-gray-200 text-gray-700 font-bold py-4 px-6 rounded-2xl hover:border-emerald-300 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-300 flex items-center justify-center gap-3">
+                    <span class="material-icons text-xl">message</span>
+                    Send Message
                   </button>
                   }
+ 
+                  <!-- View Profile Button -->
+                  <button
+                    class="border-2 border-teal-200 text-teal-600 font-semibold py-3 px-6 rounded-2xl hover:border-teal-300 hover:bg-teal-50 transition-all duration-300 flex items-center justify-center gap-2">
+                    <span class="material-icons text-lg">person</span>
+                    View Profile
+                  </button>
                 </div>
               </div>
             </div>
+            }
           </div>
 
           <!-- Enhanced Pagination -->
-          <div class="mt-8 flex justify-center" *ngIf="metadata?.totalPages && metadata.totalPages > 1">
-            <div class="flex items-center gap-2 bg-white p-2 rounded-2xl shadow-lg border border-gray-200">
+          <div class="mt-12 flex justify-center" *ngIf="metadata?.totalPages && metadata.totalPages > 1">
+            <div class="flex items-center gap-2 bg-white p-3 rounded-2xl shadow-lg border border-gray-200">
               <button *ngFor="let page of getPageArray()" (click)="changePage(page)"
-                [class]="page === pageNumber ? 
-                    'px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl shadow-lg font-bold transform scale-105' : 
+                [class]="page === pageNumber ?
+                    'px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl shadow-lg font-bold transform scale-105' :
                     'px-6 py-3 text-gray-600 hover:bg-gray-100 rounded-xl font-semibold transition-all duration-200 hover:scale-105'">
                 {{ page }}
               </button>
             </div>
           </div>
           } @else {
-          <div class="text-center py-16">
+          <!-- Empty State -->
+          <div class="text-center py-20">
             <div
-              class="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center">
+              class="w-32 h-32 mx-auto mb-8 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center">
               <span class="material-icons text-gray-400 text-6xl">assignment</span>
             </div>
-            <h4 class="text-xl font-semibold text-gray-600 mb-2">No Proposals Yet</h4>
-            <p class="text-gray-500">Be the first to submit a proposal for this request!</p>
+            <h4 class="text-2xl font-bold text-gray-600 mb-3">No Proposals Yet</h4>
+            <p class="text-gray-500 text-lg mb-6">Be the first to submit a proposal for this request!</p>
+            <div class="inline-flex items-center gap-2 text-emerald-600 font-medium">
+              <span class="material-icons">info</span>
+              <span>Proposals will appear here once submitted</span>
+            </div>
           </div>
           }
         </div>
@@ -280,7 +410,6 @@
             <h4 class="text-lg font-bold text-gray-900">{{ request.customerName }}</h4>
             <p class="text-sm text-gray-500">Member since 2021</p>
           </div>
-
           <div class="space-y-4">
             <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl">
               <span class="material-icons text-emerald-500">location_on</span>
