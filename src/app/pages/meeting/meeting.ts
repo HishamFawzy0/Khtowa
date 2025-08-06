@@ -1,12 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../core/services/auth/login/login-service';
 import { SessionService } from '../../core/services/sessions/session-service';
 import { IMeetingInfo } from '../../shared/interfaces/imeeting-info';
 
 @Component({
   selector: 'app-meeting',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './meeting.html',
   styleUrl: './meeting.css',
 })
