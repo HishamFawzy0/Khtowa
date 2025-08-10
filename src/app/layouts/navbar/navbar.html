@@ -63,6 +63,30 @@
                                class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                            </div>
                        </a>
+
+                    @if(userData.role == "Student")
+                    {
+                    <a routerLink="my-requests/{{userData.nameid}}"
+                        routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
+                        class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group">
+                        <span class="relative z-10">My Requests</span>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        </div>
+                    </a>
+                    }
+                    @else{
+                        <a routerLink="/my-proposals"
+                            routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
+                            class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group">
+                            <span class="relative z-10">My Proposals</span>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+                        </a>
+
+                    }
+
                     }@else{ 
     <a routerLink="/login"
         routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
@@ -114,6 +138,7 @@
                                 Add Service
                             </button>
                             }
+                            
         
                         <!-- User Profile -->
                       
@@ -189,7 +214,7 @@
                                             <span class="text-slate-700">My Courses</span>
                                         </a>
                                     } 
-                                    @if (userData.role == 'Student') {
+                                    <!-- @if (userData.role == 'Student') {
                                         <a routerLink="my-requests/{{userData.nameid}}"
                                             class="flex items-center cursor-pointer space-x-3 px-4 py-3 rounded-xl hover:bg-slate-100 transition-colors duration-200">
                                             <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -198,7 +223,7 @@
                                             </svg>
                                             <span class="text-slate-700">My Requests</span>
                                         </a>
-                                    }
+                                    } -->
                                     <a (click)="logout()"
                                         class="flex items-center cursor-pointer space-x-3 px-4 py-3 rounded-xl hover:bg-slate-100 transition-colors duration-200">
                                         <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor"

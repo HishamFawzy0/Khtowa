@@ -1,0 +1,75 @@
+<div class="p-4">
+    <h1 class="text-2xl font-semibold mb-4">My Proposals</h1>
+
+    <!-- Controls -->
+    <div class="flex flex-wrap items-center gap-3 mb-4">
+        <label class="text-sm">Page Size:</label>
+        <select class="border rounded px-2 py-1" [value]="meta.pageSize" (change)="setPageSize($event)">
+            <option [value]="5">5</option>
+            <option [value]="10">10</option>
+            <option [value]="20">20</option>
+            <option [value]="50">50</option>
+        </select>
+
+        <span class="text-sm text-gray-600 ml-auto">
+            Showing {{ showingFrom }}–{{ showingTo }} of {{ meta.totalCount }}
+        </span>
+    </div>
+
+    <!-- Loading / Error -->
+    @if (loading) {
+    <div class="p-4 border rounded mb-4">Loading…</div>
+    }
+
+    @if (error) {
+    <div class="p-4 border border-red-300 bg-red-50 text-red-700 rounded mb-4">
+        {{ error }}
+    </div>
+    }
+
+    <!-- Empty -->
+    @if (!loading && proposals.length === 0) {
+    <div class="p-4 border rounded">No proposals found.</div>
+    }
+
+    <!-- List -->
+    @for (p of proposals; track p.id) {
+    <div class="border rounded p-4 mb-3">
+        <div class="flex justify-between">
+            <div>
+                <h3 class="font-semibold text-lg">{{ p.message || ('Proposal #' + p.id) }}</h3>
+                <!-- <p class="text-sm text-gray-600">Status: {{ p.status || '—' }}</p> -->
+            </div>
+            <div class="text-right">
+                <div class="text-sm">Price: {{ p.priceOffered  }}</div> 
+
+                @for (item of p.availableDateTimeList; track $index) {
+                <div class="text-sm">Date: {{ item }}</div>  
+                }
+            </div>
+        </div>
+    </div>
+    }
+
+    <!-- Pagination -->
+    @if (meta.totalPages > 1) {
+    <div class="flex items-center gap-2 mt-4">
+        <button class="px-3 py-1 border rounded" [disabled]="meta.currentPage === 1" (click)="loadPage(1)">«
+            First</button>
+
+        <button class="px-3 py-1 border rounded" [disabled]="meta.currentPage === 1"
+            (click)="loadPage(meta.currentPage - 1)">‹ Prev</button>
+
+        @for (p of pages; track $index) {
+        <button class="px-3 py-1 border rounded" [class.bg-gray-800]="p === meta.currentPage"
+            [class.text-white]="p === meta.currentPage" (click)="loadPage(p)">{{ p }}</button>
+        }
+
+        <button class="px-3 py-1 border rounded" [disabled]="meta.currentPage === meta.totalPages"
+            (click)="loadPage(meta.currentPage + 1)">Next ›</button>
+
+        <button class="px-3 py-1 border rounded" [disabled]="meta.currentPage === meta.totalPages"
+            (click)="loadPage(meta.totalPages)">Last »</button>
+    </div>
+    }
+</div> 
