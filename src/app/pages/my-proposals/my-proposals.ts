@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MyProposalsService } from '../../core/services/my-proposals/my-proposals-service';
 import { LoginService } from '../../core/services/auth/login/login-service';
+import { RouterLink } from '@angular/router';
 
 interface PaginationMetadata {
   currentPage: number;
@@ -13,7 +14,7 @@ interface PagedResponse<T> {
   items: T[];
   metadata: PaginationMetadata;
 }
-// TODO: غيّر أي خصائص حسب شكل الـ Proposal عندك
+
 interface Proposal {
   id: number;
   message: string;
@@ -22,6 +23,8 @@ interface Proposal {
   publicId: string;
   priceOffered: number;
   availableDateTimeList: string[];
+  status: number;
+  sessionId: null;
 }
 
 
@@ -29,7 +32,7 @@ interface Proposal {
 @Component({
   selector: 'app-my-proposals',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './my-proposals.html',
   styleUrl: './my-proposals.css',
 })

@@ -116,6 +116,7 @@ export class Login {
       },
       error: (error) => {
         this.handleLoginError(error);
+          this.setLoadingState(false);
       },
       complete: () => {
         this.setLoadingState(false);
