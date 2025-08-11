@@ -1,0 +1,183 @@
+<div class="quiz-card max-w-md mx-auto">
+  <div class="text-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800 mb-2">Create Quiz</h2>
+    <p class="text-gray-600">Generate a 10-question quiz on any topic</p>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #quizForm="ngForm" class="space-y-4">
+    <div>
+      <label for="topic" class="block text-sm font-medium text-gray-700 mb-2">
+        Topic
+      </label>
+      <input
+        type="text"
+        id="topic"
+        name="topic"
+        [(ngModel)]="formData.topic"
+        required
+        placeholder="e.g., JavaScript, History, Biology"
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+      />
+    </div>
+
+    <div>
+      <label
+        for="difficulty"
+        class="block text-sm font-medium text-gray-700 mb-2"
+      >
+        Difficulty Level
+      </label>
+      <select
+        id="difficulty"
+        name="difficulty"
+        [(ngModel)]="formData.difficulty"
+        required
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+      >
+        <option value="">Select difficulty</option>
+        <option value="fundamental">Fundamental</option>
+        <option value="beginner">Beginner</option>
+        <option value="intermediate">Intermediate</option>
+        <option value="advanced">Advanced</option>
+      </select>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="!quizForm.form.valid || isGenerating()"
+      class="btn-primary btn w-full text-white bg-blue-500 cursor-pointer"
+    >
+      @if(!isGenerating()){
+      <span>Generate Quiz</span>
+      } @else{
+      <span class="flex items-center justify-center">
+        <svg
+          class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+        Generating...
+      </span>
+      }
+    </button>
+  </form>
+</div>
+
+@if(quiz) {
+
+<div class="max-w-4xl mx-auto animate-fadeIn">
+  <div class="text-center mb-8">
+    <h2 class="text-3xl font-bold text-gray-800 mb-2">{{ quiz!.topic }}</h2>
+    <div
+      class="flex items-center justify-center space-x-4 text-sm text-gray-600"
+    >
+      <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full capitalize">
+        {{ quiz!.difficulty }}
+      </span>
+      <span>{{ quiz!.questions.length }} Questions</span>
+    </div>
+  </div>
+
+  <div class="space-y-6">
+    @for (question of quiz.questions; track $index) {
+    <div
+      class="quiz-card animate-slideUp"
+      [style.animation-delay]="$index * 100 + 'ms'"
+    >
+      <div class="flex items-start space-x-4">
+        <div
+          class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-medium text-sm"
+        >
+          {{ $index + 1 }}
+        </div>
+
+        <div class="flex-1">
+          <h3 class="text-lg font-medium text-gray-800 mb-4">
+            {{ question.question }}
+          </h3>
+
+          <div class="space-y-2 mb-4">
+            <!-- NOTE: inner loop uses different index name ($optIndex) -->
+            @for (option of question.options; track option) {
+            <div
+              (click)="selectAnswer($index, option)"
+              class="p-3 rounded-lg border transition-all duration-200 cursor-pointer"
+              [ngClass]="{
+                'bg-green-50 border-green-300 text-green-800':
+                  (selectedAnswers[$index] === option &&
+                    option === question.correctAnswer) ||
+                  option === question.correctAnswer,
+
+                'bg-red-50 border-red-300 text-red-800':
+                  selectedAnswers[$index] === option &&
+                  option !== question.correctAnswer,
+
+                'bg-gray-50 border-gray-200 text-gray-700':
+                  !selectedAnswers[$index]
+              }"
+              [class.pointer-events-none]="!!selectedAnswers[$index]"
+              role="button"
+              tabindex="0"
+              (keydown.enter)="selectAnswer($index, option)"
+            >
+              {{ option }}
+            </div>
+            }
+          </div>
+
+          <!-- Show explanation only after user answers -->
+          @if (selectedAnswers[$index]) {
+          <div class="bg-blue-50 border-l-4 border-blue-400 p-3 rounded-r-lg">
+            <div class="flex items-start">
+              <svg
+                class="w-5 h-5 text-blue-400 mt-0.5 mr-2 flex-shrink-0"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              <div>
+                <p class="text-sm font-medium text-blue-800">
+                  Correct Answer: {{ question.correctAnswer }}
+                </p>
+                @if (question.explanation) {
+                <p class="text-sm text-blue-700 mt-1">
+                  {{ question.explanation }}
+                </p>
+                }
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+  <div class="text-center mt-8">
+    <button (click)="onNewQuiz()" class="btn-secondary">
+      Generate New Quiz
+    </button>
+  </div>
+</div>
+}
