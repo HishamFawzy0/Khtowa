@@ -6,3 +6,4 @@ export interface Proposal {
   publicId: string;
   priceOffered: number;
 }
+
