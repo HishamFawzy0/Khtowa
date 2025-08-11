@@ -14,7 +14,6 @@ import { LoginService } from '../../core/services/auth/login/login-service';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { STutorRequestDetails } from '../../core/services/TutorRequestDetails/stutor-request-details';
- 
 
 @Component({
   selector: 'app-proposal-form',
@@ -39,6 +38,9 @@ export class ProposalForm implements OnInit {
   minBudget!: number;
   maxBudget!: number;
 
+  protected minDate!: string; 
+  protected maxDate!: string;
+
   router = inject(Router);
 
   ngOnInit(): void {
@@ -48,6 +50,10 @@ export class ProposalForm implements OnInit {
       next: (data) => {
         this.minBudget = data.minBudget;
         this.maxBudget = data.maxBudget;
+        this.minDate = data.startDateTime;
+        this.maxDate = data.endDateTime;
+
+        // ضبط الـ Validators
         const priceControl = this.form.get('priceOffered');
         priceControl?.setValidators([
           Validators.required,
@@ -56,11 +62,47 @@ export class ProposalForm implements OnInit {
           this.priceValidator,
         ]);
         priceControl?.updateValueAndValidity();
+
+        // تحديث الـ Validators للتاريخ بناءً على الـ minDate و maxDate
+        this.availableDateTimeList.controls.forEach((control) => {
+          control.setValidators([
+            Validators.required,
+            this.futureDateValidator,
+            this.dateRangeValidator.bind(this),
+          ]);
+          control.updateValueAndValidity();
+        });
       },
       error: (err) => {
         console.error('Failed to load tutor request:', err);
       },
     });
+  }
+
+  private dateRangeValidator(
+    control: AbstractControl
+  ): ValidationErrors | null {
+    if (!control.value) return null;
+
+    const date = control.value;
+    if (this.minDate && date < this.minDate ) {
+      return { dateTooEarly: true };
+    }
+    if (this.maxDate && date > this.maxDate) {
+      return { dateTooLate: true };
+    }
+    return null;
+  }
+
+  getDateTimeError(index: number): string {
+    const control = this.availableDateTimeList.at(index);
+    if (control?.errors) {
+      if (control.errors['required']) return 'Date and time required';
+      if (control.errors['pastDate']) return 'Cannot select past date';
+
+      if (control.errors['dateTooEarly']) return 'Selected date is too early';
+    }
+    return 'Valid date and time required';
   }
 
   private initializeForm(): void {
@@ -159,6 +201,7 @@ export class ProposalForm implements OnInit {
     const newControl = this.fb.control('', [
       Validators.required,
       this.futureDateValidator,
+      this.dateRangeValidator.bind(this),
     ]);
     this.availableDateTimeList.push(newControl);
   }
@@ -214,8 +257,6 @@ export class ProposalForm implements OnInit {
     this.form.get('videoFile')?.markAsTouched();
     this.form.get('videoFile')?.updateValueAndValidity();
   }
-
-  
 
   formatFileSize(bytes: number): string {
     if (bytes === 0) return '0 Bytes';
@@ -284,17 +325,6 @@ export class ProposalForm implements OnInit {
         return 'Price can have at most 2 decimal places';
     }
     return 'Valid price is required';
-  }
-
-  getDateTimeError(index: number): string {
-    const control = this.availableDateTimeList.at(index);
-    if (control?.errors) {
-      if (control.errors['required']) return 'Date and time required';
-      if (control.errors['pastDate']) return 'Cannot select past date';
-      if (control.errors['tooSoon'])
-        return 'Must be at least 24 hours from now';
-    }
-    return 'Valid date and time required';
   }
 
   submit(): void {
