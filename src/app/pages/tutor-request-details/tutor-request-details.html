@@ -33,19 +33,19 @@
                   {{ request.status == 'OpenForApply' ? 'Open for Applications' :
                   request.status == 'InReview' ? 'Under Review' : 'Closed' }}
                 </span>
-                <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">Posted 3 days ago</span>
+                <!-- <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">Posted 3 days ago</span> -->
               </div>
               <h2 class="text-3xl font-bold text-gray-900 mb-2 leading-tight">{{ request.title }}</h2>
             </div>
             <div class="flex items-center gap-2">
-              <button
+              <!-- <button
                 class="p-3 rounded-xl bg-gray-50 hover:bg-emerald-50 text-gray-600 hover:text-emerald-600 transition-all duration-200 hover:scale-105">
                 <span class="material-icons text-xl">share</span>
               </button>
               <button
                 class="p-3 rounded-xl bg-gray-50 hover:bg-red-50 text-gray-600 hover:text-red-500 transition-all duration-200 hover:scale-105">
                 <span class="material-icons text-xl">favorite_border</span>
-              </button>
+              </button> -->
             </div>
           </div>
           <div class="mt-8">
@@ -219,55 +219,58 @@
 
                 <!-- Available Dates Section -->
                 @if (proposal.availableDateTimeList && proposal.availableDateTimeList.length > 0) {
-                <div class="mb-8">
-                  <div class="flex items-center justify-between mb-4">
-                    <h5 class="text-lg font-semibold text-gray-900 flex items-center">
-                      <span class="material-icons text-emerald-500 mr-2">schedule</span>
-                      Available Time Slots
-                    </h5>
-                    <button (click)="toggleDateSelection($index)"
-                      class="text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1 transition-colors">
-                      <span>{{ expandedProposals[$index] ? 'Hide' : 'Show' }} Dates</span>
-                      <span class="material-icons text-sm transform transition-transform"
-                        [class.rotate-180]="expandedProposals[$index]">expand_more</span>
-                    </button>
-                  </div>
-
-                  <!-- Selected Date Display -->
-                  @if (isDateSelected($index)) {
-                  <div
-                    class="mb-4 p-4 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-xl border-2 border-emerald-300">
-                    <div class="flex items-center gap-3">
-                      <span class="material-icons text-emerald-600">check_circle</span>
-                      <div>
-                        <p class="font-semibold text-emerald-800">Selected Date & Time:</p>
-                        <p class="text-emerald-700 text-lg">{{ formatDate(getSelectedDate($index)) }}</p>
+                
+                  @if(userData.role === 'Student'){
+                    <div class="mb-8">
+                    <div class="flex items-center justify-between mb-4">
+                      <h5 class="text-lg font-semibold text-gray-900 flex items-center">
+                        <span class="material-icons text-emerald-500 mr-2">schedule</span>
+                        Available Time Slots
+                      </h5>
+                      <button (click)="toggleDateSelection($index)"
+                        class="text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1 transition-colors">
+                        <span>{{ expandedProposals[$index] ? 'Hide' : 'Show' }} Dates</span>
+                        <span class="material-icons text-sm transform transition-transform"
+                          [class.rotate-180]="expandedProposals[$index]">expand_more</span>
+                      </button>
+                    </div>
+  
+                    <!-- Selected Date Display -->
+                    @if (isDateSelected($index)) {
+                    <div
+                      class="mb-4 p-4 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-xl border-2 border-emerald-300">
+                      <div class="flex items-center gap-3">
+                        <span class="material-icons text-emerald-600">check_circle</span>
+                        <div>
+                          <p class="font-semibold text-emerald-800">Selected Date & Time:</p>
+                          <p class="text-emerald-700 text-lg">{{ formatDate(getSelectedDate($index)) }}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  } 
- 
-                  <!-- Date Selection Grid -->
-                  @if (expandedProposals[$index]) {
-                  <div
-                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4 bg-gray-50 rounded-xl border border-gray-200">
-                    @for (date of proposal.availableDateTimeList; track date) {
-                    <label class="flex items-center gap-3 cursor-pointer p-3 rounded-xl border-2 transition-all duration-300" [class]="selectedDates[proposal.id] === date
-                            ? 'bg-gradient-to-r from-emerald-100 to-teal-100 border-emerald-400'
-                            : 'bg-white border-gray-200 hover:border-emerald-300 hover:bg-emerald-50'">
-                    
-                      <input type="radio" [name]="'date_' + proposal.id" [value]="date" [(ngModel)]="selectedDates[proposal.id]"
-                        class="form-radio text-emerald-600 focus:ring-emerald-500" />
-                    
-                      <div class="flex flex-col">
-                        <span class="font-semibold">{{ date | date: 'EEE, MMM dd' }}</span>
-                        <span class="text-sm text-gray-600">{{ date | date: 'h:mm a' }}</span>
-                      </div>
-                    </label>
+                    } 
+   
+                    <!-- Date Selection Grid -->
+                    @if (expandedProposals[$index]) {
+                    <div
+                      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4 bg-gray-50 rounded-xl border border-gray-200">
+                      @for (date of proposal.availableDateTimeList; track date) {
+                      <label class="flex items-center gap-3 cursor-pointer p-3 rounded-xl border-2 transition-all duration-300" [class]="selectedDates[proposal.id] === date
+                              ? 'bg-gradient-to-r from-emerald-100 to-teal-100 border-emerald-400'
+                              : 'bg-white border-gray-200 hover:border-emerald-300 hover:bg-emerald-50'">
+                      
+                        <input type="radio" [name]="'date_' + proposal.id" [value]="date" [(ngModel)]="selectedDates[proposal.id]"
+                          class="form-radio text-emerald-600 focus:ring-emerald-500" />
+                      
+                        <div class="flex flex-col">
+                          <span class="font-semibold">{{ date | date: 'EEE, MMM dd' }}</span>
+                          <span class="text-sm text-gray-600">{{ date | date: 'h:mm a' }}</span>
+                        </div>
+                      </label>
+                      }
+                    </div>
                     }
                   </div>
                   }
-                </div>
                 }
 
                 <!-- Proposal Message -->
@@ -325,19 +328,19 @@
                     <span>{{ isDateSelected(proposal.id) ? 'Accept Proposal' : 'Select Date First' }}</span>
                   </button>
 
-                  <button
+                  <!-- <button
                     class="flex-1 border-2 border-gray-200 text-gray-700 font-bold py-4 px-6 rounded-2xl hover:border-emerald-300 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-300 flex items-center justify-center gap-3">
                     <span class="material-icons text-xl">message</span>
                     Send Message
-                  </button>
+                  </button> -->
                   }
  
                   <!-- View Profile Button -->
-                  <button
+                  <!-- <button
                     class="border-2 border-teal-200 text-teal-600 font-semibold py-3 px-6 rounded-2xl hover:border-teal-300 hover:bg-teal-50 transition-all duration-300 flex items-center justify-center gap-2">
                     <span class="material-icons text-lg">person</span>
                     View Profile
-                  </button>
+                  </button> -->
                 </div>
               </div>
             </div>
@@ -406,28 +409,15 @@
                 class="absolute -bottom-1 -right-1 w-8 h-8 bg-emerald-400 rounded-full border-3 border-white flex items-center justify-center">
                 <span class="material-icons text-white text-sm">verified</span>
               </div>
-            </div>
+            </div> 
             <h4 class="text-lg font-bold text-gray-900">{{ request.customerName }}</h4>
-            <p class="text-sm text-gray-500">Member since 2021</p>
+            <!-- <p class="text-sm text-gray-500">Member since {{request.}}</p> -->
           </div>
-          <div class="space-y-4">
-            <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl">
-              <span class="material-icons text-emerald-500">location_on</span>
-              <span class="text-gray-700 font-medium">Saudi Arabia</span>
-            </div>
-            <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl">
-              <span class="material-icons text-emerald-500">verified</span>
-              <span class="text-gray-700 font-medium">Payment verified</span>
-            </div>
-            <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-teal-50 to-emerald-50 rounded-xl">
-              <span class="material-icons text-teal-500">work</span>
-              <span class="text-gray-700 font-medium">5 jobs posted</span>
-            </div>
-          </div>
+          
         </div>
 
         <!-- Application History -->
-        <div
+        <!-- <div
           class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300">
           <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
             <span class="material-icons text-emerald-500 mr-2">history</span>
@@ -441,7 +431,7 @@
             <p class="text-gray-500 font-medium">No history available yet</p>
             <p class="text-sm text-gray-400">Previous applications will appear here</p>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

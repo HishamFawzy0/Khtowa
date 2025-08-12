@@ -1,0 +1,296 @@
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
+  <div class="container mx-auto px-4">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center space-x-2 mb-4">
+        <div
+          class="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+            </path>
+          </svg>
+        </div>
+        <h1 class="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+          AI Quiz Generator
+        </h1>
+      </div>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        Create personalized quizzes powered by AI. Test your knowledge and track your progress with intelligent
+        feedback.
+      </p>
+    </div>
+
+    <!-- Quiz Creation Form -->
+    @if(!quiz) {
+    <div class="max-w-lg mx-auto">
+      <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+        <div class="text-center mb-6">
+          <div
+            class="w-16 h-16 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+              </path>
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800 mb-2">Create Your Quiz</h2>
+          <p class="text-gray-600">Generate 10 intelligent questions on any topic</p>
+        </div>
+
+        <form (ngSubmit)="onSubmit()" #quizForm="ngForm" class="space-y-6">
+          <!-- Topic Input -->
+          <div class="relative">
+            <label for="topic" class="block text-sm font-semibold text-gray-700 mb-2">
+              Quiz Topic
+            </label>
+            <div class="relative">
+              <input type="text" id="topic" name="topic" [(ngModel)]="formData.topic" required
+                placeholder="e.g., JavaScript, World History, Biology, Machine Learning"
+                class="w-full px-4 py-4 pl-12 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 bg-gray-50 focus:bg-white" />
+              <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Difficulty Selection -->
+          <div>
+            <label for="difficulty" class="block text-sm font-semibold text-gray-700 mb-3">
+              Difficulty Level
+            </label>
+            <div class="grid grid-cols-2 gap-3">
+              <label *ngFor="let level of difficultyLevels" class="relative cursor-pointer">
+                <input type="radio" name="difficulty" [value]="level.value" [(ngModel)]="formData.difficulty" required
+                  class="sr-only" />
+                <div class="flex items-center p-4 border-2 rounded-xl transition-all duration-200" [ngClass]="{
+                       'border-emerald-500 bg-emerald-50': formData.difficulty === level.value,
+                       'border-gray-200 hover:border-gray-300': formData.difficulty !== level.value
+                     }">
+                  <div class="flex items-center space-x-3">
+                    <div class="flex-shrink-0" [ngClass]="level.color">
+                      <svg class="w-5 h-5" [innerHTML]="level.icon"></svg>
+                    </div>
+                    <div>
+                      <div class="font-medium text-gray-800">{{ level.label }}</div>
+                      <div class="text-xs text-gray-500">{{ level.description }}</div>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" [disabled]="!quizForm.form.valid || isGenerating()"
+            class="w-full py-4 px-6 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 disabled:hover:scale-100 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+            [ngClass]="{
+              'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600': !isGenerating(),
+              'bg-gray-400': isGenerating()
+            }">
+            @if(!isGenerating()) {
+            <span class="flex items-center justify-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z">
+                </path>
+              </svg>
+              Generate Quiz
+            </span>
+            } @else {
+            <span class="flex items-center justify-center">
+              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                </path>
+              </svg>
+              Generating Your Quiz...
+            </span>
+            }
+          </button>
+        </form>
+      </div>
+    </div>
+    }
+
+    <!-- Quiz Display -->
+    @if(quiz) {
+    <div class="max-w-4xl mx-auto animate-fadeIn">
+      <!-- Quiz Header -->
+      <div class="bg-white rounded-2xl shadow-xl p-8 mb-8 border border-gray-100">
+        <div class="text-center mb-6">
+          <div
+            class="w-20 h-20 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h2 class="text-4xl font-bold text-gray-800 mb-3">{{ quiz.topic }}</h2>
+          <div class="flex items-center justify-center space-x-6 text-sm">
+            <span
+              class="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-4 py-2 rounded-full font-medium capitalize">
+              {{ quiz.difficulty }}
+            </span>
+            <span class="text-gray-600 font-medium">{{ quiz.questions.length }} Questions</span>
+            <span class="text-gray-600 font-medium">{{ getProgress() }}% Complete</span>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
+          <div
+            class="bg-gradient-to-r from-emerald-500 to-teal-500 h-3 rounded-full transition-all duration-500 ease-out"
+            [style.width.%]="getProgress()"></div>
+        </div>
+
+        <!-- Score Display -->
+        @if(getProgress() > 0) {
+        <div class="flex justify-center space-x-8 text-center">
+          <div>
+            <div class="text-2xl font-bold text-emerald-600">{{ getCorrectAnswers() }}</div>
+            <div class="text-sm text-gray-600">Correct</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-red-500">{{ getWrongAnswers() }}</div>
+            <div class="text-sm text-gray-600">Wrong</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-gray-600">{{ getUnanswered() }}</div>
+            <div class="text-sm text-gray-600">Remaining</div>
+          </div>
+        </div>
+        }
+      </div>
+
+      <!-- Questions -->
+      <div class="space-y-6">
+        <div *ngFor="let question of quiz?.questions; let i = index"
+          class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 transform transition-all duration-300 hover:shadow-xl"
+          [class.ring-2]="selectedAnswers[i]" [class.ring-emerald-200]="selectedAnswers[i] === question.correctAnswer"
+          [class.ring-red-200]="selectedAnswers[i] && selectedAnswers[i] !== question.correctAnswer">
+
+          <div class="flex items-start space-x-4">
+            <!-- Question Number -->
+            <div
+              class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-white text-lg"
+              [ngClass]="{
+                   'bg-gradient-to-r from-emerald-500 to-teal-500': selectedAnswers[i] === question.correctAnswer,
+                   'bg-gradient-to-r from-red-500 to-red-600': selectedAnswers[i] && selectedAnswers[i] !== question.correctAnswer,
+                   'bg-gradient-to-r from-gray-400 to-gray-500': !selectedAnswers[i]
+                 }">
+              {{ i + 1 }}
+            </div>
+
+            <div class="flex-1">
+              <!-- Question Text -->
+              <h3 class="text-xl font-semibold text-gray-800 mb-6 leading-relaxed">
+                {{ question.question }}
+              </h3>
+
+              <!-- Answer Options -->
+              <div class="space-y-3 mb-6">
+                <button *ngFor="let option of question.options; let optIndex = index" (click)="selectAnswer(i, option)"
+                  [disabled]="!!selectedAnswers[i]"
+                  class="w-full text-left p-4 rounded-xl border-2 transition-all duration-300 transform hover:scale-[1.02] disabled:hover:scale-100"
+                  [ngClass]="{
+                          'border-emerald-400 bg-emerald-50 text-emerald-800 shadow-md': selectedAnswers[i] === option && option === question.correctAnswer,
+                          'border-red-400 bg-red-50 text-red-800 shadow-md': selectedAnswers[i] === option && option !== question.correctAnswer,
+                          'border-emerald-200 bg-emerald-25 text-emerald-700': selectedAnswers[i] && option === question.correctAnswer && selectedAnswers[i] !== option,
+                          'border-gray-200 bg-white text-gray-700 hover:border-emerald-300 hover:bg-emerald-25': !selectedAnswers[i],
+                          'border-gray-200 bg-gray-50 text-gray-500': selectedAnswers[i] && option !== question.correctAnswer && selectedAnswers[i] !== option
+                        }">
+
+                  <div class="flex items-center justify-between">
+                    <span class="font-medium">{{ getOptionLetter(optIndex) }}. {{ option }}</span>
+                    <div class="flex items-center space-x-2">
+                      @if(selectedAnswers[i] === option && option === question.correctAnswer) {
+                      <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      }
+                      @if(selectedAnswers[i] === option && option !== question.correctAnswer) {
+                      <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                      </svg>
+                      }
+                      @if(selectedAnswers[i] && option === question.correctAnswer && selectedAnswers[i] !== option) {
+                      <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      }
+                    </div>
+                  </div>
+                </button>
+              </div>
+
+              <!-- Explanation -->
+              @if(selectedAnswers[i]) {
+              <div
+                class="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-400 p-5 rounded-r-xl animate-slideDown">
+                <div class="flex items-start space-x-3">
+                  <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                    <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                  </div>
+                  <div class="flex-1">
+                    <p class="font-semibold text-blue-800 mb-2">
+                      Correct Answer: {{ question.correctAnswer }}
+                    </p>
+                    <p class="text-blue-700 leading-relaxed">
+                      {{ question.explanation }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Actions -->
+      <div class="mt-12 text-center space-y-4">
+        @if(getProgress() === 100) {
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 mb-8">
+          <div
+            class="w-20 h-20 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-2">Quiz Completed! 🎉</h3>
+          <p class="text-lg text-gray-600 mb-4">
+            Your Score: <span class="font-bold text-emerald-600">{{ getCorrectAnswers() }}/{{ quiz.questions.length
+              }}</span>
+            ({{ getScorePercentage() }}%)
+          </p>
+          <div class="text-center">
+            <span class="text-2xl">{{ getScoreEmoji() }}</span>
+            <p class="text-gray-600 mt-2">{{ getScoreMessage() }}</p>
+          </div>
+        </div>
+        }
+
+        <button (click)="onNewQuiz()"
+          class="inline-flex items-center px-8 py-4 text-white font-semibold rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+            </path>
+          </svg>
+          Generate New Quiz
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+</div>
