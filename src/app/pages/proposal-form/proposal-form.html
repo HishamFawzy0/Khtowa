@@ -263,7 +263,7 @@
                             </div>
                         </div>
                         <div class="text-sm text-gray-500 mt-8" *ngIf="minDate && maxDate">
-                            <p>Select date between: {{ minDate | date: 'dd / MM / yyyy , h:mm a' }} and {{ maxDate | date: ' dd / MM / yyyy , h:mm a' }}</p>
+                            <p>Select date between: {{ minDate | date: 'MM / dd / yyyy , h:mm a' }} and {{ maxDate | date: 'MM / dd / yyyy , h:mm a' }}</p>
                         </div>
                         <button type="button" (click)="addDateTime()"
                             class="mt-4 flex items-center gap-2 px-4 py-2 text-emerald-600 bg-emerald-50 rounded-lg hover:bg-emerald-100 transition-colors duration-200">

@@ -180,7 +180,8 @@ export class ProposalForm implements OnInit {
 
     const selectedDate = new Date(date);
     const now = new Date();
-    const minDate = new Date(now.getTime() + 24 * 60 * 60 * 1000); // 24 hours from now
+    // const minDate = new Date(now.getTime() + 24 * 60 * 60 * 1000); // 24 hours from now
+    const minDate = new Date(now.getTime()); 
 
     if (selectedDate <= now) {
       return { pastDate: true };
