@@ -12,6 +12,7 @@ export interface Quiz {
   difficulty: DifficultyLevel;
   questions: Question[];
   createdAt: Date;
+  isAnswered: boolean;
 }
 
 export type DifficultyLevel =

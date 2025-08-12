@@ -33,19 +33,19 @@
                   {{ request.status == 'OpenForApply' ? 'Open for Applications' :
                   request.status == 'InReview' ? 'Under Review' : 'Closed' }}
                 </span>
-                <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">Posted 3 days ago</span>
+                <!-- <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">Posted 3 days ago</span> -->
               </div>
               <h2 class="text-3xl font-bold text-gray-900 mb-2 leading-tight">{{ request.title }}</h2>
             </div>
             <div class="flex items-center gap-2">
-              <button
+              <!-- <button
                 class="p-3 rounded-xl bg-gray-50 hover:bg-emerald-50 text-gray-600 hover:text-emerald-600 transition-all duration-200 hover:scale-105">
                 <span class="material-icons text-xl">share</span>
               </button>
               <button
                 class="p-3 rounded-xl bg-gray-50 hover:bg-red-50 text-gray-600 hover:text-red-500 transition-all duration-200 hover:scale-105">
                 <span class="material-icons text-xl">favorite_border</span>
-              </button>
+              </button> -->
             </div>
           </div>
           <div class="mt-8">
@@ -406,28 +406,15 @@
                 class="absolute -bottom-1 -right-1 w-8 h-8 bg-emerald-400 rounded-full border-3 border-white flex items-center justify-center">
                 <span class="material-icons text-white text-sm">verified</span>
               </div>
-            </div>
+            </div> 
             <h4 class="text-lg font-bold text-gray-900">{{ request.customerName }}</h4>
-            <p class="text-sm text-gray-500">Member since 2021</p>
+            <!-- <p class="text-sm text-gray-500">Member since {{request.}}</p> -->
           </div>
-          <div class="space-y-4">
-            <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl">
-              <span class="material-icons text-emerald-500">location_on</span>
-              <span class="text-gray-700 font-medium">Saudi Arabia</span>
-            </div>
-            <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl">
-              <span class="material-icons text-emerald-500">verified</span>
-              <span class="text-gray-700 font-medium">Payment verified</span>
-            </div>
-            <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-teal-50 to-emerald-50 rounded-xl">
-              <span class="material-icons text-teal-500">work</span>
-              <span class="text-gray-700 font-medium">5 jobs posted</span>
-            </div>
-          </div>
+          
         </div>
 
         <!-- Application History -->
-        <div
+        <!-- <div
           class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300">
           <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
             <span class="material-icons text-emerald-500 mr-2">history</span>
@@ -441,7 +428,7 @@
             <p class="text-gray-500 font-medium">No history available yet</p>
             <p class="text-sm text-gray-400">Previous applications will appear here</p>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

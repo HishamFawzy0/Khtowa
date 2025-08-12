@@ -16,7 +16,7 @@ import { environment } from '../../../../environments/environment.development';
 })
 export class QuizService {
   private readonly API_KEY =
-    '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'; // Replace with your actual API key
+    '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'; // Replace with your actual API key
   private readonly API_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
   constructor(private http: HttpClient) {}
@@ -30,7 +30,7 @@ export class QuizService {
     });
 
     const body = {
-      model: 'openai/gpt-oss-20b:free',
+      model: 'deepseek/deepseek-r1-0528:free',
       messages: [
         {
           role: 'system',
@@ -101,6 +101,7 @@ Return the response in this exact JSON format:
         difficulty: request.difficulty,
         questions,
         createdAt: new Date(),
+        isAnswered: false,
       };
     } catch (error) {
       throw new Error('Failed to parse AI response');
