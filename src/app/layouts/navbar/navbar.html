@@ -63,90 +63,125 @@
       </div>
 
       <!-- Desktop Navigation -->
-      <nav class="hidden md:flex items-center space-x-2">
-        <!-- Navigation Links -->
+     <nav class="hidden md:flex items-center space-x-2">
+  <!-- Navigation Links -->
+  <div
+    class="flex items-center space-x-1 bg-slate-100/60 backdrop-blur-sm rounded-2xl p-1.5 shadow-inner"
+  >
+    @if (flag && userData.role !== 'Admin') {
+      <a
+        routerLink="/tutors"
+        routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
+        class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
+      >
+        <span class="relative z-10">Tutors</span>
         <div
-          class="flex items-center space-x-1 bg-slate-100/60 backdrop-blur-sm rounded-2xl p-1.5 shadow-inner"
+          class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        ></div>
+      </a>
+
+      <a
+        routerLink="/services"
+        routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
+        class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
+      >
+        <span class="relative z-10">Services</span>
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        ></div>
+      </a>
+
+      @if (userData.role == "Student") {
+        <a
+          routerLink="my-requests/{{ userData.nameid }}"
+          routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
+          class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
         >
-          @if (flag) {
-          <a
-            routerLink="/tutors"
-            routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
-            class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
-          >
-            <span class="relative z-10">Tutors</span>
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            ></div>
-          </a>
-
-          <a
-            routerLink="/services"
-            routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
-            class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
-          >
-            <span class="relative z-10">Services</span>
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            ></div>
-          </a>
-
-          @if(userData.role == "Student") {
-          <a
-            routerLink="my-requests/{{ userData.nameid }}"
-            routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
-            class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
-          >
-            <span class="relative z-10">My Requests</span>
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            ></div>
-          </a>
-          <a
-            routerLink="/quiz"
-            routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
-            class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
-          >
-            <span class="relative z-10">Quizzes</span>
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            ></div>
-          </a>
-          } @else{
-          <a
-            routerLink="/my-proposals"
-            routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
-            class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
-          >
-            <span class="relative z-10">My Proposals</span>
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            ></div>
-          </a>
-          } }@else{
-          <a
-            routerLink="/login"
-            routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
-            class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
-          >
-            <span class="relative z-10">Login</span>
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            ></div>
-          </a>
-          <a
-            routerLink="/register"
-            routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
-            class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
-          >
-            <span class="relative z-10">Register</span>
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            ></div>
-          </a>
-          }
-        </div>
-      </nav>
+          <span class="relative z-10">My Requests</span>
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          ></div>
+        </a>
+        <a
+          routerLink="/quiz"
+          routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
+          class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
+        >
+          <span class="relative z-10">Quizzes</span>
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          ></div>
+        </a>
+      }
+      @else {
+        <a
+          routerLink="/my-proposals"
+          routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
+          class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
+        >
+          <span class="relative z-10">My Proposals</span>
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          ></div>
+        </a>
+      }
+    }
+    @else if (flag && userData.role === 'Admin') {
+      <a
+        routerLink="/admin-dashboard/admin-instructors"
+        routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
+        class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
+      >
+        <span class="relative z-10">Instructors</span>
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        ></div>
+      </a>
+      <a
+        routerLink="/admin-dashboard/admin-categories"
+        routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
+        class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
+      >
+        <span class="relative z-10">Categories</span>
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        ></div>
+      </a>
+      <a
+        routerLink="/admin-dashboard/admin-specializations"
+        routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
+        class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
+      >
+        <span class="relative z-10">Specializations</span>
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        ></div>
+      </a>
+    }
+    @else {
+      <a
+        routerLink="/login"
+        routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
+        class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
+      >
+        <span class="relative z-10">Login</span>
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        ></div>
+      </a>
+      <a
+        routerLink="/register"
+        routerLinkActive="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
+        class="relative px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 transition-all duration-300 hover:bg-white/80 hover:shadow-md group"
+      >
+        <span class="relative z-10">Register</span>
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        ></div>
+      </a>
+    }
+  </div>
+</nav>
 
       <!-- Right Side Actions -->
       @if (flag) {

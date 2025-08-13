@@ -145,7 +145,10 @@ export class Login {
     this.loginform.reset();
 
     setTimeout(() => {
-      this.router.navigate(['/tutors']);
+      const userData = this.loginService.userData;
+      if(!userData) return
+      if(userData.role == 'Admin') this.router.navigate(['/admin-dashboard']);
+      else this.router.navigate(['/tutors']);
     }, 0);
   }
 
