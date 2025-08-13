@@ -1,0 +1,61 @@
+<div class="flex justify-between items-center mb-5">
+    <h1 class="text-2xl font-bold">Instructors Management</h1>
+
+    <div class="flex gap-2">
+        <button (click)="changeFilter(null)" class="px-4 py-2 rounded-lg border"
+            [ngClass]="filterStatus === null ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'">
+            All
+        </button>
+        <button (click)="changeFilter(true)" class="px-4 py-2 rounded-lg border"
+            [ngClass]="filterStatus === true ? 'bg-green-500 text-white' : 'bg-white text-gray-700'">
+            Verified
+        </button>
+        <button (click)="changeFilter(false)" class="px-4 py-2 rounded-lg border"
+            [ngClass]="filterStatus === false ? 'bg-red-500 text-white' : 'bg-white text-gray-700'">
+            Not Verified
+        </button>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    @for (instructor of instructors(); track instructor.id) {
+    <div class="bg-white shadow-lg rounded-xl p-5 border hover:shadow-xl transition duration-300">
+        <h2 class="text-lg font-bold text-gray-800">{{ instructor.displayName }}</h2>
+        <p class="text-sm text-gray-500">{{ instructor.email }}</p>
+
+        <div class="mt-3 space-y-1">
+            <p class="text-gray-700 text-sm"><strong>Specialization:</strong> {{ instructor.specialization }}</p>
+            <p class="text-gray-700 text-sm"><strong>Description:</strong> {{ instructor.description }}</p>
+        </div>
+
+        <div class="mt-3 flex gap-3">
+            <a [href]="instructor.cvPath" target="_blank"
+                class="px-3 py-1 text-sm bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200">
+                View CV
+            </a>
+            <a [href]="instructor.nationalIdPath" target="_blank"
+                class="px-3 py-1 text-sm bg-purple-100 text-purple-600 rounded-lg hover:bg-purple-200">
+                View ID
+            </a>
+        </div>
+
+        <div class="mt-3">
+            <span class="px-3 py-1 text-xs font-medium rounded-full"
+                [ngClass]="instructor.isVerified ? 'bg-green-100 text-green-700' : (instructor.isVerified === false ? 'bg-red-100 text-red-700' : 'bg-gray-200 text-gray-700')">
+                {{ instructor.isVerified === null ? 'Pending' : (instructor.isVerified ? 'Verified' : 'Not Verified') }}
+            </span>
+        </div>
+    </div>
+    }
+</div>
+
+<div class="flex justify-center items-center mt-6 gap-2" *ngIf="metaData()">
+    <button (click)="goToPage(metaData()?.currentPage! - 1)" [disabled]="metaData()?.currentPage === 1"
+        class="px-3 py-1 border rounded-lg hover:bg-gray-100 disabled:opacity-50">Prev</button>
+
+    <span class="px-3 py-1">{{ metaData()?.currentPage }} / {{ metaData()?.totalPages }}</span>
+
+    <button (click)="goToPage(metaData()?.currentPage! + 1)"
+        [disabled]="metaData()?.currentPage === metaData()?.totalPages"
+        class="px-3 py-1 border rounded-lg hover:bg-gray-100 disabled:opacity-50">Next</button>
+</div>
