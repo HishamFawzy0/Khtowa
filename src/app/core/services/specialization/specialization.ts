@@ -13,4 +13,16 @@ export class Specialization {
   getSpecialization(): Observable<any> {
     return this.http.get<any>(this.apiURL + 'Specialization');
   }
+
+  createSpecialization(specializationName: any): Observable<any> {
+    return this.http.post(this.apiURL + 'Specialization', { specializationName });
+  }
+
+  updateSpecializationName(specializationId: number, specializationName: string): Observable<any> {
+    return this.http.patch(this.apiURL + 'Specialization/' + specializationId, { name: specializationName });
+  }
+
+  deleteSpecialization(specializationId: number): Observable<any> {
+    return this.http.patch(this.apiURL + 'Specialization/delete' + specializationId, {});
+  }
 }
