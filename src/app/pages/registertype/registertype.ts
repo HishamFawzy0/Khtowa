@@ -1,9 +1,15 @@
 import { RegisterService } from './../../core/services/auth/register/register-service';
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { log } from 'node:console';
+import { Specialization } from '../../core/services/specialization/specialization';
 
 @Component({
   selector: 'app-registertype',
@@ -15,12 +21,18 @@ export class Registertype {
   selectedUserType = signal<'client' | 'freelancer' | null>(null);
   currentStep = signal<'selection' | 'form'>('selection');
 
+  specializationService = inject(Specialization);
+  specializationList: any[] = [];
+
   errorMessage: string | null = null;
   instructorErrorMessage: string | null = null;
   registerFormStudent!: FormGroup;
   registerFormInstructor!: FormGroup;
 
-  route=inject(Router)
+  cvFile?: File;
+  nationalIdFile?: File;
+
+  route = inject(Router);
 
   isLoading = signal(false);
 
@@ -32,8 +44,16 @@ export class Registertype {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    
-    
+
+    this.specializationService.getSpecialization().subscribe({
+      next: (data) => {
+        this.specializationList = data;
+      },
+      error: (error) => {
+        console.error('Error fetching specializations:', error);
+      },
+    });
+
     this.registerFormStudent = this.fb.group({
       displayName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
@@ -47,27 +67,42 @@ export class Registertype {
       ],
 
       confirmPassword: ['', [Validators.required]],
-
-      
-      
     });
 
     // Instructor/Freelancer form - additional fields
     this.registerFormInstructor = this.fb.group({
       displayName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-       password: [
-    '',
-    [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z]).{8,}$/),
-    ],
-  ],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z]).{8,}$/),
+        ],
+      ],
       confirmPassword: ['', [Validators.required]],
       description: ['', [Validators.required, Validators.minLength(10)]],
-      specialization: ['', [Validators.required]],
+      specializationId: ['', [Validators.required]],
+      cv: [null, Validators.required],
+      nationalId: [null, Validators.required],
     });
+  }
+
+  onFileSelected(event: Event, type: 'cv' | 'nationalId') {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      if (type === 'cv') {
+        this.cvFile = file;
+        this.registerFormInstructor.get(type)?.markAsTouched();
+        this.registerFormInstructor.get(type)?.setValue(file.name);
+      }
+      if (type === 'nationalId') {
+        this.nationalIdFile = file;
+        this.registerFormInstructor.get(type)?.markAsTouched();
+        this.registerFormInstructor.get(type)?.setValue(file.name);
+      }
+    }
   }
 
   selectUserType(type: 'client' | 'freelancer') {
@@ -76,9 +111,7 @@ export class Registertype {
       this.currentStep.set('form');
     }, 300);
 
-
     console.log();
-    
   }
 
   goBack() {
@@ -103,8 +136,21 @@ export class Registertype {
       this.markFormGroupTouched();
       return;
     }
-
     this.isLoading.set(true);
+
+    const formData = new FormData();
+
+    Object.entries(this.registerFormInstructor.value).forEach(
+      ([key, value]) => {
+        if (key !== 'cv' && key !== 'nationalId' && key !== 'confirmPassword') {
+          formData.append(key, value as string);
+        }
+      }
+    );
+
+    // append files
+    if (this.cvFile) formData.append('cv', this.cvFile);
+    if (this.nationalIdFile) formData.append('nationalId', this.nationalIdFile);
 
     try {
       if (this.selectedUserType() === 'client') {
@@ -133,7 +179,13 @@ export class Registertype {
         const { confirmPassword, ...instructorData } =
           this.registerFormInstructor.value;
 
-        this._RegisterService.registerInstructor(instructorData).subscribe({
+        // for (const key in instructorData) {
+        //   if (instructorData.hasOwnProperty(key)) {
+        //     formData.append(key, instructorData[key]);
+        //   }
+        // }
+
+        this._RegisterService.registerInstructor(formData).subscribe({
           next: (response) => {
             console.log('Instructor registration successful:', response);
             this.isLoading.set(false);
@@ -195,7 +247,7 @@ export class Registertype {
         password: 'Password',
         confirmPassword: 'Confirm password',
         description: 'Professional description',
-        specialization: 'Specialization',
+        specializationId: 'Specialization',
         agreeToTerms: 'Terms agreement',
       };
 
