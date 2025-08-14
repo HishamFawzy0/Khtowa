@@ -35,4 +35,16 @@ export class InstructorService {
       { params }
     );
   }
+
+  acceptInstructor(id: string): Observable<any> {
+    return this.http.patch<any>(this.apiURL + 'Instructor/update-instructor-true/' + id, {});
+  }
+
+  rejectInstructor(id: string): Observable<any> {
+    return this.http.patch<any>(this.apiURL + 'Instructor/update-instructor-false/' + id, {});
+  }
+
+  toggleInstructorVerification(id: string): Observable<any> {
+    return this.http.patch<any>(this.apiURL + 'Instructor/toggle-instructor-verification/' + id, {});
+  }
 }
