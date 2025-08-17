@@ -1,31 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MyProposalsService } from '../../core/services/my-proposals/my-proposals-service';
-import { LoginService } from '../../core/services/auth/login/login-service';
 import { RouterLink } from '@angular/router';
-
-interface PaginationMetadata {
-  currentPage: number;
-  pageSize: number;
-  totalCount: number;
-  totalPages: number;
-}
-interface PagedResponse<T> {
-  items: T[];
-  metadata: PaginationMetadata;
-}
-
-interface Proposal {
-  id: number;
-  message: string;
-  instructorDisplayName: string;
-  videoUrl: string;
-  publicId: string;
-  priceOffered: number;
-  availableDateTimeList: string[];
-  status: number;
-  sessionId: null;
-}
+import {
+  MyProposalsService,
+  PagedResponse,
+  PaginationMetadata,
+  Proposal,
+} from '../../core/services/my-proposals/my-proposals-service';
+import { LoginService } from '../../core/services/auth/login/login-service';
 
 @Component({
   selector: 'app-my-proposals',
@@ -50,6 +32,9 @@ export class MyProposals {
   loading = false;
   error: string | null = null;
 
+  // null = All (مش هيبعت ProposalStatus)
+  statusFilter: number | null = null;
+
   ngOnInit() {
     this.userID = this._login.userData.nameid;
     this.loadPage(1);
@@ -61,13 +46,17 @@ export class MyProposals {
     this.error = null;
 
     this._my
-      .getInstructorProposals(this.userID, page, this.meta.pageSize)
+      .getInstructorProposals(
+        this.userID,
+        page,
+        this.meta.pageSize,
+        this.statusFilter ?? undefined
+      )
       .subscribe({
         next: (res: PagedResponse<Proposal>) => {
-          this.proposals = res.items ?? [];
-          this.meta = res.metadata ?? this.meta;
+          this.proposals = res?.items ?? [];
+          this.meta = res?.metadata ?? this.meta;
           this.loading = false;
-          console.log(this.proposals);
         },
         error: (err) => {
           this.error = 'Failed to load proposals';
@@ -83,15 +72,34 @@ export class MyProposals {
     this.loadPage(1);
   }
 
+  applyStatusFilter(status: number | null) {
+    if (this.statusFilter === status) return;
+    this.statusFilter = status;
+    this.loadPage(1);
+  }
+
+  statusLabel(s: number): string {
+    // عدّل المسميات حسب الدومين عندك
+    switch (s) {
+      case 0:
+        return 'Pending';
+      case 1:
+        return 'Reviewed';
+      case 2:
+        return 'Submitted';
+      case 3:
+        return 'Closed';
+      default:
+        return 'Unknown';
+    }
+  }
+
   get pages(): number[] {
     const total = this.meta.totalPages || 1;
     const cur = this.meta.currentPage || 1;
-
-    // نافذة صفحات بسيطة حوالين الصفحة الحالية
     const span = 2;
     const start = Math.max(1, cur - span);
     const end = Math.min(total, cur + span);
-
     const arr: number[] = [];
     for (let i = start; i <= end; i++) arr.push(i);
     return arr;
@@ -102,6 +110,7 @@ export class MyProposals {
       ? 0
       : (this.meta.currentPage - 1) * this.meta.pageSize + 1;
   }
+
   get showingTo() {
     return Math.min(
       this.meta.currentPage * this.meta.pageSize,
