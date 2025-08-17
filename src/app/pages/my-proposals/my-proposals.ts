@@ -27,12 +27,10 @@ interface Proposal {
   sessionId: null;
 }
 
-
-
 @Component({
   selector: 'app-my-proposals',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './my-proposals.html',
   styleUrl: './my-proposals.css',
 })
@@ -70,7 +68,6 @@ export class MyProposals {
           this.meta = res.metadata ?? this.meta;
           this.loading = false;
           console.log(this.proposals);
-          
         },
         error: (err) => {
           this.error = 'Failed to load proposals';

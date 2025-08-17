@@ -77,7 +77,8 @@ export class Meeting implements OnInit {
       });
       api.addEventListener('videoConferenceLeft', () => {
         console.log('Meeting ended!');
-        this.router.navigate(['/']);
+
+        this.router.navigate(['/review']);
       });
     });
   }
@@ -86,6 +87,13 @@ export class Meeting implements OnInit {
     this.sessionId = Number(this.route.snapshot.paramMap.get('id'));
     this.userdata = this._loginService.userData;
     console.log(this.sessionId);
+
+    setTimeout(() => {
+      this.isReady = true;
+      this.loadJitsi();
+      console.log('Meeting component is ready.');
+    }, 3000); // Delay to ensure the component is ready
+
     this._sessionService.getSession(this.sessionId).subscribe({
       next: (res) => {
         // console.log(res);
@@ -103,8 +111,6 @@ export class Meeting implements OnInit {
         next: (res) => {
           // console.log(res);
           this.meetingInfo = res;
-          this.isReady = true;
-          this.loadJitsi();
           console.log(this.meetingInfo.token);
         },
         error: (err) => {
