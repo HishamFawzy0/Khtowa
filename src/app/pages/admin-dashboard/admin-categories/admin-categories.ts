@@ -27,7 +27,6 @@ export class AdminCategories implements OnInit {
     this.categoryService.getCategories().subscribe({
       next: (data) => {
         this.categorys.set(data);
-        console.log('Categories loaded successfully:', data);
       },
       error: (err) => {
         console.error('Error loading categories:', err);
@@ -42,10 +41,7 @@ export class AdminCategories implements OnInit {
 
     this.categoryService.createCategory(categoryName.trim()).subscribe({
       next: (data) => {
-        console.log('Category added successfully:', data);
-        // Reload categories to get the updated list
         this.loadCategories();
-        // Clear the form and switch to list view
         this.newCategoryName = '';
         this.activeTab = 'list';
       },
@@ -62,10 +58,7 @@ export class AdminCategories implements OnInit {
 
     this.categoryService.updateCategoryName(categoryId, categoryName.trim()).subscribe({
       next: (data) => {
-        console.log('Category updated successfully:', data);
-        // Reload categories to get the updated list
         this.loadCategories();
-        // Clear edit state
         this.editCategoryId = null;
         this.updatedCategoryName = '';
       },
@@ -82,8 +75,6 @@ export class AdminCategories implements OnInit {
 
     this.categoryService.deleteCategory(categoryId).subscribe({
       next: (data) => {
-        console.log('Category deleted successfully:', data);
-        // Reload categories to get the updated list
         this.loadCategories();
       },
       error: (err) => {

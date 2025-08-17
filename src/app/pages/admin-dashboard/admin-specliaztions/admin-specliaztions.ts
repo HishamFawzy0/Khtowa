@@ -27,7 +27,6 @@ export class AdminSpecliaztions {
     this.specializationService.getSpecialization().subscribe({
       next: (data) => {
         this.specliaztions.set(data);
-        console.log('Categories loaded successfully:', data);
       },
       error: (err) => {
         console.error('Error loading categories:', err);
@@ -42,7 +41,6 @@ export class AdminSpecliaztions {
 
     this.specializationService.createSpecialization(specializationName.trim()).subscribe({
       next: (data) => {
-        console.log('Specialization added successfully:', data);
         this.loadSpecliaztions();
         this.newSpecializationName = '';
         this.activeTab = 'list';
@@ -60,7 +58,6 @@ export class AdminSpecliaztions {
 
     this.specializationService.updateSpecializationName(specializationId, specializationName.trim()).subscribe({
       next: (data) => {
-        console.log('Category updated successfully:', data);
         this.loadSpecliaztions();
         this.editSpecializationId = null;
         this.updatedSpecializationName = '';
@@ -78,7 +75,6 @@ export class AdminSpecliaztions {
 
     this.specializationService.deleteSpecialization(specializationId).subscribe({
       next: (data) => {
-        console.log('Category deleted successfully:', data);
         this.loadSpecliaztions();
       },
       error: (err) => {
