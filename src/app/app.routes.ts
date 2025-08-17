@@ -12,9 +12,20 @@ import { Chat } from './pages/chat/chat';
 import { Meeting } from './pages/meeting/meeting';
 import { MyProposals } from './pages/my-proposals/my-proposals';
 import { Chatbot } from './pages/chatbot/chatbot';
+import { AdminDashboard } from './pages/admin-dashboard/admin-dashboard';
+import { AdminInstructors } from './pages/admin-dashboard/admin-instructors/admin-instructors';
+import { AdminCategories } from './pages/admin-dashboard/admin-categories/admin-categories';
+import { AdminSpecliaztions } from './pages/admin-dashboard/admin-specliaztions/admin-specliaztions';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'tutors', pathMatch: 'full' },
+  {path:'admin-dashboard', component: AdminDashboard, canActivate: [authGuard], 
+    children:[
+    {path: '', redirectTo: 'admin-instructors', pathMatch: 'full'},
+    { path: 'admin-instructors', component: AdminInstructors},
+    { path: 'admin-categories', component: AdminCategories},
+    { path: 'admin-specializations', component: AdminSpecliaztions},
+  ]},
   { path: 'tutors', component: Tutors, canActivate: [authGuard] }, // Add guards if needed
   { path: 'services', component: Services, canActivate: [authGuard] },
   { path: 'student-req', component: StudentReq, canActivate: [authGuard] },

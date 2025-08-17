@@ -11,11 +11,21 @@ export class CategoryService {
   http: HttpClient = inject(HttpClient);
   baseUrl: any = environment.apiUrl;
 
-  constructor() {}
 
-
-  getCategories():Observable<any> {
+  getCategories(): Observable<any> {
     return this.http.get(`${this.baseUrl}Category`);
+  }
+
+  createCategory(categoryName: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'Category', { categoryName });
+  }
+
+  updateCategoryName(categoryId: number, categoryName: string): Observable<any> {
+    return this.http.patch(this.baseUrl + 'Category/' + categoryId, { name: categoryName });
+  }
+
+  deleteCategory(categoryId: number): Observable<any> {
+    return this.http.patch(this.baseUrl + 'Category/delete' + categoryId, {});
   }
 
 }

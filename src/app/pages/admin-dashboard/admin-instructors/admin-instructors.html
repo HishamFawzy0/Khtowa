@@ -1,0 +1,156 @@
+<div class="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 p-6">
+    <!-- Header Section -->
+    <div class="max-w-7xl mx-auto">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1
+                        class="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                        Instructor Management
+                    </h1>
+                    <p class="text-gray-600 mt-1">Review and manage instructor applications</p>
+                </div>
+
+                <!-- Filter Buttons -->
+                <div class="flex gap-2 bg-gray-50 p-1 rounded-xl">
+                    <button (click)="changeFilter(null)"
+                        class="px-4 py-2 rounded-lg font-medium transition-all duration-200"
+                        [ngClass]="filterStatus === null ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-md' : 'text-gray-600 hover:text-gray-800 hover:bg-white'">
+                        All Instructors
+                    </button>
+                    <button (click)="changeFilter(true)"
+                        class="px-4 py-2 rounded-lg font-medium transition-all duration-200"
+                        [ngClass]="filterStatus === true ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-md' : 'text-gray-600 hover:text-gray-800 hover:bg-white'">
+                        Verified
+                    </button>
+                    <button (click)="changeFilter(false)"
+                        class="px-4 py-2 rounded-lg font-medium transition-all duration-200"
+                        [ngClass]="filterStatus === false ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-md' : 'text-gray-600 hover:text-gray-800 hover:bg-white'">
+                        Pending
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div *ngIf="isLoading()" class="flex justify-center items-center py-20">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
+        </div>
+
+        <!-- Instructors Grid -->
+        <div *ngIf="!isLoading()" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+            @for (instructor of instructors(); track instructor.id) {
+            <div
+                class="group bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-xl hover:border-emerald-200 transition-all duration-300">
+                <!-- Card Header -->
+                <div class="p-6 pb-4">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-gray-900 mb-1">{{ instructor.displayName }}</h3>
+                            <p class="text-gray-600 text-sm">{{ instructor.email }}</p>
+                        </div>
+                        <div class="ml-4">
+                            <span
+                                class="inline-flex items-center gap-1 px-3 py-1 text-xs font-medium rounded-full border"
+                                [ngClass]="getStatusColor(instructor.isVerified)">
+                                <span>{{ getStatusIcon(instructor.isVerified) }}</span>
+                                {{ getStatusText(instructor.isVerified) }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Instructor Details -->
+                    <div class="space-y-3">
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-xs text-gray-500 uppercase tracking-wide font-medium mb-1">Specialization</p>
+                            <p class="text-gray-800 font-medium">{{ instructor.specialization }}</p>
+                        </div>
+
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-xs text-gray-500 uppercase tracking-wide font-medium mb-1">Description</p>
+                            <p class="text-gray-700 text-sm leading-relaxed">{{ instructor.description }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Actions -->
+                <div class="px-6 pb-6">
+                    <!-- Document Links -->
+                    <div class="flex gap-2 mb-4">
+                        <a [href]="instructor.cvPath" target="_blank"
+                            class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            View CV
+                        </a>
+                        <a [href]="instructor.nationalIdPath" target="_blank"
+                            class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium bg-purple-50 text-purple-600 rounded-lg hover:bg-purple-100 transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 2C5.582 2 2 5.582 2 10s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zM9 6a1 1 0 112 0v4a1 1 0 11-2 0V6zM8 13a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            View ID
+                        </a>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div *ngIf="instructor.isVerified === null" class="flex gap-2">
+                        <button (click)="acceptInstructor(instructor.id)" [disabled]="isProcessing(instructor.id)"
+                            class="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium rounded-lg hover:from-emerald-600 hover:to-teal-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200">
+                            <svg *ngIf="!isProcessing(instructor.id)" class="w-4 h-4" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            <div *ngIf="isProcessing(instructor.id)"
+                                class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                            Accept
+                        </button>
+
+                        <button (click)="rejectInstructor(instructor.id)" [disabled]="isProcessing(instructor.id)"
+                            class="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200">
+                            <svg *ngIf="!isProcessing(instructor.id)" class="w-4 h-4" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            <div *ngIf="isProcessing(instructor.id)"
+                                class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                            Reject
+                        </button>
+                    </div>
+
+                    <!-- Toggle Switch (always shown after decision) -->
+                    @if (instructor.isVerified !== null) {
+                    <div>
+                        <button (click)="toggleInstructorVerification(instructor.id)" [ngClass]="!instructor.isVerified 
+                                ? 'bg-emerald-500 text-white hover:bg-emerald-600' 
+                                : 'bg-red-500 text-white hover:bg-red-600'"
+                            class="px-4 py-2 rounded-md font-medium transition-colors">
+                            {{ !instructor.isVerified ? 'Active' : 'Inactive' }}
+                        </button>
+                    </div>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+
+        <!-- Empty State -->
+        @if (!isLoading() && instructors().length === 0) {
+        <div class="text-center py-20">
+            <div class="text-gray-400 mb-4">
+                <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+            </div>
+            <p class="text-gray-600 text-lg">No instructors found</p>
+            <p class="text-gray-500 text-sm mt-1">Try adjusting your filters</p>
+        </div>
+        }
+    </div>

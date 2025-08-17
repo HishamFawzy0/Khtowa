@@ -1,22 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../environments/environment';
+import { environment } from '../../../../../environments/environment.development';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RegisterService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  baseURL:any=environment.apiUrl;
+  baseURL: any = environment.apiUrl;
 
   registerStudent(studentObj: any): Observable<any> {
-    return this.http.post(`${this.baseURL}Account/student-register`, studentObj);
+    return this.http.post(
+      `${this.baseURL}Account/student-register`,
+      studentObj
+    );
   }
 
   registerInstructor(instructorObj: any): Observable<any> {
-    return this.http.post(`${this.baseURL}Account/instructor-register`, instructorObj);
+    return this.http.post(
+      `${this.baseURL}Account/instructor-register`,
+      instructorObj
+    );
   }
 }
