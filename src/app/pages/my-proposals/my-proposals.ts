@@ -85,7 +85,7 @@ export class MyProposals {
       case 2:
         return 'Accepted';
       case 3:
-        return 'Deleted';
+        return 'Rejected';
       default:
         return 'Submitted';
     }

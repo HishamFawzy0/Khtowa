@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { RouterModule } from '@angular/router';
+import { InstructorService } from '../../core/services/instructor/instructor-service';
 
 export interface TutorRequestFilter {
   pageNumber: number;
@@ -31,12 +32,14 @@ export class Services implements OnInit {
   GetCategory = inject(CategoryService);
   getTutorRequests = inject(TutorRequestService);
   LoginService = inject(LoginService);
-
+  InstructorService = inject(InstructorService);
   // Data
   categoryList: ICategory[] = [];
   TutorRequestList: TutorRequest[] = [];
   filteredRequests: TutorRequest[] = [];
   userData = this.LoginService.userData;
+
+  isVerified: boolean = false;
 
   // Filter properties
   searchTitle: string = '';
@@ -59,6 +62,23 @@ export class Services implements OnInit {
   ngOnInit(): void {
     this.loadCategories();
     this.loadTutorRequests();
+
+    if (this.userData.role === 'Instructor') {
+      this.CheckIfInstructorVerified();
+    }
+  }
+
+  CheckIfInstructorVerified() {
+    this.InstructorService.getInstructorIsVerified(
+      this.userData.nameid
+    ).subscribe({
+      next: (isVerified) => {
+        this.isVerified = isVerified;
+      },
+      error: (err) => {
+        console.error('Error fetching isVerified:', err);
+      },
+    });
   }
 
   loadCategories(): void {

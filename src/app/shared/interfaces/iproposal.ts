@@ -7,6 +7,7 @@ export interface IProposal {
   publicId: string;
   priceOffered: number;
   availableDateTimeList: string[];
+  rating: number;
 }
 
 // shared/interfaces/pagination.ts

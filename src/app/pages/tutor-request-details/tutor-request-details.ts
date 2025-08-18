@@ -18,6 +18,7 @@ import { error } from 'console';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ProposalService } from '../../core/services/proposal/proposal-service';
 import { SessionService } from '../../core/services/sessions/session-service';
+import { ReviewService } from '../../core/services/review/reviewService';
 
 @Component({
   selector: 'app-tutor-request-details',
@@ -32,6 +33,7 @@ export class TutorRequestDetails implements OnInit {
   totalProposals: number = 0;
   currentPage: number = 1;
   pageSize: number = 5;
+  isVerified: boolean = false;
 
   metadata: Pagination = {
     currentPage: 1,
@@ -45,8 +47,10 @@ export class TutorRequestDetails implements OnInit {
   sanitizer = inject(DomSanitizer);
   _ProposalService = inject(ProposalService);
   _SessionService = inject(SessionService);
+  reviewService = inject(ReviewService);
 
   instructorId!: string;
+  instructorRating: number = 0;
 
   _instructorService = inject(InstructorService);
   _loginService = inject(LoginService);
@@ -79,12 +83,32 @@ export class TutorRequestDetails implements OnInit {
         console.error('Failed to load tutor request:', err);
       },
     });
+    if (this.userData.role === 'Instructor') {
+      this.CheckIfInstructorVerified();
+    }
+  }
+
+  getCeilValue(value: number): number {
+    return Math.ceil(value);
+  }
+  CheckIfInstructorVerified() {
+    this._instructorService
+      .getInstructorIsVerified(this.userData.nameid)
+      .subscribe({
+        next: (isVerified) => {
+          this.isVerified = isVerified;
+        },
+        error: (err) => {
+          console.error('Error fetching isVerified:', err);
+        },
+      });
   }
 
   getInstructorByProposalID(id: number) {
     this._instructorService.getInstructorByProposalID(id).subscribe({
       next: (data: InstructorData) => {
         this.instructorId = data.id;
+        this.instructorRating = data.rating;
 
         this._ChatService
           .createChat({
@@ -186,12 +210,11 @@ export class TutorRequestDetails implements OnInit {
     this._ProposalService.changeProposalStatus(proposal.id, 2).subscribe({
       next: (res) => {
         console.log('Proposal accepted:', res);
-       
       },
       error: (err) => {
         console.error('Failed to accept proposal:', err);
       },
-    })
+    });
 
     this._SessionService.createSession(this.id, selectedDate).subscribe({
       next: (res) => {
@@ -201,7 +224,7 @@ export class TutorRequestDetails implements OnInit {
       error: (err) => {
         console.error('Failed to create session:', err);
       },
-    })
+    });
 
     // API call here
   }

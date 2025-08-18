@@ -21,6 +21,7 @@ export class ReviewFormComponent implements OnInit {
   private reviewService = inject(ReviewService);
   private route = inject(ActivatedRoute);
   private user = inject(LoginService);
+  private router = inject(Router);
 
   instructorId = this.route.snapshot.paramMap.get('id');
   studentId = this.user.userData.nameid;
@@ -59,6 +60,7 @@ export class ReviewFormComponent implements OnInit {
         this.successMessage = 'Review submitted successfully!';
         this.isSubmitting = false;
         this.reviewForm.reset({ rating: 0 });
+        this.router.navigate(['/services']);
       },
       error: (err) => {
         this.errorMessage = 'Failed to submit review. Please try again.';

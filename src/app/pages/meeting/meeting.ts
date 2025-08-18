@@ -33,7 +33,7 @@ export class Meeting implements OnInit {
     }
     this.loadJitsiScript().then(() => {
       const options = {
-        roomName: this.meetingInfo.roomName, // unique room name
+        roomName: 'class1', // unique room name
         width: '100%',
         height: '100%',
         parentNode: document.querySelector('#meet'),
@@ -77,8 +77,11 @@ export class Meeting implements OnInit {
       });
       api.addEventListener('videoConferenceLeft', () => {
         console.log('Meeting ended!');
-
-        this.router.navigate(['/review']);
+        if (this.userdata.role === 'Student') {
+          this.router.navigate(['/review']);
+        } else {
+          this.router.navigate(['/services']);
+        }
       });
     });
   }
@@ -92,7 +95,7 @@ export class Meeting implements OnInit {
       this.isReady = true;
       this.loadJitsi();
       console.log('Meeting component is ready.');
-    }, 3000); // Delay to ensure the component is ready
+    }, 5000); // Delay to ensure the component is ready
 
     this._sessionService.getSession(this.sessionId).subscribe({
       next: (res) => {

@@ -1,10 +1,16 @@
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+<div
+  class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50"
+>
   <!-- Header with background gradient -->
   <div class="bg-gradient-to-r from-emerald-500 to-teal-500 py-12">
     <div class="container mx-auto px-4 md:px-8">
       <div class="text-center text-white">
-        <h1 class="text-3xl md:text-4xl font-bold mb-2">Tutor Request Details</h1>
-        <p class="text-emerald-100 text-lg">Find the perfect match for your learning needs</p>
+        <h1 class="text-3xl md:text-4xl font-bold mb-2">
+          Tutor Request Details
+        </h1>
+        <p class="text-emerald-100 text-lg">
+          Find the perfect match for your learning needs
+        </p>
       </div>
     </div>
   </div>
@@ -16,26 +22,45 @@
       <div class="lg:col-span-2 space-y-8">
         <!-- Main Request Card -->
         <div
-          class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300">
-          <div class="flex flex-col sm:flex-row justify-between items-start gap-4">
+          class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300"
+        >
+          <div
+            class="flex flex-col sm:flex-row justify-between items-start gap-4"
+          >
             <div class="flex-1">
               <div class="flex items-center gap-3 mb-4">
-                <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold shadow-sm" [ngClass]="{
-                    'bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-700 border border-emerald-200': request.status == 'OpenForApply',
-                    'bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-600 border border-emerald-200': request.status == 'InReview',
-                    'bg-gradient-to-r from-gray-100 to-slate-100 text-gray-700 border border-gray-200': request.status == 'Closed'
-                  }">
-                  <span class="w-2 h-2 rounded-full mr-2" [ngClass]="{
+                <span
+                  class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold shadow-sm"
+                  [ngClass]="{
+                    'bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-700 border border-emerald-200':
+                      request.status == 'OpenForApply',
+                    'bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-600 border border-emerald-200':
+                      request.status == 'InReview',
+                    'bg-gradient-to-r from-gray-100 to-slate-100 text-gray-700 border border-gray-200':
+                      request.status == 'Closed'
+                  }"
+                >
+                  <span
+                    class="w-2 h-2 rounded-full mr-2"
+                    [ngClass]="{
                       'bg-emerald-500': request.status == 'OpenForApply',
                       'bg-emerald-400': request.status == 'InReview',
                       'bg-gray-500': request.status == 'Closed'
-                    }"></span>
-                  {{ request.status == 'OpenForApply' ? 'Open for Applications' :
-                  request.status == 'InReview' ? 'Under Review' : 'Closed' }}
+                    }"
+                  ></span>
+                  {{
+                    request.status == "OpenForApply"
+                      ? "Open for Applications"
+                      : request.status == "InReview"
+                      ? "Under Review"
+                      : "Closed"
+                  }}
                 </span>
                 <!-- <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">Posted 3 days ago</span> -->
               </div>
-              <h2 class="text-3xl font-bold text-gray-900 mb-2 leading-tight">{{ request.title }}</h2>
+              <h2 class="text-3xl font-bold text-gray-900 mb-2 leading-tight">
+                {{ request.title }}
+              </h2>
             </div>
             <div class="flex items-center gap-2">
               <!-- <button
@@ -49,74 +74,126 @@
             </div>
           </div>
           <div class="mt-8">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-              <span class="material-icons text-emerald-500 mr-2">description</span>
+            <h3
+              class="text-lg font-semibold text-gray-900 mb-4 flex items-center"
+            >
+              <span class="material-icons text-emerald-500 mr-2"
+                >description</span
+              >
               Description
             </h3>
-            <div class="bg-gradient-to-r from-emerald-50 to-teal-50 p-6 rounded-xl border border-emerald-100">
-              <p class="text-gray-700 leading-relaxed">{{ request.description }}</p>
+            <div
+              class="bg-gradient-to-r from-emerald-50 to-teal-50 p-6 rounded-xl border border-emerald-100"
+            >
+              <p class="text-gray-700 leading-relaxed">
+                {{ request.description }}
+              </p>
             </div>
           </div>
         </div>
 
         <!-- Request Details Card -->
         <div
-          class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300">
+          class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300"
+        >
           <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-            <span class="material-icons text-emerald-500 mr-3 text-3xl">info</span>
+            <span class="material-icons text-emerald-500 mr-3 text-3xl"
+              >info</span
+            >
             Request Details
           </h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div
-              class="group p-6 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 hover:shadow-lg transition-all duration-300">
+              class="group p-6 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 hover:shadow-lg transition-all duration-300"
+            >
               <div class="flex items-center mb-3">
                 <div
-                  class="p-3 rounded-xl bg-emerald-100 group-hover:bg-emerald-200 transition-colors duration-200 mr-4">
-                  <span class="material-icons text-emerald-600 text-2xl">attach_money</span>
+                  class="p-3 rounded-xl bg-emerald-100 group-hover:bg-emerald-200 transition-colors duration-200 mr-4"
+                >
+                  <span class="material-icons text-emerald-600 text-2xl"
+                    >attach_money</span
+                  >
                 </div>
                 <div>
-                  <p class="text-sm font-medium text-emerald-600 uppercase tracking-wide">Budget Range</p>
-                  <p class="text-2xl font-bold text-emerald-800">${{ request.minBudget }} - ${{ request.maxBudget }}</p>
+                  <p
+                    class="text-sm font-medium text-emerald-600 uppercase tracking-wide"
+                  >
+                    Budget Range
+                  </p>
+                  <p class="text-2xl font-bold text-emerald-800">
+                    ${{ request.minBudget }} - ${{ request.maxBudget }}
+                  </p>
                 </div>
               </div>
             </div>
             <div
-              class="group p-6 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 hover:shadow-lg transition-all duration-300">
+              class="group p-6 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 hover:shadow-lg transition-all duration-300"
+            >
               <div class="flex items-center mb-3">
                 <div
-                  class="p-3 rounded-xl bg-emerald-100 group-hover:bg-emerald-200 transition-colors duration-200 mr-4">
-                  <span class="material-icons text-emerald-600 text-2xl">schedule</span>
+                  class="p-3 rounded-xl bg-emerald-100 group-hover:bg-emerald-200 transition-colors duration-200 mr-4"
+                >
+                  <span class="material-icons text-emerald-600 text-2xl"
+                    >schedule</span
+                  >
                 </div>
                 <div>
-                  <p class="text-sm font-medium text-emerald-600 uppercase tracking-wide">Start Date</p>
-                  <p class="text-lg font-bold text-emerald-800">{{ request.startDateTime | date: 'MMM dd, yyyy' }}</p>
+                  <p
+                    class="text-sm font-medium text-emerald-600 uppercase tracking-wide"
+                  >
+                    Start Date
+                  </p>
+                  <p class="text-lg font-bold text-emerald-800">
+                    {{ request.startDateTime | date : "MMM dd, yyyy" }}
+                  </p>
                 </div>
               </div>
             </div>
 
             <div
-              class="group p-6 rounded-xl bg-gradient-to-br from-teal-50 to-emerald-50 border border-teal-100 hover:shadow-lg transition-all duration-300">
+              class="group p-6 rounded-xl bg-gradient-to-br from-teal-50 to-emerald-50 border border-teal-100 hover:shadow-lg transition-all duration-300"
+            >
               <div class="flex items-center mb-3">
-                <div class="p-3 rounded-xl bg-teal-100 group-hover:bg-teal-200 transition-colors duration-200 mr-4">
-                  <span class="material-icons text-teal-600 text-2xl">category</span>
+                <div
+                  class="p-3 rounded-xl bg-teal-100 group-hover:bg-teal-200 transition-colors duration-200 mr-4"
+                >
+                  <span class="material-icons text-teal-600 text-2xl"
+                    >category</span
+                  >
                 </div>
                 <div>
-                  <p class="text-sm font-medium text-teal-600 uppercase tracking-wide">Field of Study</p>
-                  <p class="text-lg font-bold text-teal-800">{{ request.categoryName }}</p>
+                  <p
+                    class="text-sm font-medium text-teal-600 uppercase tracking-wide"
+                  >
+                    Field of Study
+                  </p>
+                  <p class="text-lg font-bold text-teal-800">
+                    {{ request.categoryName }}
+                  </p>
                 </div>
               </div>
             </div>
 
             <div
-              class="group p-6 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 hover:shadow-lg transition-all duration-300">
+              class="group p-6 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 hover:shadow-lg transition-all duration-300"
+            >
               <div class="flex items-center mb-3">
                 <div
-                  class="p-3 rounded-xl bg-emerald-100 group-hover:bg-emerald-200 transition-colors duration-200 mr-4">
-                  <span class="material-icons text-emerald-600 text-2xl">event</span>
+                  class="p-3 rounded-xl bg-emerald-100 group-hover:bg-emerald-200 transition-colors duration-200 mr-4"
+                >
+                  <span class="material-icons text-emerald-600 text-2xl"
+                    >event</span
+                  >
                 </div>
                 <div>
-                  <p class="text-sm font-medium text-emerald-600 uppercase tracking-wide">End Date</p>
-                  <p class="text-lg font-bold text-emerald-800">{{ request.endDateTime | date: 'MMM dd, yyyy' }}</p>
+                  <p
+                    class="text-sm font-medium text-emerald-600 uppercase tracking-wide"
+                  >
+                    End Date
+                  </p>
+                  <p class="text-lg font-bold text-emerald-800">
+                    {{ request.endDateTime | date : "MMM dd, yyyy" }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -125,14 +202,21 @@
 
         <!-- Enhanced Proposals Section -->
         <div
-          class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300">
+          class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300"
+        >
           <div class="flex items-center justify-between mb-8">
             <h3 class="text-2xl font-bold text-gray-900 flex items-center">
-              <span class="material-icons text-emerald-500 mr-3 text-3xl">assignment</span>
+              <span class="material-icons text-emerald-500 mr-3 text-3xl"
+                >assignment</span
+              >
               Submitted Proposals
             </h3>
-            <div class="bg-gradient-to-r from-emerald-100 to-teal-100 px-4 py-2 rounded-full">
-              <span class="text-emerald-700 font-semibold">{{ metadata.totalCount || 0 }} Total</span>
+            <div
+              class="bg-gradient-to-r from-emerald-100 to-teal-100 px-4 py-2 rounded-full"
+            >
+              <span class="text-emerald-700 font-semibold"
+                >{{ metadata.totalCount || 0 }} Total</span
+              >
             </div>
           </div>
 
@@ -141,9 +225,12 @@
             @for (proposal of proposals; track $index) {
             <!-- Enhanced Proposal Card -->
             <div
-              class="group relative bg-white border-2 border-gray-100 rounded-3xl shadow-lg hover:shadow-2xl hover:border-emerald-200 transition-all duration-500 overflow-hidden">
+              class="group relative bg-white border-2 border-gray-100 rounded-3xl shadow-lg hover:shadow-2xl hover:border-emerald-200 transition-all duration-500 overflow-hidden"
+            >
               <!-- Gradient accent line -->
-              <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 to-teal-500"></div>
+              <div
+                class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 to-teal-500"
+              ></div>
 
               <div class="p-8">
                 <!-- Header Section -->
@@ -152,180 +239,277 @@
                   <div class="flex items-start gap-4 flex-1">
                     <div class="relative flex-shrink-0">
                       <div
-                        class="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
-                        <span class="material-icons text-white text-3xl">person</span>
+                        class="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300"
+                      >
+                        <span class="material-icons text-white text-3xl"
+                          >person</span
+                        >
                       </div>
                       <div
-                        class="absolute -bottom-2 -right-2 w-8 h-8 bg-emerald-400 rounded-full border-3 border-white flex items-center justify-center shadow-lg">
-                        <span class="material-icons text-white text-sm">verified</span>
+                        class="absolute -bottom-2 -right-2 w-8 h-8 bg-emerald-400 rounded-full border-3 border-white flex items-center justify-center shadow-lg"
+                      >
+                        <span class="material-icons text-white text-sm"
+                          >verified</span
+                        >
                       </div>
                     </div>
 
                     <div class="flex-1">
                       <h4
-                        class="text-2xl font-bold text-gray-900 group-hover:text-emerald-600 transition-colors duration-300 mb-1">
+                        class="text-2xl font-bold text-gray-900 group-hover:text-emerald-600 transition-colors duration-300 mb-1"
+                      >
                         {{ proposal.instructorDisplayName }}
                       </h4>
-                      <p class="text-emerald-600 font-semibold mb-2">Professional Tutor</p>
+                      <p class="text-emerald-600 font-semibold mb-2">
+                        Professional Tutor
+                      </p>
 
                       <!-- Rating -->
                       <div class="flex items-center gap-2 mb-3">
                         <div class="flex text-yellow-400">
+                          @for (_ of
+                          [].constructor(this.getCeilValue(proposal.rating));
+                          track $index;) {
                           <span class="material-icons text-lg">star</span>
-                          <span class="material-icons text-lg">star</span>
-                          <span class="material-icons text-lg">star</span>
-                          <span class="material-icons text-lg">star</span>
-                          <span class="material-icons text-lg">star</span>
+                          }
                         </div>
-                        <span class="text-sm text-gray-600 font-medium">(4.9)</span>
-                        <span class="text-gray-300">•</span>
-                        <span class="text-sm text-gray-500">127 reviews</span>
-                      </div>
-
-                      <!-- Skills/Tags -->
-                      <div class="flex flex-wrap gap-2">
-                        <span
-                          class="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-full">Expert
-                          Level</span>
-                        <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-semibold rounded-full">5+
-                          Years</span>
-                        <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">Top
-                          Rated</span>
+                        <span class="text-md text-gray-600 font-medium">{{
+                          proposal.rating
+                        }}</span>
                       </div>
                     </div>
                   </div>
 
                   <!-- Price and Time Info -->
-                  <div class="flex flex-col sm:flex-row lg:flex-col gap-4 lg:text-right">
-                    <div class="bg-gradient-to-br from-emerald-50 to-teal-50 p-4 rounded-2xl border border-emerald-100">
+                  @if (userData.unique_name === request.customerName) {
+                  <div
+                    class="flex flex-col sm:flex-row lg:flex-col gap-4 lg:text-right"
+                  >
+                    <div
+                      class="bg-gradient-to-br from-emerald-50 to-teal-50 p-4 rounded-2xl border border-emerald-100"
+                    >
                       <div class="flex items-center gap-2 lg:justify-end mb-1">
-                        <span class="material-icons text-emerald-500 text-xl">monetization_on</span>
-                        <span class="text-sm text-emerald-600 font-medium uppercase tracking-wide">Proposed Rate</span>
+                        <span class="material-icons text-emerald-500 text-xl"
+                          >monetization_on</span
+                        >
+                        <span
+                          class="text-sm text-emerald-600 font-medium uppercase tracking-wide"
+                          >Proposed Rate</span
+                        >
                       </div>
-                      <p class="text-3xl font-bold text-emerald-700">${{ proposal.priceOffered }}</p>
+                      <p class="text-3xl font-bold text-emerald-700">
+                        ${{ proposal.priceOffered }}
+                      </p>
                     </div>
 
-                    <div class="bg-gradient-to-br from-teal-50 to-emerald-50 p-4 rounded-2xl border border-teal-100">
+                    <div
+                      class="bg-gradient-to-br from-teal-50 to-emerald-50 p-4 rounded-2xl border border-teal-100"
+                    >
                       <div class="flex items-center gap-2 lg:justify-end mb-1">
-                        <span class="material-icons text-teal-500 text-xl">access_time</span>
-                        <span class="text-sm text-teal-600 font-medium uppercase tracking-wide">Available Dates</span>
+                        <span class="material-icons text-teal-500 text-xl"
+                          >access_time</span
+                        >
+                        <span
+                          class="text-sm text-teal-600 font-medium uppercase tracking-wide"
+                          >Available Dates</span
+                        >
                       </div>
                       <p class="text-lg font-bold text-teal-700">
                         {{ proposal.availableDateTimeList.length }} slots
                       </p>
                     </div>
                   </div>
+                  }
                 </div>
 
                 <!-- Available Dates Section -->
-                @if (proposal.availableDateTimeList && proposal.availableDateTimeList.length > 0) {
-                
-                  @if(userData.role === 'Student'){
-                    <div class="mb-8">
-                    <div class="flex items-center justify-between mb-4">
-                      <h5 class="text-lg font-semibold text-gray-900 flex items-center">
-                        <span class="material-icons text-emerald-500 mr-2">schedule</span>
-                        Available Time Slots
-                      </h5>
-                      <button (click)="toggleDateSelection($index)"
-                        class="text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1 transition-colors">
-                        <span>{{ expandedProposals[$index] ? 'Hide' : 'Show' }} Dates</span>
-                        <span class="material-icons text-sm transform transition-transform"
-                          [class.rotate-180]="expandedProposals[$index]">expand_more</span>
-                      </button>
-                    </div>
-  
-                    <!-- Selected Date Display -->
-                    @if (isDateSelected($index)) {
-                    <div
-                      class="mb-4 p-4 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-xl border-2 border-emerald-300">
-                      <div class="flex items-center gap-3">
-                        <span class="material-icons text-emerald-600">check_circle</span>
-                        <div>
-                          <p class="font-semibold text-emerald-800">Selected Date & Time:</p>
-                          <p class="text-emerald-700 text-lg">{{ formatDate(getSelectedDate($index)) }}</p>
-                        </div>
+                @if (proposal.availableDateTimeList &&
+                proposal.availableDateTimeList.length > 0) { @if(userData.role
+                === 'Student'){
+                <div class="mb-8">
+                  <div class="flex items-center justify-between mb-4">
+                    <h5
+                      class="text-lg font-semibold text-gray-900 flex items-center"
+                    >
+                      <span class="material-icons text-emerald-500 mr-2"
+                        >schedule</span
+                      >
+                      Available Time Slots
+                    </h5>
+                    <button
+                      (click)="toggleDateSelection($index)"
+                      class="text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1 transition-colors"
+                    >
+                      <span
+                        >{{
+                          expandedProposals[$index] ? "Hide" : "Show"
+                        }}
+                        Dates</span
+                      >
+                      <span
+                        class="material-icons text-sm transform transition-transform"
+                        [class.rotate-180]="expandedProposals[$index]"
+                        >expand_more</span
+                      >
+                    </button>
+                  </div>
+
+                  <!-- Selected Date Display -->
+                  @if (isDateSelected($index)) {
+                  <div
+                    class="mb-4 p-4 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-xl border-2 border-emerald-300"
+                  >
+                    <div class="flex items-center gap-3">
+                      <span class="material-icons text-emerald-600"
+                        >check_circle</span
+                      >
+                      <div>
+                        <p class="font-semibold text-emerald-800">
+                          Selected Date & Time:
+                        </p>
+                        <p class="text-emerald-700 text-lg">
+                          {{ formatDate(getSelectedDate($index)) }}
+                        </p>
                       </div>
                     </div>
-                    } 
-   
-                    <!-- Date Selection Grid -->
-                    @if (expandedProposals[$index]) {
-                    <div
-                      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4 bg-gray-50 rounded-xl border border-gray-200">
-                      @for (date of proposal.availableDateTimeList; track date) {
-                      <label class="flex items-center gap-3 cursor-pointer p-3 rounded-xl border-2 transition-all duration-300" [class]="selectedDates[proposal.id] === date
-                              ? 'bg-gradient-to-r from-emerald-100 to-teal-100 border-emerald-400'
-                              : 'bg-white border-gray-200 hover:border-emerald-300 hover:bg-emerald-50'">
-                      
-                        <input type="radio" [name]="'date_' + proposal.id" [value]="date" [(ngModel)]="selectedDates[proposal.id]"
-                          class="form-radio text-emerald-600 focus:ring-emerald-500" />
-                      
-                        <div class="flex flex-col">
-                          <span class="font-semibold">{{ date | date: 'EEE, MMM dd' }}</span>
-                          <span class="text-sm text-gray-600">{{ date | date: 'h:mm a' }}</span>
-                        </div>
-                      </label>
-                      }
-                    </div>
+                  </div>
+                  }
+
+                  <!-- Date Selection Grid -->
+                  @if (expandedProposals[$index]) {
+                  <div
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4 bg-gray-50 rounded-xl border border-gray-200"
+                  >
+                    @for (date of proposal.availableDateTimeList; track date) {
+                    <label
+                      class="flex items-center gap-3 cursor-pointer p-3 rounded-xl border-2 transition-all duration-300"
+                      [class]="
+                        selectedDates[proposal.id] === date
+                          ? 'bg-gradient-to-r from-emerald-100 to-teal-100 border-emerald-400'
+                          : 'bg-white border-gray-200 hover:border-emerald-300 hover:bg-emerald-50'
+                      "
+                    >
+                      <input
+                        type="radio"
+                        [name]="'date_' + proposal.id"
+                        [value]="date"
+                        [(ngModel)]="selectedDates[proposal.id]"
+                        class="form-radio text-emerald-600 focus:ring-emerald-500"
+                      />
+
+                      <div class="flex flex-col">
+                        <span class="font-semibold">{{
+                          date | date : "EEE, MMM dd"
+                        }}</span>
+                        <span class="text-sm text-gray-600">{{
+                          date | date : "h:mm a"
+                        }}</span>
+                      </div>
+                    </label>
                     }
                   </div>
                   }
-                }
+                </div>
+                } }
 
                 <!-- Proposal Message -->
                 <div class="mb-8">
-                  <h5 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
-                    <span class="material-icons text-emerald-500 mr-2">format_quote</span>
+                  <h5
+                    class="text-lg font-semibold text-gray-900 mb-3 flex items-center"
+                  >
+                    <span class="material-icons text-emerald-500 mr-2"
+                      >format_quote</span
+                    >
                     Proposal Message
                   </h5>
-                  <div class="bg-gradient-to-r from-gray-50 to-slate-50 p-6 rounded-2xl border border-gray-200">
+                  <div
+                    class="bg-gradient-to-r from-gray-50 to-slate-50 p-6 rounded-2xl border border-gray-200"
+                  >
+                    @if (userData.unique_name === request.customerName) {
                     <p class="text-gray-700 leading-relaxed text-lg italic">
-                      {{ proposal.message || 'Looking forward to helping you achieve your learning goals with my expertise and personalized teaching approach!' }}
+                      {{
+                        proposal.message ||
+                          "Looking forward to helping you achieve your learning goals with my expertise and personalized teaching approach!"
+                      }}
                     </p>
+                    } @else {
+                    <p class="text-gray-700 leading-relaxed text-lg">
+                      {{
+                        proposal.message.substring(0, 6) + "......" ||
+                          "This proposal is under review. Please wait for the client to respond."
+                      }}
+                    </p>
+                    }
                   </div>
                 </div>
 
+                @if (userData.unique_name === request.customerName) {
                 <!-- Enhanced Video Section -->
                 <div class="mb-8">
-                  <h5 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                    <span class="material-icons text-emerald-500 mr-2">play_circle</span>
+                  <h5
+                    class="text-lg font-semibold text-gray-900 mb-4 flex items-center"
+                  >
+                    <span class="material-icons text-emerald-500 mr-2"
+                      >play_circle</span
+                    >
                     Introduction Video
                   </h5>
                   <div class="relative group/video">
                     <div
-                      class="rounded-2xl overflow-hidden border-2 border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300 bg-black">
+                      class="rounded-2xl overflow-hidden border-2 border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300 bg-black"
+                    >
                       <!-- Video Container with improved aspect ratio -->
-                      <div class="relative aspect-video bg-gradient-to-br from-gray-900 to-gray-800">
-                        <iframe [src]="videoUrls[$index]" class="w-full h-full rounded-2xl"
-                          allow="autoplay; fullscreen; encrypted-media; picture-in-picture; web-share" allowfullscreen
-                          frameborder="0" loading="lazy" title="Tutor Introduction Video">
+                      <div
+                        class="relative aspect-video bg-gradient-to-br from-gray-900 to-gray-800"
+                      >
+                        <iframe
+                          [src]="videoUrls[$index]"
+                          class="w-full h-full rounded-2xl"
+                          allow="autoplay; fullscreen; encrypted-media; picture-in-picture; web-share"
+                          allowfullscreen
+                          frameborder="0"
+                          loading="lazy"
+                          title="Tutor Introduction Video"
+                        >
                         </iframe>
 
                         <!-- Video overlay for loading state -->
                         <div
-                          class="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 opacity-0 group-hover/video:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl">
-                        </div>
+                          class="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 opacity-0 group-hover/video:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
+                        ></div>
                       </div>
                     </div>
 
                     <!-- Video quality indicator -->
                     <div
-                      class="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+                      class="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg"
+                    >
                       HD Quality
                     </div>
                   </div>
                 </div>
+                }
 
                 <!-- Action Buttons -->
-                <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-100">
+                <div
+                  class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-100"
+                >
                   @if (userData.unique_name === request.customerName) {
-                  <button (click)="acceptProposal(proposal)" [disabled]="!isDateSelected(proposal.id)"
-                    [class]="isDateSelected(proposal.id) ? 
-                      'flex-1 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-4 px-6 rounded-2xl hover:from-emerald-600 hover:to-teal-600 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3' :
-                      'flex-1 bg-gray-300 text-gray-500 font-bold py-4 px-6 rounded-2xl cursor-not-allowed flex items-center justify-center gap-3'">
+                  <button
+                    (click)="acceptProposal(proposal)"
+                    [disabled]="!isDateSelected(proposal.id)"
+                    [class]="
+                      isDateSelected(proposal.id)
+                        ? 'flex-1 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-4 px-6 rounded-2xl hover:from-emerald-600 hover:to-teal-600 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3'
+                        : 'flex-1 bg-gray-300 text-gray-500 font-bold py-4 px-6 rounded-2xl cursor-not-allowed flex items-center justify-center gap-3'
+                    "
+                  >
                     <span class="material-icons text-xl">check_circle</span>
-                    <span>{{ isDateSelected(proposal.id) ? 'Accept Proposal' : 'Select Date First' }}</span>
+                    <span>{{
+                      isDateSelected(proposal.id)
+                        ? "Accept Proposal"
+                        : "Select Date First"
+                    }}</span>
                   </button>
 
                   <!-- <button
@@ -334,7 +518,7 @@
                     Send Message
                   </button> -->
                   }
- 
+
                   <!-- View Profile Button -->
                   <!-- <button
                     class="border-2 border-teal-200 text-teal-600 font-semibold py-3 px-6 rounded-2xl hover:border-teal-300 hover:bg-teal-50 transition-all duration-300 flex items-center justify-center gap-2">
@@ -348,12 +532,22 @@
           </div>
 
           <!-- Enhanced Pagination -->
-          <div class="mt-12 flex justify-center" *ngIf="metadata?.totalPages && metadata.totalPages > 1">
-            <div class="flex items-center gap-2 bg-white p-3 rounded-2xl shadow-lg border border-gray-200">
-              <button *ngFor="let page of getPageArray()" (click)="changePage(page)"
-                [class]="page === pageNumber ?
-                    'px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl shadow-lg font-bold transform scale-105' :
-                    'px-6 py-3 text-gray-600 hover:bg-gray-100 rounded-xl font-semibold transition-all duration-200 hover:scale-105'">
+          <div
+            class="mt-12 flex justify-center"
+            *ngIf="metadata?.totalPages && metadata.totalPages > 1"
+          >
+            <div
+              class="flex items-center gap-2 bg-white p-3 rounded-2xl shadow-lg border border-gray-200"
+            >
+              <button
+                *ngFor="let page of getPageArray()"
+                (click)="changePage(page)"
+                [class]="
+                  page === pageNumber
+                    ? 'px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl shadow-lg font-bold transform scale-105'
+                    : 'px-6 py-3 text-gray-600 hover:bg-gray-100 rounded-xl font-semibold transition-all duration-200 hover:scale-105'
+                "
+              >
                 {{ page }}
               </button>
             </div>
@@ -362,12 +556,21 @@
           <!-- Empty State -->
           <div class="text-center py-20">
             <div
-              class="w-32 h-32 mx-auto mb-8 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center">
-              <span class="material-icons text-gray-400 text-6xl">assignment</span>
+              class="w-32 h-32 mx-auto mb-8 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center"
+            >
+              <span class="material-icons text-gray-400 text-6xl"
+                >assignment</span
+              >
             </div>
-            <h4 class="text-2xl font-bold text-gray-600 mb-3">No Proposals Yet</h4>
-            <p class="text-gray-500 text-lg mb-6">Be the first to submit a proposal for this request!</p>
-            <div class="inline-flex items-center gap-2 text-emerald-600 font-medium">
+            <h4 class="text-2xl font-bold text-gray-600 mb-3">
+              No Proposals Yet
+            </h4>
+            <p class="text-gray-500 text-lg mb-6">
+              Be the first to submit a proposal for this request!
+            </p>
+            <div
+              class="inline-flex items-center gap-2 text-emerald-600 font-medium"
+            >
               <span class="material-icons">info</span>
               <span>Proposals will appear here once submitted</span>
             </div>
@@ -378,23 +581,28 @@
 
       <!-- Right Sidebar -->
       <div class="space-y-6">
-
         <!-- Submit Proposal Button (for Instructors) -->
-        @if (userData.role === 'Instructor') {
+        @if (userData.role === 'Instructor' && isVerified=== true) {
         <div
-          class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300">
-          <button routerLink="/proposal-form/{{ request.id }}"
-            class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-4 rounded-2xl hover:from-emerald-600 hover:to-teal-600 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 text-lg">
+          class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300"
+        >
+          <button
+            routerLink="/proposal-form/{{ request.id }}"
+            class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-4 rounded-2xl hover:from-emerald-600 hover:to-teal-600 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 text-lg"
+          >
             <span class="material-icons text-2xl">add_circle</span>
             <span>Submit Proposal</span>
           </button>
-          <p class="text-center text-gray-500 text-sm mt-3">Share your expertise and win this project</p>
+          <p class="text-center text-gray-500 text-sm mt-3">
+            Share your expertise and win this project
+          </p>
         </div>
         }
 
         <!-- Client Information Card -->
         <div
-          class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300">
+          class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300"
+        >
           <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
             <span class="material-icons text-emerald-500 mr-2">person</span>
             About the Client
@@ -402,18 +610,21 @@
           <div class="text-center mb-6">
             <div class="relative inline-block">
               <div
-                class="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg mx-auto mb-4">
+                class="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg mx-auto mb-4"
+              >
                 <span class="material-icons text-white text-4xl">person</span>
               </div>
               <div
-                class="absolute -bottom-1 -right-1 w-8 h-8 bg-emerald-400 rounded-full border-3 border-white flex items-center justify-center">
+                class="absolute -bottom-1 -right-1 w-8 h-8 bg-emerald-400 rounded-full border-3 border-white flex items-center justify-center"
+              >
                 <span class="material-icons text-white text-sm">verified</span>
               </div>
-            </div> 
-            <h4 class="text-lg font-bold text-gray-900">{{ request.customerName }}</h4>
+            </div>
+            <h4 class="text-lg font-bold text-gray-900">
+              {{ request.customerName }}
+            </h4>
             <!-- <p class="text-sm text-gray-500">Member since {{request.}}</p> -->
           </div>
-          
         </div>
 
         <!-- Application History -->
