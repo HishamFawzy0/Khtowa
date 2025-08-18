@@ -33,7 +33,7 @@ export class MyProposals {
   error: string | null = null;
 
   // null = All (مش هيبعت ProposalStatus)
-  statusFilter: number | null = null;
+  statusFilter: number | null = 0;
 
   ngOnInit() {
     this.userID = this._login.userData.nameid;
@@ -79,18 +79,15 @@ export class MyProposals {
   }
 
   statusLabel(s: number): string {
-    // عدّل المسميات حسب الدومين عندك
     switch (s) {
       case 0:
-        return 'Pending';
-      case 1:
-        return 'Reviewed';
-      case 2:
         return 'Submitted';
+      case 2:
+        return 'Accepted';
       case 3:
-        return 'Closed';
+        return 'Deleted';
       default:
-        return 'Unknown';
+        return 'Submitted';
     }
   }
 
