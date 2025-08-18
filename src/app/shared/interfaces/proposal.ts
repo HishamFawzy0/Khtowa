@@ -5,5 +5,5 @@ export interface Proposal {
   videoUrl: string;
   publicId: string;
   priceOffered: number;
+  rating: number;
 }
-

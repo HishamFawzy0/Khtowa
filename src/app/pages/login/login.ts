@@ -148,7 +148,7 @@ export class Login {
       const userData = this.loginService.userData;
       if(!userData) return
       if(userData.role == 'Admin') this.router.navigate(['/admin-dashboard']);
-      else this.router.navigate(['/tutors']);
+      else this.router.navigate(['/services']);
     }, 0);
   }
 

@@ -208,7 +208,7 @@ export class StudentReq implements OnInit {
           timer: 2000,
           timerProgressBar: true,
         }).then(() => {
-          this.router.navigate(['/tutors']);
+          this.router.navigate(['/services']);
         });
       },
       error: (err) => {

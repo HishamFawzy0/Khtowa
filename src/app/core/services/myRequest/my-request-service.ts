@@ -8,14 +8,18 @@ import { TutorRequestFilter } from '../../../pages/services/services';
   providedIn: 'root',
 })
 export class MyRequestService {
-  constructor() {}
+  constructor() { }
   http: HttpClient = inject(HttpClient);
   baseUrl: any = environment.apiUrl;
 
-  GetTutorRequests(filter: TutorRequestFilter , id:any): Observable<any> {
+  GetTutorRequests(filter: TutorRequestFilter, id: any, TutorRequestStatus?: number | null): Observable<any> {
     let params = new HttpParams()
       .set('PageNumber', filter.pageNumber)
       .set('PageSize', filter.pageSize);
+
+    if (TutorRequestStatus !== undefined && TutorRequestStatus !== null) {
+      params = params.set('TutorRequestStatus', TutorRequestStatus);
+    }
 
     if (filter.title) {
       params = params.set('Title', filter.title);
@@ -35,7 +39,7 @@ export class MyRequestService {
       params = params.set('MaxBudget', filter.maxBudget);
     }
 
-    return this.http.get(this.baseUrl + 'TutorRequest/student/'+id , {
+    return this.http.get(this.baseUrl + 'TutorRequest/student/' + id, {
       params,
     });
   }

@@ -21,7 +21,6 @@ export class InstructorService {
     pageNumber: number = 1,
     isVerified?: boolean | null
   ): Observable<any> {
-
     let params = new HttpParams()
       .set('PageSize', pageSize)
       .set('PageNumber', pageNumber);
@@ -37,14 +36,27 @@ export class InstructorService {
   }
 
   acceptInstructor(id: string): Observable<any> {
-    return this.http.patch<any>(this.apiURL + 'Instructor/update-instructor-true/' + id, {});
+    return this.http.patch<any>(
+      this.apiURL + 'Instructor/update-instructor-true/' + id,
+      {}
+    );
   }
 
   rejectInstructor(id: string): Observable<any> {
-    return this.http.patch<any>(this.apiURL + 'Instructor/update-instructor-false/' + id, {});
+    return this.http.patch<any>(
+      this.apiURL + 'Instructor/update-instructor-false/' + id,
+      {}
+    );
   }
 
   toggleInstructorVerification(id: string): Observable<any> {
-    return this.http.patch<any>(this.apiURL + 'Instructor/toggle-instructor-verification/' + id, {});
+    return this.http.patch<any>(
+      this.apiURL + 'Instructor/toggle-instructor-verification/' + id,
+      {}
+    );
+  }
+
+  getInstructorIsVerified(id: string): Observable<boolean> {
+    return this.http.get<boolean>(this.apiURL + 'Instructor/is-verified/' + id);
   }
 }

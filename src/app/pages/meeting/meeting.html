@@ -1,43 +1,50 @@
-<div class="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 text-gray-800 p-4">
-    <!-- Main Container -->
-    <div class="max-w-7xl mx-auto">
+<div
+  class="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 text-gray-800 p-4"
+>
+  <!-- Main Container -->
+  <div class="max-w-7xl mx-auto">
+    <!-- Header Section -->
+    <header class="flex items-center justify-between mb-8">
+      <!-- Back Button -->
+      <button
+        class="group flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 backdrop-blur-sm border border-gray-200 hover:border-emerald-300 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-100"
+      >
+        <a
+          routerLink="/"
+          class="flex items-center gap-2 text-gray-600 group-hover:text-emerald-600 transition-colors"
+        >
+          <svg
+            class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span class="font-medium">Back</span>
+        </a>
+      </button>
 
-        <!-- Header Section -->
-        <header class="flex items-center justify-between mb-8">
-            <!-- Back Button -->
-            <button
-                class="group flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 backdrop-blur-sm border border-gray-200 hover:border-emerald-300 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-100">
-                <a routerLink="/"
-                    class="flex items-center gap-2 text-gray-600 group-hover:text-emerald-600 transition-colors">
-                    <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="currentColor"
-                        viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    <span class="font-medium">Back</span>
-                </a>
-            </button>
+      <!-- Live Indicator -->
+      <div
+        class="flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full text-white font-semibold"
+      >
+        <div class="w-3 h-3 bg-red-400 rounded-full animate-pulse"></div>
+        <span>Live Session</span>
+      </div>
+    </header>
 
-            <!-- Live Indicator -->
-            <div
-                class="flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full text-white font-semibold">
-                <div class="w-3 h-3 bg-red-400 rounded-full animate-pulse"></div>
-                <span>Live Session</span>
-            </div>
-        </header>
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 xl:grid-cols-1 gap-6">
+      <!-- Left Sidebar - Participant Info -->
+      <aside class="xl:col-span-1 space-y-6">
+        <!-- Session Status Card -->
 
-        <!-- Main Content Grid -->
-        <div class="grid grid-cols-1 xl:grid-cols-1 gap-6">
-
-            <!-- Left Sidebar - Participant Info -->
-            <aside class="xl:col-span-1 space-y-6">
-
-                <!-- Session Status Card -->
-              
-
-                <!-- Student Info Card -->
-                <!-- <div
+        <!-- Student Info Card -->
+        <!-- <div
                     class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
                     <div class="flex items-center gap-3 mb-4">
                         <div
@@ -72,8 +79,8 @@
                     </div>
                 </div> -->
 
-                <!-- Instructor Info Card -->
-                <!-- <div
+        <!-- Instructor Info Card -->
+        <!-- <div
                     class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
                     <div class="flex items-center gap-3 mb-4">
                         <div
@@ -109,39 +116,33 @@
                         </div>
                     </div>
                 </div> -->
+      </aside>
 
-              
+      <!-- Main Meeting Area -->
+      <main class="xl:col-span-3">
+        <div
+          class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden"
+        >
+          <!-- Meeting Header -->
+          <div class="bg-gradient-to-r from-emerald-500 to-teal-500 p-4">
+            <div class="flex items-center justify-between text-white">
+              <div>
+                <h2 class="text-xl font-bold">Learning Session</h2>
+                <!-- <p class="text-emerald-100 text-sm">Advanced Algorithms & Data Structures</p> -->
+              </div>
+            </div>
+          </div>
 
-            </aside>
-
-            <!-- Main Meeting Area -->
-            <main class="xl:col-span-3">
-                <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
-
-                    <!-- Meeting Header -->
-                    <div class="bg-gradient-to-r from-emerald-500 to-teal-500 p-4">
-                        <div class="flex items-center justify-between text-white">
-                            <div>
-                                <h2 class="text-xl font-bold">Learning Session</h2>
-                                <!-- <p class="text-emerald-100 text-sm">Advanced Algorithms & Data Structures</p> -->
-                            </div>
-
-                        </div>
-                    </div> 
-
-                    <!-- Meeting Container -->
-                    <div class="relative">
-                        <div id="meet" class="h-[600px] w-full bg-gray-900 relative overflow-hidden"
-                            style="min-height: 600px;">
-
-                            @if (isReady) {
-                            <div id="meet" style="height: 80vh; width: 100%"></div>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </main>
-
-        </div> 
+          <!-- Meeting Container -->
+          <div class="relative">
+            <div
+              id="meet"
+              class="h-[700px] w-full bg-gray-900 relative overflow-hidden"
+              style="min-height: 600px"
+            ></div>
+          </div>
+        </div>
+      </main>
     </div>
+  </div>
 </div>
