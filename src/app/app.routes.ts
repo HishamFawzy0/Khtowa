@@ -20,7 +20,7 @@ import { ReviewFormComponent } from './pages/review/review';
 import { studentGuard } from './core/guards/roles/student-guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'tutors', pathMatch: 'full' },
+  { path: '', redirectTo: 'services', pathMatch: 'full' },
   {
     path: 'admin-dashboard',
     component: AdminDashboard,
