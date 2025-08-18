@@ -1,210 +1,218 @@
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50">
-    <!-- Hero Header Section -->
-    <div class="bg-gradient-to-r from-emerald-500 to-teal-500 relative overflow-hidden">
-        <div class="absolute inset-0 bg-black/10"></div>
-        <div class="relative px-6 md:px-12 py-16">
-            <div class="max-w-7xl mx-auto">
-                <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-8">
-                    <!-- Title Section -->
-                    <div class="text-white">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                            </div>
-                            <h1 class="text-4xl lg:text-5xl font-bold tracking-tight">My Requests</h1>
-                        </div>
-                        <p class="text-xl text-emerald-100 font-medium max-w-2xl">
-                            Track and manage your tutoring requests with ease. Stay organized and never miss an
-                            opportunity.
-                        </p>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    
-                </div>
-            </div>
-        </div>
-
-        <!-- Decorative Elements -->
-        <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-white/10 -translate-y-48 translate-x-48"></div>
-        <div class="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-teal-400/20 translate-y-32 -translate-x-32">
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-6 md:px-12 py-12">
-        <!-- Stats/Info Section -->
-        <div class="mb-12">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div
-                    class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
-                    <div class="flex items-center gap-4">
-                        <div class="p-3 bg-emerald-100 rounded-xl">
-                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<div class="bg-gradient-to-r from-emerald-500 to-teal-500 relative overflow-hidden">
+    <div class="absolute inset-0 bg-black/10"></div>
+    <div class="relative px-6 md:px-12 py-16">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-8">
+                <!-- Title Section -->
+                <div class="text-white">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                         </div>
-                        <div>
-                            <p class="text-2xl font-bold text-gray-800">{{ totalItems }}</p>
-                            <p class="text-gray-600 font-medium">Total Requests</p>
-                        </div>
+                        <h1 class="text-4xl lg:text-5xl font-bold tracking-tight">My Requests</h1>
                     </div>
+                    <p class="text-xl text-emerald-100 font-medium max-w-2xl">
+                        Track and manage your tutoring requests with ease. Stay organized and never miss an
+                        opportunity.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decorative Elements -->
+    <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-white/10 -translate-y-48 translate-x-48"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-teal-400/20 translate-y-32 -translate-x-32"></div>
+</div>
+
+<div class="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 py-8 px-4">
+    <div class="max-w-6xl mx-auto">
+
+        <!-- Controls Card -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8 border border-gray-100">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <label class="text-sm font-medium text-gray-700">Items per page:</label>
+                    <select
+                        class="bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200"
+                        [value]="pageSize" (change)="setPageSize($event)">
+                        <option [value]="4">4 items</option>
+                        <option [value]="8">8 items</option>
+                        <option [value]="12">12 items</option>
+                        <option [value]="16">16 items</option>
+                    </select>
                 </div>
 
-                <div
-                    class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
-                    <div class="flex items-center gap-4">
-                        <div class="p-3 bg-blue-100 rounded-xl">
-                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <p class="text-2xl font-bold text-gray-800">{{ currentPage }}</p>
-                            <p class="text-gray-600 font-medium">Current Page</p>
-                        </div>
+                <div class="flex items-center gap-2">
+                    <div
+                        class="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                        {{ totalItems }} Total
                     </div>
+                    <span class="text-sm text-gray-600">
+                        Showing {{ showingFrom }}–{{ showingTo }}
+                    </span>
                 </div>
+            </div>
 
-                <!-- <div
-                    class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
-                    <div class="flex items-center gap-4">
-                        <div class="p-3 bg-purple-100 rounded-xl">
-                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <p class="text-2xl font-bold text-gray-800">{{ requestList.length }}</p>
-                            <p class="text-gray-600 font-medium">Active Now</p>
-                        </div>
-                    </div>
-                </div> -->
+            <!-- Status Filter -->
+            <div class="mt-4 pt-4 border-t border-gray-100">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-sm font-medium text-gray-700 mr-2">Filter by status:</span>
+
+                    <button class="px-3 py-1 rounded-lg border text-sm transition-all"
+                        [ngClass]="statusFilter === 0 ? 'bg-emerald-50 border-emerald-300 text-emerald-700 shadow' : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'"
+                        (click)="applyStatusFilter(0)">Open For Apply</button>
+
+                    <button class="px-3 py-1 rounded-lg border text-sm transition-all"
+                        [ngClass]="statusFilter === 1 ? 'bg-emerald-50 border-emerald-300 text-emerald-700 shadow' : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'"
+                        (click)="applyStatusFilter(1)">In Review</button>
+
+                    <button class="px-3 py-1 rounded-lg border text-sm transition-all"
+                        [ngClass]="statusFilter === 2 ? 'bg-emerald-50 border-emerald-300 text-emerald-700 shadow' : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'"
+                        (click)="applyStatusFilter(2)">Closed</button>
+                </div>
             </div>
         </div>
 
-        <!-- Request Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-12">
-            @for (item of requestList; track $index) {
+        <!-- Loading State -->
+        @if (loading) {
+        <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-12">
+            <div class="flex items-center justify-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
+                <span class="ml-3 text-gray-600">Loading requests...</span>
+            </div>
+        </div>
+        }
+
+        <!-- Error State -->
+        @if (error && !loading) {
+        <div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-8">
+            <div class="flex items-center">
+                <svg class="h-6 w-6 text-red-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="text-red-800 font-medium">{{ error }}</span>
+                <button (click)="loadRequests()"
+                    class="ml-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300">
+                    Try Again
+                </button>
+            </div>
+        </div>
+        }
+
+        <!-- Empty State -->
+        @if (!loading && !error && requestList.length === 0) {
+        <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-12">
+            <div class="text-center">
+                <svg class="mx-auto h-16 w-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                    </path>
+                </svg>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">No requests found</h3>
+                <p class="text-gray-600 mb-4">No requests match the current filter.</p>
+                <button (click)="applyStatusFilter(0)"
+                    class="px-6 py-3 bg-emerald-500 text-white rounded-lg font-semibold hover:bg-emerald-600 transition-colors duration-300">
+                    Show Open Requests
+                </button>
+            </div>
+        </div>
+        }
+
+        <!-- Requests Grid -->
+        @if (!loading && !error && requestList.length > 0) {
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
+            @for (item of requestList; track trackById($index, item)) {
             <div
-                class="group bg-white rounded-3xl shadow-sm hover:shadow-xl border border-gray-100 overflow-hidden transition-all duration-500 hover:-translate-y-2">
-                <!-- Card Header -->
-                <div class="bg-gradient-to-r from-emerald-500 to-teal-500 p-6 text-white relative overflow-hidden">
-                    <div
-                        class="absolute top-0 right-0 w-32 h-32 rounded-full bg-white/10 -translate-y-16 translate-x-16">
-                    </div>
-                    <div class="relative">
-                        <h2 class="text-xl font-bold mb-2 line-clamp-2">{{ item.title }}</h2>
-                        <div class="flex items-center gap-2 text-emerald-100">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span class="text-sm font-medium">Posted 3 days ago</span>
-                        </div>
+                class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                <div class="bg-gradient-to-r from-emerald-500 to-teal-500 p-4">
+                    <h3 class="font-bold text-white text-lg leading-tight">
+                        {{ item.title }}
+                    </h3>
+                    <div class="flex items-center gap-2 text-emerald-100 mt-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                     </div>
                 </div>
 
-                <!-- Card Content -->
-                <div class="p-6 flex-grow">
+                <div class="p-6">
                     <p class="text-gray-600 mb-6 line-clamp-3 leading-relaxed">{{ item.description }}</p>
 
                     <!-- Date Information -->
                     <div class="space-y-3 mb-6">
-                        <div class="flex items-center gap-3 text-sm">
-                            <div class="flex items-center gap-2 text-emerald-600">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-                                <span class="font-medium">Start:</span>
-                            </div>
-                            <span class="text-gray-700 font-semibold">{{ item.startDateTime | date: 'MMM dd, yyyy'
-                                }}</span>
+                        <div class="flex items-center text-sm text-gray-600 bg-gray-50 rounded-lg px-3 py-2">
+                            <svg class="h-4 w-4 text-emerald-500 mr-2" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span class="font-medium mr-2">Start:</span>
+                            <span>{{ item.startDateTime | date: 'MMM dd, yyyy' }}</span>
                         </div>
 
-                        <div class="flex items-center gap-3 text-sm">
-                            <div class="flex items-center gap-2 text-teal-600">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-                                <span class="font-medium">End:</span>
-                            </div>
-                            <span class="text-gray-700 font-semibold">{{ item.endDateTime | date: 'MMM dd, yyyy'
-                                }}</span>
+                        <div class="flex items-center text-sm text-gray-600 bg-gray-50 rounded-lg px-3 py-2">
+                            <svg class="h-4 w-4 text-teal-500 mr-2" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span class="font-medium mr-2">End:</span>
+                            <span>{{ item.endDateTime | date: 'MMM dd, yyyy' }}</span>
                         </div>
                     </div>
 
-                    <!-- Status and Action -->
-                    <div class="flex items-center justify-between">
-                        <span
-                            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border {{ getStatusBadgeClass(item.status) }}">
+                    <div class="pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
+                            [ngClass]="item.status === 'Open for Apply' ? 'bg-emerald-100 text-emerald-800' : item.status === 'In Review' ? 'bg-blue-100 text-blue-800' : item.status === 'Closed' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'">
                             {{ item.status }}
-                        </span>
+                        </div>
 
                         <a routerLink="/TutorRequestDetails/{{ item.id }}"
-                            class="group/btn inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-semibold text-sm transition-all duration-300">
-                            <span>View Details</span>
-                            <svg class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300"
-                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7" />
-                            </svg>
+                            class="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+                            View Details
                         </a>
                     </div>
                 </div>
             </div>
             }
         </div>
+        }
 
-        <!-- Enhanced Pagination -->
+        <!-- Pagination -->
         @if (totalPages > 1) {
-        <div class="flex flex-col items-center space-y-6">
-            <div class="text-center">
-                <p class="text-gray-600">
-                    Showing <span class="font-semibold text-emerald-600">{{ startItem }}</span>
-                    to
-                    <span class="font-semibold text-emerald-600">{{ endItem }}</span> of
-                    <span class="font-semibold text-emerald-600">{{ totalItems }}</span> results
-                </p>
-            </div> 
+        <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
+            <div class="flex items-center justify-center">
+                <nav class="flex items-center gap-2" aria-label="Pagination">
+                    <button
+                        class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                        [disabled]="currentPage === 1" (click)="goToPage(1)">«</button>
 
-            <div class="flex items-center space-x-2">
-                <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1"
-                    class="group flex items-center justify-center w-12 h-12 rounded-2xl border-2 border-gray-200 text-gray-600 hover:border-emerald-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-gray-200 disabled:hover:text-gray-600 disabled:hover:bg-transparent">
-                    <svg class="w-5 h-5 group-hover:-translate-x-0.5 transition-transform duration-300" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
+                    <button
+                        class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                        [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">‹</button>
 
-                @for (page of getPageNumbers(); track $index) {
-                @if (page === '...') {
-                <span class="flex items-center justify-center w-12 h-12 text-gray-400 font-semibold">...</span>
-                } @else {
-                <button (click)="goToPage(+page)"
-                    [class]="page === currentPage 
-                        ? 'flex items-center justify-center w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-2xl shadow-lg font-bold transform scale-110 transition-all duration-300' 
-                        : 'flex items-center justify-center w-12 h-12 border-2 border-gray-200 rounded-2xl text-gray-600 hover:border-emerald-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-300 font-semibold hover:scale-105'">
-                    {{ page }}
-                </button>
-                }
-                }
+                    @for (p of pages; track $index) {
+                    <button class="px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
+                        [class]="p === currentPage ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg' : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'"
+                        (click)="goToPage(p)">
+                        {{ p }}
+                    </button>
+                    }
 
-                <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages"
-                    class="group flex items-center justify-center w-12 h-12 rounded-2xl border-2 border-gray-200 text-gray-600 hover:border-emerald-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-gray-200 disabled:hover:text-gray-600 disabled:hover:bg-transparent">
-                    <svg class="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-300" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
+                    <button
+                        class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                        [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">›</button>
+
+                    <button
+                        class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                        [disabled]="currentPage === totalPages" (click)="goToPage(totalPages)">»</button>
+                </nav>
             </div>
         </div>
         }
