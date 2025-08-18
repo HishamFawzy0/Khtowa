@@ -1,4 +1,4 @@
-<div class="max-w-md mx-auto p-6 bg-white rounded-2xl shadow">
+<div class="max-w-md  mx-auto p-6 bg-white rounded-2xl shadow">
   <h2 class="text-xl font-bold mb-4">Submit a Review</h2>
 
   <form [formGroup]="reviewForm" (ngSubmit)="submitReview()" class="space-y-4">
@@ -7,30 +7,21 @@
       <label class="block text-sm font-medium mb-2">Rating</label>
       <div class="flex gap-2">
         <ng-container *ngFor="let star of stars">
-          <svg
-            (click)="setRating(star)"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            class="w-7 h-7 cursor-pointer transition-colors"
-            [ngClass]="{
-              'fill-yellow-400 text-yellow-400':
+          <svg (click)="setRating(star)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+            class="w-7 h-7 cursor-pointer transition-colors" [ngClass]="{
+              'fill-emerald-400 text-emerald-400':
                 star <= reviewForm.get('rating')?.value,
               'fill-gray-200 text-gray-300':
                 star > reviewForm.get('rating')?.value
-            }"
-          >
+            }">
             <path
-              d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.898 1.48 8.279L12 18.896l-7.416 4.587 1.48-8.279L0 9.306l8.332-1.151z"
-            />
+              d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.898 1.48 8.279L12 18.896l-7.416 4.587 1.48-8.279L0 9.306l8.332-1.151z" />
           </svg>
         </ng-container>
       </div>
-      <div
-        *ngIf="
+      <div *ngIf="
           reviewForm.get('rating')?.touched && reviewForm.get('rating')?.invalid
-        "
-        class="text-red-500 text-sm"
-      >
+        " class="text-red-500 text-sm">
         Please select a rating.
       </div>
     </div>
@@ -38,19 +29,13 @@
     <!-- Comment -->
     <div>
       <label class="block text-sm font-medium mb-1">Comment (optional)</label>
-      <textarea
-        formControlName="comment"
-        rows="3"
-        class="w-full border rounded-lg p-2 focus:ring focus:ring-blue-300"
-      ></textarea>
+      <textarea formControlName="comment" rows="3"
+        class="w-full border rounded-lg p-2 focus:ring focus:ring-emerald-300"></textarea>
     </div>
 
     <!-- Submit Button -->
-    <button
-      type="submit"
-      [disabled]="reviewForm.invalid || isSubmitting"
-      class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50"
-    >
+    <button type="submit" [disabled]="reviewForm.invalid || isSubmitting"
+      class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white py-2 px-4 rounded-lg hover:from-emerald-600 hover:to-teal-600 disabled:opacity-50">
       {{ isSubmitting ? "Submitting..." : "Submit Review" }}
     </button>
   </form>
