@@ -34,6 +34,7 @@ export class TutorRequestDetails implements OnInit {
   currentPage: number = 1;
   pageSize: number = 5;
   isVerified: boolean = false;
+  isSubmitValid: boolean = true;
 
   metadata: Pagination = {
     currentPage: 1,
@@ -85,6 +86,13 @@ export class TutorRequestDetails implements OnInit {
     });
     if (this.userData.role === 'Instructor') {
       this.CheckIfInstructorVerified();
+      this._ProposalService
+        .checkProposalAlreadyAdded(this.id, this.userData.nameid)
+        .subscribe({
+          next: (res) => {
+            this.isSubmitValid = !res;
+          },
+        });
     }
   }
 

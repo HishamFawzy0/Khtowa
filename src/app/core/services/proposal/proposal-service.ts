@@ -16,12 +16,21 @@ export class ProposalService {
     return this.http.post(this.baseUrl + 'Proposal', proposalObj);
   }
 
+  checkProposalAlreadyAdded(
+    tutorRequestId: number,
+    instructorId: string
+  ): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}Proposal/check?tutorRequestId=${tutorRequestId}&instructorId=${instructorId}`
+    );
+  }
+
   changeProposalStatus(propId: number, status: number): Observable<any> {
     const params = new HttpParams().set('propId', propId).set('status', status);
     return this.http.patch(
       this.baseUrl + 'Proposal',
       {},
-      { params,responseType: 'text' }
+      { params, responseType: 'text' }
     );
   }
 }

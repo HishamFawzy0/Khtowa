@@ -6,7 +6,7 @@ import { IMeetingInfo } from '../../shared/interfaces/imeeting-info';
 
 @Component({
   selector: 'app-meeting',
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './meeting.html',
   styleUrl: './meeting.css',
 })
@@ -16,6 +16,7 @@ export class Meeting implements OnInit {
   _sessionService = inject(SessionService);
   router = inject(Router);
   userdata: any;
+  instructorId!: number;
   meetingInfo: IMeetingInfo = {
     roomName: '',
     token: '',
@@ -78,7 +79,7 @@ export class Meeting implements OnInit {
       api.addEventListener('videoConferenceLeft', () => {
         console.log('Meeting ended!');
         if (this.userdata.role === 'Student') {
-          this.router.navigate(['/review']);
+          this.router.navigate(['/review/', this.instructorId]);
         } else {
           this.router.navigate(['/services']);
         }
@@ -91,16 +92,11 @@ export class Meeting implements OnInit {
     this.userdata = this._loginService.userData;
     console.log(this.sessionId);
 
-    setTimeout(() => {
-      this.isReady = true;
-      this.loadJitsi();
-      console.log('Meeting component is ready.');
-    }, 5000); // Delay to ensure the component is ready
-
     this._sessionService.getSession(this.sessionId).subscribe({
       next: (res) => {
         // console.log(res);
         this.meetingURL = res.meetingUrl;
+        this.instructorId = res.instructorId;
         console.log(this.meetingURL);
       },
       error: (err) => {
@@ -115,6 +111,9 @@ export class Meeting implements OnInit {
           // console.log(res);
           this.meetingInfo = res;
           console.log(this.meetingInfo.token);
+          this.isReady = true;
+          this.loadJitsi();
+          console.log('Meeting component is ready.');
         },
         error: (err) => {
           console.error('Failed to load session:', err);

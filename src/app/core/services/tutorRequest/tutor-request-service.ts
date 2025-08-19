@@ -45,9 +45,11 @@ export class TutorRequestService {
       params = params.set('MaxBudget', filter.maxBudget);
     }
 
-    return this.http.get<PaginationResult<TutorRequest>>(this.baseUrl  + 'TutorRequest', {
-      params,
-    });
+    return this.http.get<PaginationResult<TutorRequest>>(
+      this.baseUrl + 'TutorRequest',
+      {
+        params,
+      }
+    );
   }
 }
-  

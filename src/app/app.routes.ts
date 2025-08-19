@@ -18,6 +18,7 @@ import { AdminCategories } from './pages/admin-dashboard/admin-categories/admin-
 import { AdminSpecliaztions } from './pages/admin-dashboard/admin-specliaztions/admin-specliaztions';
 import { ReviewFormComponent } from './pages/review/review';
 import { studentGuard } from './core/guards/roles/student-guard';
+import { NotFound } from './pages/not-found/not-found';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'services', pathMatch: 'full' },
@@ -32,7 +33,7 @@ export const routes: Routes = [
       { path: 'admin-specializations', component: AdminSpecliaztions },
     ],
   },
-  { path: 'tutors', component: Tutors, canActivate: [authGuard] }, // Add guards if needed
+  // { path: 'tutors', component: Tutors, canActivate: [authGuard] }, // Add guards if needed
   { path: 'services', component: Services, canActivate: [authGuard] },
   { path: 'student-req', component: StudentReq, canActivate: [authGuard] },
   { path: 'my-proposals', component: MyProposals, canActivate: [authGuard] },
@@ -62,5 +63,5 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Registertype },
 
-  { path: '**', redirectTo: 'tutors', pathMatch: 'full' },
+  { path: '**', component: NotFound },
 ];

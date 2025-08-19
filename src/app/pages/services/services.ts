@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { InstructorService } from '../../core/services/instructor/instructor-service';
+import { ProposalService } from '../../core/services/proposal/proposal-service';
 
 export interface TutorRequestFilter {
   pageNumber: number;
